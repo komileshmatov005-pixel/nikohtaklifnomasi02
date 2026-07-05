@@ -5,17 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Royal Ball - Golden Brown Story</title>
     
-    <!-- Qirollik Shriftlari -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
         :root {
-            --bg-dark: #0D0805;         /* Eng to'q saroy kechasi rangi */
-            --royal-gold: #C5A059;       /* Vintage oltin suvi */
+            --bg-dark: #0D0805;         
+            --royal-gold: #C5A059;       
             --gold-gradient: linear-gradient(135deg, #8A6F3E 0%, #C5A059 50%, #A37F43 100%);
-            --parchment-light: #F4EFE6;  /* Qirollik xati qog'ozi */
-            --shadow-soft: rgba(0, 0, 0, 0.6);
+            --parchment-light: #F4EFE6;  
         }
 
         body, html { 
@@ -24,25 +21,22 @@
             overflow-x: hidden; scroll-behavior: smooth; 
         }
 
-        /* 🏰 1-KADR: RITSAR VA QIROLLIK MUHRI (CINEMATIC INTRO) */
+        /* 🏰 1-KADR: SHAHZODA/RITSAR MUHITI VA MUHR */
         #royal-intro {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             background-image: linear-gradient(rgba(13, 8, 5, 0.65), rgba(13, 8, 5, 0.92)), url('photo_5354959525691204231_y.jpg');
             background-size: cover; background-position: center;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 9999; transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1), transform 1.5s;
+            z-index: 9999; 
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
         }
 
-        /* Oltin Vintage Ramka (Ritsar rasmi ustidan) */
         .intro-frame {
             border: 2px solid var(--royal-gold); padding: 40px 25px;
-            text-align: center; background: rgba(13, 8, 5, 0.4);
-            backdrop-filter: blur(3px); box-shadow: 0 0 40px rgba(0,0,0,0.8);
+            text-align: center; background: rgba(13, 8, 5, 0.5);
+            backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            box-shadow: 0 0 40px rgba(0,0,0,0.8);
             max-width: 320px; width: 80%; position: relative;
-        }
-        .intro-frame::before {
-            content: ''; position: absolute; top: -8px; left: -8px; right: -8px; bottom: -8px;
-            border: 1px solid rgba(197, 160, 89, 0.3);
         }
 
         .royal-title-top {
@@ -50,7 +44,7 @@
             color: var(--royal-gold); letter-spacing: 4px; margin-bottom: 30px;
         }
 
-        /* Haqiqiy Og'ir Mum Muhr (Wax Seal) */
+        /* Og'ir Qirollik Mum Muhri */
         .royal-wax-seal {
             width: 85px; height: 85px; margin: 0 auto;
             background: radial-gradient(circle, #521820 60%, #2A080D 100%);
@@ -58,9 +52,10 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 15px rgba(0,0,0,0.6);
             display: flex; justify-content: center; align-items: center;
             border: 2px solid rgba(197, 160, 89, 0.4);
-            transition: transform 0.4s ease;
+            animation: pulse 2s infinite;
+            transition: transform 0.2s;
         }
-        .royal-wax-seal:hover { transform: scale(1.05); }
+        .royal-wax-seal:active { transform: scale(0.95); }
         .royal-wax-seal span {
             font-family: 'Great Vibes', cursive; font-size: 2.2rem; color: #EAD8B1; text-shadow: 1px 2px 4px #000;
         }
@@ -70,118 +65,97 @@
             margin-top: 25px; color: #FFF; opacity: 0.8;
         }
 
-        /* 👑 2-KADR: KECHKI SAROY BALLI FON (MAIN CONTENT) */
+        /* 👑 2-KADR: KO'ZNI QAMASHTIRUVCHI SAROY ASOSIY QISMI */
         #content { 
             display: none; width: 100%; min-height: 100vh; 
-            /* Kechki ball zali, qadimiy lyustralar va oltin-jigarrang retro estetika foni */
-            background-image: linear-gradient(rgba(13, 8, 5, 0.9), rgba(21, 14, 9, 0.95)), url('https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?q=80&w=2070'); 
-            background-size: cover; background-position: center; background-attachment: fixed; 
+            background-image: linear-gradient(rgba(13, 8, 5, 0.9), rgba(21, 14, 9, 0.96)), url('https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?q=80&w=2070'); 
+            background-size: cover; background-position: center; background-attachment: fixed;
+            opacity: 0; transition: opacity 1s ease-in-out;
         }
 
         .premium-container {
-            padding: 80px 15px 100px 15px; display: flex; justify-content: center;
+            padding: 60px 15px 100px 15px; display: flex; justify-content: center;
         }
 
-        /* SAROYDAN KELGAN MAKTUB VARIANTI */
         .palace-card {
             max-width: 440px; width: 100%; background: var(--parchment-light);
-            color: #261C14; padding: 70px 40px; text-align: center;
-            box-shadow: 0 30px 100px rgba(0,0,0,0.9), inset 0 0 50px rgba(139,115,85,0.2);
+            color: #261C14; padding: 60px 35px; text-align: center;
+            box-shadow: 0 30px 100px rgba(0,0,0,0.9);
             position: relative; border: 1px solid rgba(163, 127, 67, 0.4);
         }
         
-        /* Oltin ornament burchaklar */
         .palace-card::before {
-            content: ''; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px;
+            content: ''; position: absolute; top: 15px; left: 15px; right: 15px; bottom: 15px;
             border: 2px solid #C5A059; pointer-events: none;
         }
-        .palace-card::after {
-            content: ''; position: absolute; top: 26px; left: 26px; right: 26px; bottom: 26px;
-            border: 1px solid rgba(139, 115, 85, 0.3); pointer-events: none;
-        }
 
-        .royal-monogram { font-family: 'Cinzel Decorative', serif; font-size: 2.5rem; color: #8A6F3E; margin: 0; font-weight: 700; }
-        .tagline { font-family: 'Cinzel', serif; letter-spacing: 6px; font-size: 0.75rem; color: #6E5537; font-weight: bold; margin-top: 15px; }
+        .royal-monogram { font-family: 'Cinzel Decorative', serif; font-size: 2.3rem; color: #8A6F3E; margin: 0; font-weight: 700; }
+        .tagline { font-family: 'Cinzel', serif; letter-spacing: 5px; font-size: 0.75rem; color: #6E5537; font-weight: bold; margin-top: 15px; }
         
         .royal-names { 
-            font-family: 'Cinzel', serif; font-size: 2.3rem; font-weight: 400; 
-            color: #1A110B; margin: 35px 0; letter-spacing: 2px;
-            line-height: 1.3;
+            font-family: 'Cinzel', serif; font-size: 2.4rem; font-weight: 400; 
+            color: #1A110B; margin: 30px 0; letter-spacing: 1px; line-height: 1.3;
         }
         
-        .story-text { 
-            font-size: 0.95rem; line-height: 2.2; color: #3A2E24; 
-            font-weight: 400; font-style: italic; padding: 0 10px;
-        }
+        .story-text { font-size: 0.95rem; line-height: 2.2; color: #3A2E24; font-style: italic; padding: 0 5px; }
 
-        /* SAHNA SANA BLOKI */
         .royal-date-box { 
-            margin: 45px 0; border-top: 1px solid #C5A059; border-bottom: 1px solid #C5A059; 
-            padding: 22px 0; display: flex; justify-content: center; align-items: center; gap: 30px;
+            margin: 40px 0; border-top: 1px solid #C5A059; border-bottom: 1px solid #C5A059; 
+            padding: 20px 0; display: flex; justify-content: center; align-items: center; gap: 25px;
         }
         .date-element { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 3px; color: #6E5537; }
         .date-main { font-family: 'Cinzel', serif; font-size: 2.6rem; font-weight: 700; color: #8A6F3E; line-height: 1; }
 
-        .time-badge { 
-            display: inline-block; color: #8A6F3E; font-family: 'Cinzel', serif; 
-            font-weight: bold; margin-bottom: 40px; letter-spacing: 4px; font-size: 1.05rem; 
-        }
+        .time-badge { display: inline-block; color: #8A6F3E; font-family: 'Cinzel', serif; font-weight: bold; margin-bottom: 35px; letter-spacing: 4px; font-size: 1.05rem; }
 
-        /* TUGMALAR (HIGH END CLASSIC) */
         .royal-btn { 
-            display: inline-block; width: 90%; padding: 18px; margin: 12px 0; 
+            display: inline-block; width: 90%; padding: 16px; margin: 10px 0; 
             font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 3px; font-weight: 600;
-            text-decoration: none; cursor: pointer; border: none; transition: 0.4s cubic-bezier(0.25, 1, 0.5, 1); 
+            text-decoration: none; cursor: pointer; border: none; transition: 0.3s ease; 
         }
         .btn-dark { background: #1A110B; color: var(--parchment-light); border: 1px solid #C5A059; }
-        .btn-dark:hover { background: #322318; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+        .btn-dark:hover { background: #322318; transform: translateY(-2px); }
         .btn-light-outline { background: transparent; color: #1A110B; border: 1px solid #1A110B; }
         .btn-light-outline:hover { background: #1A110B; color: white; }
 
-        /* TAYMER (COUNTDOWN TO BALL) */
-        .ball-timer { display: flex; justify-content: center; gap: 15px; margin: 45px 0 25px 0; }
-        .timer-unit { background: rgba(26, 17, 11, 0.04); padding: 16px; min-width: 75px; border: 1px solid rgba(163, 127, 67, 0.25); }
-        .timer-unit span { display: block; font-family: 'Cinzel', serif; font-size: 1.7rem; font-weight: 700; color: #1A110B; }
+        .ball-timer { display: flex; justify-content: center; gap: 12px; margin: 40px 0 25px 0; }
+        .timer-unit { background: rgba(26, 17, 11, 0.04); padding: 14px; min-width: 75px; border: 1px solid rgba(163, 127, 67, 0.25); }
+        .timer-unit span { display: block; font-family: 'Cinzel', serif; font-size: 1.6rem; font-weight: 700; color: #1A110B; }
         .timer-unit small { font-size: 0.65rem; color: #7A6655; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* OLTIN KARTA BLOKI */
-        .gold-gift-box { background: #160F0A; border: 1px solid #C5A059; padding: 40px 20px; margin: 50px 0; color: #F4EFE6; }
-        .card-digits { font-size: 1.35rem; color: var(--parchment-light); letter-spacing: 3px; margin: 20px 0; font-family: 'Courier New', monospace; }
+        .gold-gift-box { background: #160F0A; border: 1px solid #C5A059; padding: 35px 20px; margin: 45px 0; color: #F4EFE6; }
+        .card-digits { font-size: 1.35rem; color: var(--parchment-light); letter-spacing: 3px; margin: 15px 0; font-family: 'Courier New', monospace; }
         .royal-copy-btn { background: var(--gold-gradient); color: #160F0A; border: none; padding: 10px 30px; font-weight: bold; cursor: pointer; font-size: 0.75rem; letter-spacing: 2px; font-family: 'Cinzel', serif; }
 
-        /* RSVP MONARK FORMA */
-        .rsvp-monark { margin-top: 55px; padding: 35px 20px; border: 1px dashed #8A6F3E; }
-        .royal-input { width: 100%; padding: 16px; margin-bottom: 15px; border: 1px solid #C8B9A6; box-sizing: border-box; font-family: 'Montserrat', sans-serif; background: #FCFAF7; outline: none; color: #261C14; }
-        .royal-input:focus { border-color: #8A6F3E; }
-        .rsvp-options { display: flex; gap: 12px; margin-bottom: 25px; }
-        .rsvp-opt { flex: 1; padding: 16px; border: 1px solid #C8B9A6; cursor: pointer; background: white; font-weight: 600; font-size: 0.85rem; color: #555; text-align: center; transition: 0.3s;}
+        .rsvp-monark { margin-top: 50px; padding: 30px 20px; border: 1px dashed #8A6F3E; }
+        .royal-input { width: 100%; padding: 16px; margin-bottom: 15px; border: 1px solid #C8B9A6; box-sizing: border-box; font-family: 'Montserrat', sans-serif; background: #FCFAF7; outline: none; }
+        .rsvp-options { display: flex; gap: 12px; margin-bottom: 20px; }
+        .rsvp-opt { flex: 1; padding: 16px; border: 1px solid #C8B9A6; cursor: pointer; background: white; font-weight: 600; text-align: center; }
         .rsvp-opt.active { background: #1A110B; color: white; border-color: #1A110B; }
 
-        /* PREMIUM INTERFEYS ELEMENTLARI */
-        .lang-switcher { position: fixed; top: 20px; right: 20px; z-index: 10001; background: rgba(13, 8, 5, 0.95); padding: 5px; border-radius: 0; border: 1px solid var(--royal-gold); }
-        .lang-btn { border: none; background: none; padding: 8px 18px; cursor: pointer; font-weight: 600; font-size: 11px; transition: 0.3s; color: #A38A75; font-family: 'Cinzel', serif; }
+        .lang-switcher { position: fixed; top: 20px; right: 20px; z-index: 10001; background: rgba(13, 8, 5, 0.95); padding: 5px; border: 1px solid var(--royal-gold); }
+        .lang-btn { border: none; background: none; padding: 8px 18px; cursor: pointer; font-weight: 600; font-size: 11px; color: #A38A75; font-family: 'Cinzel', serif; }
         .lang-btn.active { background: var(--gold-gradient); color: #0D0805; font-weight: 700; }
-        .music-player { position: fixed; bottom: 25px; right: 25px; z-index: 999; width: 50px; height: 50px; background: var(--gold-gradient); display: none; justify-content: center; align-items: center; cursor: pointer; border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        
+        .music-player { position: fixed; bottom: 25px; right: 25px; z-index: 999; width: 50px; height: 50px; background: var(--gold-gradient); display: none; justify-content: center; align-items: center; cursor: pointer; border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border-radius: 50%; }
         .music-player.playing { animation: spin 6s linear infinite; }
         .music-player svg { width: 22px; height: 22px; fill: #0D0805; }
 
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(197, 160, 89, 0); } 100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); } }
         @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-    <!-- Til Tanlash -->
     <div class="lang-switcher">
         <button class="lang-btn active" onclick="changeLang('uz', event)">Lotin</button>
         <button class="lang-btn" onclick="changeLang('cyrillic', event)">Кирилл</button>
     </div>
 
-    <!-- Pleyer -->
     <button id="musicBtn" class="music-player" onclick="toggleMusic()">
         <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
     </button>
 
-    <!-- 🏰 1-KADR: SHAHZODA/RITSAR MUHITI -->
     <div id="royal-intro">
         <div class="intro-frame">
             <div class="royal-title-top" id="intro-t1">ROYAL INVITATION</div>
@@ -192,10 +166,9 @@
         </div>
     </div>
 
-    <!-- 👑 2-KADR: ASOSIY PREMIALLIK SAHNАSI -->
     <div id="content">
         <div class="premium-container">
-            <div class="palace-card" data-aos="fade-up" data-aos-duration="1500">
+            <div class="palace-card">
                 
                 <p class="royal-monogram">L & M</p>
                 <p id="sub-text" class="tagline">QIROLLIK BALLI TAKLIFNOMASI</p>
@@ -206,7 +179,6 @@
                     "Hayotimizning unutilmas va eng baxtli kunida siz aziz sohibqironlarimizni quvonchimizga sherik bo‘lishga, oq fotiha berishingizga chin qalbimizdan taklif etamiz."
                 </p>
 
-                <!-- Qirollik Sanasi -->
                 <div class="royal-date-box">
                     <div class="date-element" id="day-name">YAKSHANBA</div>
                     <div class="date-main">27</div>
@@ -217,30 +189,26 @@
 
                 <button onclick="downloadICS()" class="royal-btn btn-light-outline" id="save-btn">KALENDARGA QO'SHISH</button>
 
-                <!-- Manzil -->
-                <div style="margin-top: 55px;">
+                <div style="margin-top: 50px;">
                     <p id="rest-title" class="tagline">TANTANA MANZILI</p>
-                    <h3 id="restoran-name" style="font-family: 'Cinzel', serif; color: #1A110B; font-size: 1.4rem; margin-top: 12px; margin-bottom: 30px; letter-spacing: 1px;">"IDEAL SS" RESTORANI</h3>
-                    <a href="https://maps.app.goo.gl/1koHhC2uAUGuJLzi7" target="_blank" class="royal-btn btn-dark">GOOGLE MAPS</a>
-                    <a href="https://yandex.uz/maps/org/8650108130/" target="_blank" class="royal-btn btn-dark" style="background:#701F1F; border-color:#701F1F;">YANDEX XARITA</a>
+                    <h3 id="restoran-name" style="font-family: 'Cinzel', serif; color: #1A110B; font-size: 1.35rem; margin-top: 12px; margin-bottom: 25px;">"IDEAL SS" RESTORANI</h3>
+                    <a href="https://maps.google.com" target="_blank" class="royal-btn btn-dark">GOOGLE MAPS</a>
+                    <a href="https://yandex.uz/maps" target="_blank" class="royal-btn btn-dark" style="background:#701F1F; border-color:#701F1F;">YANDEX XARITA</a>
                 </div>
 
-                <!-- Oltin Karta -->
                 <div class="gold-gift-box">
                     <div style="font-size: 0.75rem; letter-spacing: 3px; font-family: 'Cinzel', serif; color: var(--royal-gold);" id="gift-card-t">TO'YONA UCHUN KARTA</div>
                     <div class="card-digits">9860 0000 0000 0000</div>
                     <button class="royal-copy-btn" id="copy-btn" onclick="copyCard()">NUSXA OLISH</button>
-                    <div style="margin-top: 20px; font-size: 0.8rem; opacity: 0.85; letter-spacing: 1px;" id="card-owner">Yo'ldoshev Azamat (Humo)</div>
+                    <div style="margin-top: 20px; font-size: 0.8rem; opacity: 0.85;" id="card-owner">Yo'ldoshev Azamat (Humo)</div>
                 </div>
 
-                <!-- Countdown -->
                 <div class="ball-timer">
                     <div class="timer-unit"><span id="d">00</span><small id="l-d">Kun</small></div>
                     <div class="timer-unit"><span id="h">00</span><small id="l-h">Soat</small></div>
                     <div class="timer-unit"><span id="m">00</span><small id="l-m">Min</small></div>
                 </div>
 
-                <!-- RSVP -->
                 <div class="rsvp-monark">
                     <h3 id="rsvp-t" style="font-family: 'Cinzel', serif; font-size: 1.15rem; color: #1A110B; letter-spacing: 3px; margin-bottom: 25px;">TASHRIFNI TASDIQLASH</h3>
                     <form id="wedding-form">
@@ -266,7 +234,6 @@
 
     <audio id="muzika" loop><source src="music.mp3" type="audio/mpeg"></audio>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         const translations = {
             uz: {
@@ -320,20 +287,20 @@
         }
 
         function enterRoyalBall() {
-            // Kinematik qorayish animatsiyasi
             const intro = document.getElementById('royal-intro');
+            const content = document.getElementById('content');
+            
+            // Xavfsiz silliq ochilish animatsiyasi
             intro.style.opacity = '0';
-            intro.style.transform = 'scale(1.03)';
+            content.style.display = 'block';
             
             setTimeout(() => {
                 intro.style.display = 'none';
-            }, 1500);
+                content.style.opacity = '1';
+            }, 1000);
 
-            document.getElementById('content').style.display = 'block';
             musicBtn.style.display = 'flex';
             musicBtn.classList.add('playing');
-            
-            setTimeout(() => { AOS.init({ duration: 1500, once: true }); }, 200);
             
             audio.play().catch(err => console.log("Musiqa autoplay cheklandi"));
             setInterval(updateTimer, 1000);
@@ -380,20 +347,6 @@
             link.click();
             document.body.removeChild(link);
         }
-
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwHR-kKB8i5kZ91WvlQlITHn8DQBnp0eEiEKkbsdYrG8b4lXLBZmmAbGdoglSNRFesSzg/exec';
-        const form = document.getElementById('wedding-form');
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            if(!document.getElementById('guest-status').value) { alert("Iltimos, tanlovni belgilang!"); return; }
-            document.getElementById('send-btn').disabled = true;
-            document.getElementById('send-btn').innerText = "...";
-            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-                .then(() => {
-                    form.style.display = 'none';
-                    document.getElementById('success-msg').style.display = 'block';
-                }).catch(() => { alert('Xato yuz berdi!'); document.getElementById('send-btn').disabled = false; });
-        });
 
         function updateTimer() {
             const diff = new Date("December 27, 2026 18:00:00").getTime() - new Date().getTime();
