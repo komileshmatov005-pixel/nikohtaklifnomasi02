@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Royal Scroll - Golden Brown Love Story</title>
+    <title>The Royal Invitation - Cinematic Style</title>
     
     <!-- Premium Shriftlar -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
@@ -11,11 +11,10 @@
     
     <style>
         :root {
-            --dark-academia: #160F0B;
+            --dark-academia: #130D0A;
             --gold-foil: #D4AF37;
             --gold-gradient: linear-gradient(135deg, #a67c1e 0%, #d4af37 50%, #bb9334 100%);
-            --parchment: #F5E6CA;
-            --wax-red: #6B1724;
+            --vintage-paper: #FDFBF7;
         }
 
         body, html { 
@@ -23,86 +22,80 @@
             background-color: var(--dark-academia); overflow-x: hidden; scroll-behavior: smooth; 
         }
 
-        /* 👑 1-BOSHRAQ: SHAHZODA VA O'RALGAN MAKTUB (SCROLL INTRO) */
-        #intro-container {
+        /* 🎬 KINEMATIK SHIRMA (CINEMATIC SPLIT INTRO) */
+        #intro-wrapper {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background-image: linear-gradient(rgba(22, 15, 11, 0.5), rgba(22, 15, 11, 0.85)), url('photo_5354959525691204231_y.jpg');
-            background-size: cover; background-position: center;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 9999; transition: all 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 9999; display: flex;
         }
 
-        /* Aylana qilib o'ralgan qadimiy maktub (Scroll visual) */
-        .rolled-scroll {
-            position: relative; width: 180px; height: 70px;
-            background: linear-gradient(to bottom, #EAD8B1 0%, #C5A880 50%, #EAD8B1 100%);
-            border-radius: 10px; box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-            display: flex; justify-content: center; align-items: center;
-            border-left: 6px double #8B7355; border-right: 6px double #8B7355;
-            transition: transform 0.5s;
+        /* Chap va o'ng eshiklar (Siz yuborgan rasm shu yerda ikkiga bo'linadi) */
+        .gate-half {
+            width: 50%; height: 100%;
+            background-image: linear-gradient(rgba(19, 13, 10, 0.4), rgba(19, 13, 10, 0.7)), url('photo_5354959525691204231_y.jpg');
+            background-size: 200% 100%; /* Rasmni ikkala tomonga teng bo'lish uchun */
+            background-position: left center;
+            transition: transform 1.3s cubic-bezier(0.77, 0, 0.175, 1);
+            position: relative;
+        }
+
+        .gate-right {
+            background-position: right center;
+        }
+
+        /* Markazdagi premium muhr tugmasi */
+        .center-seal-zone {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            z-index: 10000; text-align: center;
+            transition: all 0.5s ease;
+        }
+
+        .royal-seal-btn {
+            width: 90px; height: 90px;
+            background: radial-gradient(circle, #722F37 60%, #3D1419 100%);
+            border-radius: 50%; border: 2px solid var(--gold-foil);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5), inset 0 0 15px rgba(0,0,0,0.6);
+            cursor: pointer; display: flex; justify-content: center; align-items: center;
+            font-family: 'Great Vibes', cursive; font-size: 2.2rem; color: #FDFBF7;
+            animation: pulse 2s infinite; transition: 0.3s;
         }
         
-        /* Oltin ip (Tie Ribbon) */
-        .rolled-scroll::before {
-            content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 8px;
-            background: var(--gold-gradient); transform: translateX(-50%);
+        .royal-seal-btn:hover { transform: scale(1.05); }
+
+        .seal-title {
+            margin-top: 20px; font-family: 'Cinzel', serif; font-size: 0.8rem;
+            color: #FFF; letter-spacing: 6px; font-weight: bold;
+            text-shadow: 0 3px 15px rgba(0,0,0,0.9);
         }
 
-        /* Mum Muhr */
-        .scroll-wax {
-            position: absolute; width: 65px; height: 65px;
-            background: radial-gradient(circle, var(--wax-red) 70%, #3A050C 100%);
-            border-radius: 50%; cursor: pointer; z-index: 5;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4), inset 0 0 8px rgba(0,0,0,0.5);
-            display: flex; justify-content: center; align-items: center;
-            border: 2px dashed rgba(214, 175, 55, 0.4);
-        }
-        .scroll-wax-inner {
-            font-family: 'Great Vibes', cursive; font-size: 1.8rem; color: #F5E6CA; text-shadow: 1px 1px 2px #000;
-        }
+        /* Eshiklar ochilish animatsiyasi klasslari */
+        .open-left { transform: translateX(-100%); }
+        .open-right { transform: translateX(100%); }
+        .fade-seal { opacity: 0; pointer-events: none; transform: translate(-50%, -50%) scale(0.5); }
 
-        .scroll-label {
-            margin-top: 30px; font-family: 'Cinzel', serif; font-size: 0.85rem;
-            letter-spacing: 5px; color: #FFF; font-weight: bold; text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-        }
-
-        /* 📜 2-BOSHRAQ: MAKTUBNI SCROLLING BO'LIB OCHILISH EFFEKTI */
-        .main-card-wrapper {
-            max-width: 460px; margin: 0 auto; padding: 60px 15px;
-            perspective: 1000px;
-        }
-
-        .main-card {
-            background: var(--parchment); border-radius: 4px;
-            padding: 55px 35px; text-align: center;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.7), inset 0 0 60px rgba(139,115,85,0.25);
-            position: relative; border: 1px solid rgba(166, 124, 30, 0.3);
-            /* Scroll ochilish effekti uchun animatsiya tayyorgarligi */
-            transform-origin: top center;
-            transform: scaleY(0); opacity: 0;
-            transition: transform 1.5s cubic-bezier(0.1, 1, 0.1, 1), opacity 1s;
-        }
-
-        /* Scroll ochilganda klass qo'shiladi */
-        .scroll-unrolled { transform: scaleY(1); opacity: 1; }
-
-        .main-card::before {
-            content: ''; position: absolute; top: 18px; left: 18px; right: 18px; bottom: 18px;
-            border: 2px dashed #B69352; pointer-events: none; opacity: 0.7;
-        }
-
-        /* 🎭 INTERNETDA MASHHUR GOLDEN BROWN LOVE STORY BACKGROUND */
+        /* 🎭 ASOSIY GOLDEN BROWN ROMANTIK FON */
         #content { 
             display: none; width: 100%; min-height: 100vh; 
-            background-image: linear-gradient(rgba(22, 15, 11, 0.88), rgba(34, 23, 17, 0.92)), url('https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?q=80&w=2070'); 
+            background-image: linear-gradient(rgba(19, 13, 10, 0.88), rgba(19, 13, 10, 0.93)), url('https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?q=80&w=2070'); 
             background-size: cover; background-position: center; background-attachment: fixed; 
         }
 
-        /* Qolgan elementlar stili (O'zgartirilmagan oltin retro dizayn) */
-        .lang-switcher { position: fixed; top: 20px; right: 20px; z-index: 10001; background: rgba(22, 15, 11, 0.9); padding: 5px; border-radius: 30px; border: 1px solid var(--gold-foil); }
+        /* PREMIUM KARTA DIZAYNI */
+        .main-card {
+            max-width: 440px; margin: 0 auto; background: var(--vintage-paper);
+            padding: 60px 35px; text-align: center; border-radius: 2px;
+            box-shadow: 0 40px 90px rgba(0,0,0,0.7); position: relative;
+            border: 1px solid rgba(166, 124, 30, 0.3);
+        }
+        .main-card::before {
+            content: ''; position: absolute; top: 18px; left: 18px; right: 18px; bottom: 18px;
+            border: 1px solid #D4AF37; pointer-events: none; opacity: 0.7;
+        }
+
+        /* Boshqa barcha standart va zaruriy komponentlar */
+        .lang-switcher { position: fixed; top: 20px; right: 20px; z-index: 10001; background: rgba(19, 13, 10, 0.9); padding: 5px; border-radius: 30px; border: 1px solid var(--gold-foil); }
         .lang-btn { border: none; background: none; padding: 8px 18px; cursor: pointer; font-weight: 600; font-size: 11px; border-radius: 20px; transition: 0.3s; color: #D5C5B5; font-family: 'Cinzel', serif; }
         .lang-btn.active { background: var(--gold-gradient); color: var(--dark-academia); font-weight: 700; }
-        .music-control { position: fixed; bottom: 25px; right: 25px; z-index: 999; width: 50px; height: 50px; border-radius: 50%; background: var(--gold-gradient); display: none; justify-content: center; align-items: center; cursor: pointer; border: none; }
+        .music-control { position: fixed; bottom: 25px; right: 25px; z-index: 999; width: 50px; height: 50px; border-radius: 50%; background: var(--gold-gradient); display: none; justify-content: center; align-items: center; cursor: pointer; border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
         .music-control.playing { animation: spin 5s linear infinite; }
         .music-control svg { width: 20px; height: 20px; fill: var(--dark-academia); }
         
@@ -116,7 +109,7 @@
         .date-center { font-family: 'Cinzel', serif; font-size: 2.4rem; font-weight: bold; color: #8B6E32; line-height: 1; }
         
         .btn { display: inline-block; width: 85%; padding: 16px; margin: 12px 0; font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 3px; font-weight: 600; text-decoration: none; cursor: pointer; border: none; transition: 0.4s ease; }
-        .btn-premium { background: var(--dark-academia); color: var(--parchment); border: 1px solid #D4AF37; }
+        .btn-premium { background: var(--dark-academia); color: var(--vintage-paper); border: 1px solid #D4AF37; }
         .btn-premium:hover { background: #36251B; transform: translateY(-2px); }
         .btn-outline { background: transparent; color: var(--dark-academia); border: 1px solid var(--dark-academia); }
         .btn-outline:hover { background: var(--dark-academia); color: white; }
@@ -127,7 +120,7 @@
         .t-item small { font-size: 0.65rem; color: #6E5B4F; letter-spacing: 2px; text-transform: uppercase; }
         
         .gift-card { background: #231810; border: 1px solid #D4AF37; padding: 35px 20px; margin: 45px 0; color: white; }
-        .card-num { font-size: 1.35rem; color: var(--parchment); letter-spacing: 3px; margin: 20px 0; font-family: 'Courier New', monospace; }
+        .card-num { font-size: 1.35rem; color: var(--vintage-paper); letter-spacing: 3px; margin: 20px 0; font-family: 'Courier New', monospace; }
         .copy-btn { background: var(--gold-gradient); color: var(--dark-academia); border: none; padding: 9px 28px; font-weight: bold; cursor: pointer; font-size: 0.75rem; letter-spacing: 2px; font-family: 'Cinzel', serif; }
         
         .rsvp-section { margin-top: 50px; padding: 30px 20px; border: 1px dashed #8B6E32; }
@@ -136,6 +129,7 @@
         .opt-btn { flex: 1; padding: 16px; border: 1px solid #C8B9A6; cursor: pointer; background: white; font-weight: 600; text-align: center; }
         .opt-btn.active { background: var(--dark-academia); color: white; }
 
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(212, 175, 55, 0); } 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); } }
         @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
@@ -147,25 +141,25 @@
         <button class="lang-btn" onclick="changeLang('cyrillic', event)">Кирилл</button>
     </div>
 
-    <!-- Musiqa -->
+    <!-- Musiqa boshqaruvi -->
     <button id="musicBtn" class="music-control" onclick="toggleMusic()">
         <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
     </button>
 
-    <!-- 🏰 SHAHZODA BILAN KIRISH INTRO QISMI -->
-    <div id="intro-container">
-        <div class="rolled-scroll">
-            <div class="scroll-wax" onclick="openScroll()">
-                <div class="scroll-wax-inner" id="seal-logo">L & M</div>
-            </div>
+    <!-- 🎬 KINEMATIK INTRO SAHNA -->
+    <div id="intro-wrapper">
+        <div class="gate-half gate-left" id="leftGate"></div>
+        <div class="center-seal-zone" id="sealZone">
+            <div class="royal-seal-btn" onclick="openCinematicInvitation()">L & M</div>
+            <p id="tap-text" class="seal-title">OCHISH</p>
         </div>
-        <p id="tap-text" class="scroll-label">OCHISH</p>
+        <div class="gate-half gate-right" id="rightGate"></div>
     </div>
 
     <!-- Asosiy qism -->
     <div id="content">
-        <div class="main-card-wrapper">
-            <div class="main-card" id="scrollCard">
+        <div style="padding: 80px 15px 100px 15px;">
+            <div class="main-card" data-aos="fade-up">
                 
                 <p class="monogram" id="card-mono">L & M</p>
                 <p id="sub-text" class="section-tag">TAKLIFNOMА</p>
@@ -176,6 +170,7 @@
                     "Hayotimizning unutilmas va eng baxtli kunida siz aziz sohibqironlarimizni quvonchimizga sherik bo‘lishga, oq fotiha berishingizga chin qalbimizdan taklif etamiz."
                 </p>
 
+                <!-- Sana -->
                 <div class="date-holder">
                     <div class="date-side" id="day-name">YAKSHANBA</div>
                     <div class="date-center">27</div>
@@ -186,6 +181,7 @@
 
                 <button onclick="downloadICS()" class="btn btn-outline" id="save-btn">KALENDARGA QO'SHISH</button>
 
+                <!-- Manzil -->
                 <div style="margin-top: 50px;">
                     <p id="rest-title" class="section-tag">TANTANA MANZILI</p>
                     <h3 id="restoran-name" style="font-family: 'Cinzel', serif; color: var(--dark-academia); font-size: 1.35rem; margin-top: 10px; margin-bottom: 25px;">"IDEAL SS" RESTORANI</h3>
@@ -193,6 +189,7 @@
                     <a href="https://yandex.uz/maps/org/8650108130/" target="_blank" class="btn btn-premium" style="background:#8B2626; border-color:#8B2626;">YANDEX XARITA</a>
                 </div>
 
+                <!-- Karta -->
                 <div class="gift-card">
                     <div style="font-size: 0.75rem; letter-spacing: 3px; font-family: 'Cinzel', serif; color: #D4AF37;" id="gift-card-t">TO'YONA UCHUN KARTA</div>
                     <div class="card-num">9860 0000 0000 0000</div>
@@ -200,12 +197,14 @@
                     <div style="margin-top: 18px; font-size: 0.8rem; opacity: 0.85;" id="card-owner">Yo'ldoshev Azamat (Humo)</div>
                 </div>
 
+                <!-- Taymer -->
                 <div class="timer-grid">
                     <div class="t-item"><span id="d">00</span><small id="l-d">Kun</small></div>
                     <div class="t-item"><span id="h">00</span><small id="l-h">Soat</small></div>
                     <div class="t-item"><span id="m">00</span><small id="l-m">Min</small></div>
                 </div>
 
+                <!-- RSVP Forma -->
                 <div class="rsvp-section">
                     <h3 id="rsvp-t" style="font-family: 'Cinzel', serif; font-size: 1.15rem; color: var(--dark-academia); letter-spacing: 3px; margin-bottom: 20px;">TASHRIFNI TASDIQLASH</h3>
                     <form id="wedding-form">
@@ -245,7 +244,7 @@
                 save: "КАЛЕНДАРГА ҚЎШИШ", tap: "ОЧИШ", sub: "ТАКЛИФНОМА", day: "ЯКШАНБА", names: "Лайли & Мажнун", time: "СОАТ 18:00 ДA", owner: "Йўлдошев Азамат (Ҳумо)", logo: "Л & М",
                 inv: '"Ҳаётимизнинг унутилмас ва энг бахтли кунида siz aziz sohibqironlarimizni quvonchimizga sherik bo‘lishga, oq fotiha berishingizga chin qalbimizdan taklif etamiz."',
                 restoran: '"IDEAL SS" РЕСТОРАНИ', rsvp: "ТАСДИФНИ ТАСДИҚЛАШ", toyona_ph: "Тўёна миқдори (ихтиёрий)",
-                ph: "Исмингиз", yes: "Бораман", no: "Боролмайман", send: "ЮБОРИШ", footer: "Сизни кутиб қоламиз!",
+                ph: "Исмингиз", yes: "Бораман", no: "Боролмайman", send: "ЮБОРИШ", footer: "Сизни кутиб қоламиз!",
                 gift_title: "ТЎЁНА УЧУН КАРТА", copy: "НУСХА ОЛИШ", rest_t: "ТАНТАНА МАНЗИЛИ", d: "Кун", h: "Соат", m: "Мин"
             }
         };
@@ -266,7 +265,7 @@
             document.getElementById('main-names').innerText = t.names;
             document.getElementById('time-text').innerText = t.time;
             document.getElementById('card-owner').innerText = t.owner;
-            document.getElementById('seal-logo').innerText = t.logo;
+            document.getElementById('sealZone').querySelector('.royal-seal-btn').innerText = t.logo;
             document.getElementById('card-mono').innerText = t.logo;
             document.getElementById('inv-main-text').innerText = t.inv;
             document.getElementById('restoran-name').innerText = t.restoran;
@@ -285,22 +284,21 @@
             document.getElementById('l-m').innerText = t.m;
         }
 
-        function openScroll() {
-            // Intro fonini yo'qotish va maktubni yoyish
-            document.getElementById('intro-container').style.opacity = '0';
+        function openCinematicInvitation() {
+            // Muhr va eshiklarni kinematik ochish
+            document.getElementById('sealZone').classList.add('fade-seal');
+            document.getElementById('leftGate').classList.add('open-left');
+            document.getElementById('rightGate').classList.add('open-right');
+            
             setTimeout(() => {
-                document.getElementById('intro-container').style.display = 'none';
-            }, 1200);
+                document.getElementById('intro-wrapper').style.display = 'none';
+            }, 1300);
 
             document.getElementById('content').style.display = 'block';
             musicBtn.style.display = 'flex';
             musicBtn.classList.add('playing');
             
-            // Scrolling effektini ishga tushirish (Pastga qarab yoyilish)
-            setTimeout(() => {
-                document.getElementById('scrollCard').classList.add('scroll-unrolled');
-                AOS.init({ duration: 1200, once: true });
-            }, 100);
+            setTimeout(() => { AOS.init({ duration: 1200, once: true }); }, 150);
             
             audio.play().catch(err => console.log("Musiqa autoplay bloklandi"));
             setInterval(updateTimer, 1000);
