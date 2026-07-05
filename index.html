@@ -3,140 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vintage Royal - Golden Brown Invitation</title>
+    <title>Royal Letter - Golden Brown Aesthetic</title>
     
-    <!-- Vintage & Royal Shriftlar -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@200;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- Vintage Shriftlar -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
         :root {
-            --dark-vintage: #1E1510; /* Dark Chocolate / Dark Academia */
-            --gold-old: #C5A059;     /* Eski xira oltin rang */
+            --dark-academia: #1A110B; /* To'q qahva, eski yog'och rangi */
+            --gold-foil: #D4AF37;       /* Oltin suvi rangi */
             --gold-gradient: linear-gradient(135deg, #a67c1e 0%, #d4af37 50%, #bb9334 100%);
-            --ivory: #FAF6F0;        /* Fil suyagi / Marmar oq */
-            --glass-bg: rgba(250, 246, 240, 0.92);
-            --glass-border: rgba(197, 160, 89, 0.4);
+            --vintage-paper: #FDFBF7;   /* Qadimiy sarg'ish qog'oz rangi */
+            --wax-red: #722F37;         /* To'q qizil mum muhr rangi */
         }
 
         body, html { 
             margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; 
-            background-color: var(--dark-vintage); overflow-x: hidden; scroll-behavior: smooth; 
+            background-color: var(--dark-academia); overflow-x: hidden; scroll-behavior: smooth; 
         }
 
-        /* VINTAGE KONVERT */
-        #envelope {
+        /* 🏛️ YANGACHA INTERAKTIV QIROLLIK MAKTUBI (ENVELOPE) */
+        #envelope-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: radial-gradient(circle, #3E2F27 0%, #1E1510 100%);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 9999; transition: all 1.5s cubic-bezier(0.77, 0, 0.175, 1);
-        }
-        .envelope-wrapper { 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; 
-        }
-        .royal-seal {
-            width: 130px; height: 130px; border-radius: 50%;
-            background: var(--gold-gradient); padding: 3px;
-            box-shadow: 0 10px 30px rgba(166, 124, 30, 0.3);
-            cursor: pointer; transition: 0.5s; animation: float 3s ease-in-out infinite;
+            background: radial-gradient(circle, #2C1E15 0%, #0F0A07 100%);
             display: flex; justify-content: center; align-items: center;
-        }
-        .royal-seal-inner {
-            width: 100%; height: 100%; border-radius: 50%;
-            background: var(--dark-vintage); display: flex; justify-content: center; align-items: center;
-        }
-        .royal-seal-inner span {
-            font-family: 'Great Vibes', cursive; font-size: 3.2rem;
-            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            z-index: 9999; transition: opacity 1.2s ease-in-out;
         }
 
-        /* TIL ALMASHTIRGICH */
+        .vintage-letter {
+            position: relative; width: 340px; height: 460px;
+            background: #EFE9DB; border-radius: 4px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 40px rgba(139,115,85,0.3);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border: 2px solid rgba(166, 124, 30, 0.3);
+            transition: all 1s cubic-bezier(0.7, 0, 0.3, 1);
+        }
+
+        /* Oltin iplar (Ribbon effect) */
+        .vintage-letter::before {
+            content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 2px;
+            background: var(--gold-gradient); transform: translateX(-50%); opacity: 0.7;
+        }
+        .vintage-letter::after {
+            content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 2px;
+            background: var(--gold-gradient); transform: translateY(-50%); opacity: 0.7;
+        }
+
+        /* Mumli Muhr (Wax Seal) */
+        .wax-seal {
+            position: absolute; z-index: 10; width: 95px; height: 95px;
+            background: radial-gradient(circle, var(--wax-red) 60%, #4A151B 100%);
+            border-radius: 50%; cursor: pointer;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5), inset 0 0 10px rgba(0,0,0,0.4);
+            display: flex; justify-content: center; align-items: center;
+            border: 3px dashed rgba(212, 175, 55, 0.3);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .wax-seal:hover { transform: scale(1.08) rotate(5deg); }
+        .wax-seal-inner {
+            font-family: 'Great Vibes', cursive; font-size: 2.5rem; color: #F1E5D1;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8); user-select: none;
+        }
+
+        .letter-label {
+            position: absolute; bottom: 40px; font-family: 'Cinzel', serif;
+            font-size: 0.75rem; letter-spacing: 5px; color: #5C4A3C; font-weight: bold;
+        }
+
+        /* MAKTUB OCHILISH ANIMATSIYASI */
+        .letter-opened { transform: scale(0.8) translateY(-120vh); opacity: 0; pointer-events: none; }
+
+        /* TIL ALMASHTIRGICH (VINTAGE PREMIUM) */
         .lang-switcher {
             position: fixed; top: 20px; right: 20px; z-index: 10001;
-            background: rgba(30, 21, 16, 0.85); padding: 4px; border-radius: 20px;
-            backdrop-filter: blur(10px); border: 1px solid var(--gold-old);
+            background: rgba(26, 17, 11, 0.9); padding: 5px; border-radius: 30px;
+            border: 1px solid var(--gold-foil); backdrop-filter: blur(5px);
         }
         .lang-btn { 
-            border: none; background: none; padding: 8px 18px; cursor: pointer; 
-            font-weight: 600; font-size: 11px; border-radius: 15px; transition: 0.3s; color: #fff;
+            border: none; background: none; padding: 8px 20px; cursor: pointer; 
+            font-weight: 600; font-size: 11px; border-radius: 20px; transition: 0.3s; color: #D5C5B5;
+            font-family: 'Cinzel', serif;
         }
-        .lang-btn.active { background: var(--gold-gradient); color: var(--dark-vintage); font-weight: 700; }
+        .lang-btn.active { background: var(--gold-gradient); color: var(--dark-academia); font-weight: 700; }
 
-        /* MUSIQA TUGMASI (GOLDEN BROWN UCHUN) */
+        /* MUSIQA TUGMASI */
         .music-control {
             position: fixed; bottom: 25px; right: 25px; z-index: 999;
             width: 50px; height: 50px; border-radius: 50%; background: var(--gold-gradient);
             display: none; justify-content: center; align-items: center; cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3); border: none; outline: none;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4); border: none;
         }
-        .music-control.playing { animation: spin 4s linear infinite; }
-        .music-control svg { width: 22px; height: 22px; fill: var(--dark-vintage); }
+        .music-control.playing { animation: spin 5s linear infinite; }
+        .music-control svg { width: 20px; height: 20px; fill: var(--dark-academia); }
 
-        /* VINTAGE ASOSIY MAZMUN (Dark Academia fon rasmi o'rnatildi) */
+        /* ASOSIY SAHIFA (Royals Estetikasi) */
         #content { 
             display: none; width: 100%; min-height: 100vh; 
-            background-image: linear-gradient(rgba(30, 21, 16, 0.8), rgba(30, 21, 16, 0.85)), url('https://images.unsplash.com/photo-1607990283143-e81e7a2c93ab?q=80&w=2070'); 
+            background-image: linear-gradient(rgba(26, 17, 11, 0.85), rgba(26, 17, 11, 0.9)), url('https://images.unsplash.com/photo-1607990283143-e81e7a2c93ab?q=80&w=2070'); 
             background-size: cover; background-position: center; background-attachment: fixed; 
         }
         
         .main-card {
-            max-width: 460px; margin: 0 auto; background: var(--glass-bg);
-            padding: 60px 30px; text-align: center; border: 1px solid var(--glass-border);
-            border-radius: 40px; backdrop-filter: blur(15px);
-            box-shadow: 0 30px 70px rgba(0,0,0,0.5); position: relative; overflow: hidden;
+            max-width: 450px; margin: 0 auto; background: var(--vintage-paper);
+            padding: 65px 35px; text-align: center; border-radius: 4px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.6); position: relative;
+            border: 1px solid rgba(166, 124, 30, 0.4);
         }
+        /* Ichki Oltin Vintage Ramka */
         .main-card::before {
-            content: ''; position: absolute; top: 15px; left: 15px; right: 15px; bottom: 15px;
-            border: 1px solid rgba(197, 160, 89, 0.5); border-radius: 28px; pointer-events: none;
+            content: ''; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px;
+            border: 2px solid #D4AF37; pointer-events: none; opacity: 0.85;
+        }
+        .main-card::after {
+            content: ''; position: absolute; top: 25px; left: 25px; right: 25px; bottom: 25px;
+            border: 1px solid rgba(166, 124, 30, 0.3); pointer-events: none;
         }
 
-        .monogram { font-family: 'Great Vibes', cursive; font-size: 4rem; color: var(--gold-old); margin: 0; line-height: 1; }
-        .section-tag { font-family: 'Cinzel', serif; letter-spacing: 4px; font-size: 0.75rem; color: #6e543c; font-weight: 600; margin-top: 15px; }
-        .names { font-family: 'Cinzel', serif; font-size: 2.6rem; font-weight: 400; color: var(--dark-vintage); margin: 20px 0; letter-spacing: 1px; }
-        .invitation-text { font-size: 0.95rem; line-height: 1.9; color: #3E2F27; font-weight: 400; padding: 0 10px; }
+        .monogram { font-family: 'Great Vibes', cursive; font-size: 4.5rem; color: #8B6E32; margin: 0; }
+        .section-tag { font-family: 'Cinzel', serif; letter-spacing: 5px; font-size: 0.75rem; color: #5C4A3C; font-weight: bold; margin-top: 10px; }
+        .names { font-family: 'Cinzel', serif; font-size: 2.5rem; font-weight: 400; color: var(--dark-academia); margin: 25px 0; letter-spacing: 2px; }
+        .invitation-text { font-size: 0.95rem; line-height: 2; color: #2C221A; font-weight: 400; padding: 0 5px; font-style: italic; }
 
-        /* SANALAR BLOKI */
+        /* VINTAGE SANA BLOKI */
         .date-holder { 
-            margin: 35px 0; border-top: 1px solid rgba(197, 160, 89, 0.5); border-bottom: 1px solid rgba(197, 160, 89, 0.5); 
-            padding: 15px 0; display: flex; justify-content: center; align-items: center; gap: 20px;
+            margin: 40px 0; border-top: 1px solid #D4AF37; border-bottom: 1px solid #D4AF37; 
+            padding: 18px 0; display: flex; justify-content: center; align-items: center; gap: 25px;
         }
-        .date-side { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 2px; color: #6e543c; }
-        .date-center { font-family: 'Cinzel', serif; font-size: 2.2rem; font-weight: bold; color: var(--gold-old); line-height: 1; }
+        .date-side { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 3px; color: #5C4A3C; }
+        .date-center { font-family: 'Cinzel', serif; font-size: 2.4rem; font-weight: bold; color: #8B6E32; line-height: 1; }
 
-        /* TUGMALAR */
+        /* TUGMALAR (OLD MONEY STYLE) */
         .btn { 
-            display: inline-block; width: 85%; padding: 16px; margin: 10px 0; border-radius: 30px; 
-            font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 2px; font-weight: 600;
-            text-decoration: none; cursor: pointer; border: none; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            display: inline-block; width: 85%; padding: 16px; margin: 12px 0; 
+            font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 3px; font-weight: 600;
+            text-decoration: none; cursor: pointer; border: none; transition: 0.4s ease; 
         }
-        .btn-premium { background: var(--dark-vintage); color: var(--ivory); box-shadow: 0 5px 15px rgba(30,21,16,0.3); }
-        .btn-premium:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(30,21,16,0.5); }
-        .btn-outline { background: transparent; color: var(--gold-old); border: 1.5px solid var(--gold-old); }
-        .btn-outline:hover { background: var(--gold-old); color: white; }
+        .btn-premium { background: var(--dark-academia); color: var(--vintage-paper); border: 1px solid #D4AF37; }
+        .btn-premium:hover { background: #36251B; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .btn-outline { background: transparent; color: var(--dark-academia); border: 1px solid var(--dark-academia); }
+        .btn-outline:hover { background: var(--dark-academia); color: white; }
 
         /* TAYMER */
         .timer-grid { display: flex; justify-content: center; gap: 15px; margin: 40px 0 25px 0; }
-        .t-item { background: rgba(30, 21, 16, 0.05); padding: 12px; border-radius: 16px; min-width: 75px; border: 1px solid rgba(0,0,0,0.05); }
-        .t-item span { display: block; font-family: 'Cinzel', serif; font-size: 1.6rem; font-weight: bold; color: var(--dark-vintage); }
-        .t-item small { font-size: 0.7rem; color: #6e543c; letter-spacing: 1px; text-transform: uppercase; }
+        .t-item { background: rgba(26, 17, 11, 0.04); padding: 14px; min-width: 75px; border: 1px solid rgba(166, 124, 30, 0.2); }
+        .t-item span { display: block; font-family: 'Cinzel', serif; font-size: 1.6rem; font-weight: bold; color: var(--dark-academia); }
+        .t-item small { font-size: 0.65rem; color: #6E5B4F; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* VINTAGE GATSBY KARTA BLOKI */
+        /* BROWNY GIFT CARD */
         .gift-card {
-            background: linear-gradient(135deg, #2C1E1A 0%, #1E1510 100%); border-radius: 24px; padding: 30px 20px; margin: 40px 0;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3); border: 1px solid rgba(197, 160, 89, 0.3); position: relative; color: white;
+            background: #231810; border: 1px solid #D4AF37; padding: 35px 20px; margin: 45px 0; color: white;
         }
-        .card-num { font-size: 1.4rem; color: var(--ivory); letter-spacing: 2px; margin: 20px 0; font-family: 'Courier New', monospace; font-weight: bold; }
-        .copy-btn { background: var(--gold-gradient); color: var(--dark-vintage); border: none; padding: 8px 25px; border-radius: 20px; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 0.8rem; letter-spacing: 1px; }
+        .card-num { font-size: 1.35rem; color: var(--vintage-paper); letter-spacing: 3px; margin: 20px 0; font-family: 'Courier New', monospace; }
+        .copy-btn { background: var(--gold-gradient); color: var(--dark-academia); border: none; padding: 9px 28px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 0.75rem; letter-spacing: 2px; font-family: 'Cinzel', serif; }
 
         /* RSVP FORMA */
-        .rsvp-section { margin-top: 45px; padding: 30px 20px; background: rgba(0,0,0,0.02); border-radius: 24px; border: 1px dashed var(--gold-old); }
-        .input-field { width: 100%; padding: 16px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 14px; box-sizing: border-box; font-family: 'Montserrat', sans-serif; background: white; outline: none; transition: 0.3s; }
-        .input-field:focus { border-color: var(--gold-old); box-shadow: 0 0 10px rgba(197,160,89,0.1); }
+        .rsvp-section { margin-top: 50px; padding: 30px 20px; border: 1px dashed #8B6E32; }
+        .input-field { width: 100%; padding: 16px; margin-bottom: 15px; border: 1px solid #C8B9A6; box-sizing: border-box; font-family: 'Montserrat', sans-serif; background: #FCFAF7; outline: none; }
+        .input-field:focus { border-color: #8B6E32; }
         .options { display: flex; gap: 12px; margin-bottom: 20px; }
-        .opt-btn { flex: 1; padding: 16px; border: 1px solid #ccc; border-radius: 14px; cursor: pointer; background: white; font-weight: 600; transition: 0.3s; font-size: 0.85rem; color: #555; text-align: center;}
-        .opt-btn.active { background: var(--dark-vintage); color: white; border-color: var(--dark-vintage); }
+        .opt-btn { flex: 1; padding: 16px; border: 1px solid #C8B9A6; cursor: pointer; background: white; font-weight: 600; font-size: 0.85rem; color: #555; text-align: center; transition: 0.3s;}
+        .opt-btn.active { background: var(--dark-academia); color: white; border-color: var(--dark-academia); }
 
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
         @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
@@ -153,15 +182,13 @@
         <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
     </button>
 
-    <!-- Qimmatbaho Konvert -->
-    <div id="envelope">
-        <div class="envelope-wrapper" onclick="openInvitation()">
-            <div class="royal-seal">
-                <div class="royal-seal-inner">
-                    <span id="seal-logo">L & M</span>
-                </div>
+    <!-- ✉️ QIROLLIK MAKTUBI KO'RINISHIDAGI YANGI KIRISH QISMI -->
+    <div id="envelope-container">
+        <div class="vintage-letter" id="royalLetter">
+            <div class="wax-seal" onclick="openInvitation()">
+                <div class="wax-seal-inner" id="seal-logo">L & M</div>
             </div>
-            <p id="tap-text" style="color: var(--ivory); font-size: 11px; margin-top:25px; letter-spacing: 4px; font-family: 'Cinzel', serif;">OCHISH</p>
+            <p id="tap-text" class="letter-label">OCHISH</p>
         </div>
     </div>
 
@@ -179,31 +206,31 @@
                     "Hayotimizning unutilmas va eng baxtli kunida siz aziz sohibqironlarimizni quvonchimizga sherik bo‘lishga, oq fotiha berishingizga chin qalbimizdan taklif etamiz."
                 </p>
 
-                <!-- Premium dizaynli sana -->
+                <!-- Sana -->
                 <div class="date-holder">
                     <div class="date-side" id="day-name">YAKSHANBA</div>
                     <div class="date-center">27</div>
                     <div class="date-side">12 / 2026</div>
                 </div>
 
-                <span id="time-text" style="display: block; color: var(--gold-old); font-family: 'Cinzel', serif; font-weight: bold; margin-bottom: 30px; letter-spacing: 3px; font-size: 1.1rem;">SOAT 18:00 DA</span>
+                <span id="time-text" style="display: block; color: #8B6E32; font-family: 'Cinzel', serif; font-weight: bold; margin-bottom: 35px; letter-spacing: 4px; font-size: 1.1rem;">SOAT 18:00 DA</span>
 
                 <button onclick="downloadICS()" class="btn btn-outline" id="save-btn">KALENDARGA QO'SHISH</button>
 
-                <!-- Manzil Bloki -->
+                <!-- Manzil -->
                 <div style="margin-top: 50px;">
                     <p id="rest-title" class="section-tag">TANTANA MANZILI</p>
-                    <h3 id="restoran-name" style="font-family: 'Cinzel', serif; color: var(--dark-vintage); font-size: 1.4rem; margin-top: 10px; margin-bottom: 25px;">"IDEAL SS" RESTORANI</h3>
+                    <h3 id="restoran-name" style="font-family: 'Cinzel', serif; color: var(--dark-academia); font-size: 1.35rem; margin-top: 10px; margin-bottom: 25px; letter-spacing: 1px;">"IDEAL SS" RESTORANI</h3>
                     <a href="https://maps.app.goo.gl/1koHhC2uAUGuJLzi7" target="_blank" class="btn btn-premium">GOOGLE MAPS</a>
-                    <a href="https://yandex.uz/maps/org/8650108130/" target="_blank" class="btn btn-premium" style="background:#f33e3e;">YANDEX XARITA</a>
+                    <a href="https://yandex.uz/maps/org/8650108130/" target="_blank" class="btn btn-premium" style="background:#8B2626; border-color:#8B2626;">YANDEX XARITA</a>
                 </div>
 
-                <!-- Oltin qoplamali Karta -->
+                <!-- Karta -->
                 <div class="gift-card">
-                    <div style="font-size: 0.75rem; letter-spacing: 3px; font-family: 'Cinzel', serif; color: var(--gold-old);" id="gift-card-t">TO'YONA UCHUN KARTA</div>
+                    <div style="font-size: 0.75rem; letter-spacing: 3px; font-family: 'Cinzel', serif; color: #D4AF37;" id="gift-card-t">TO'YONA UCHUN KARTA</div>
                     <div class="card-num">9860 0000 0000 0000</div>
                     <button class="copy-btn" id="copy-btn" onclick="copyCard()">NUSXA OLISH</button>
-                    <div style="margin-top: 15px; font-size: 0.8rem; opacity: 0.7;" id="card-owner">Yo'ldoshev Azamat (Humo)</div>
+                    <div style="margin-top: 18px; font-size: 0.8rem; opacity: 0.85; letter-spacing: 1px;" id="card-owner">Yo'ldoshev Azamat (Humo)</div>
                 </div>
 
                 <!-- Taymer -->
@@ -215,7 +242,7 @@
 
                 <!-- RSVP Forma -->
                 <div class="rsvp-section">
-                    <h3 id="rsvp-t" style="font-family: 'Cinzel', serif; font-size: 1.2rem; color: var(--dark-vintage); letter-spacing: 2px; margin-bottom: 20px;">TASHRIFNI TASDIQLASH</h3>
+                    <h3 id="rsvp-t" style="font-family: 'Cinzel', serif; font-size: 1.15rem; color: var(--dark-academia); letter-spacing: 3px; margin-bottom: 20px;">TASHRIFNI TASDIQLASH</h3>
                     <form id="wedding-form">
                         <input type="text" name="ism" id="guest-name" placeholder="Ismingiz" required class="input-field">
                         <input type="number" name="toyona" id="gift-amount" placeholder="To'yona miqdori (ixtiyoriy)" class="input-field">
@@ -224,15 +251,15 @@
                             <div class="opt-btn" id="btn-no" onclick="setStatus('Borolmayman', this)">Borolmayman</div>
                         </div>
                         <input type="hidden" name="holat" id="guest-status">
-                        <button type="submit" class="submit-btn btn btn-premium" style="width:100%;" id="send-btn">YUBORISH</button>
+                        <button type="submit" class="submit-btn btn btn-premium" style="width:100%; margin:0;" id="send-btn">YUBORISH</button>
                     </form>
 
-                    <div id="success-msg" style="display:none; color: var(--dark-vintage); font-weight: bold; margin-top: 15px; background: var(--ivory); padding: 15px; border-radius: 14px; border: 1px solid var(--gold-old);">
+                    <div id="success-msg" style="display:none; color: var(--dark-academia); font-weight: bold; margin-top: 15px; background: #EFE9DB; padding: 15px; border: 1px solid #8B6E32;">
                         Muvaffaqiyatli yuborildi. Rahmat!
                     </div>
                 </div>
 
-                <p id="footer-t" style="font-family: 'Great Vibes', cursive; font-size: 3.2rem; color: var(--gold-old); margin-top: 50px; margin-bottom: 0;">Sizni kutib qolamiz!</p>
+                <p id="footer-t" style="font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #8B6E32; margin-top: 55px; margin-bottom: 0;">Sizni kutib qolamiz!</p>
 
             </div>
         </div>
@@ -295,14 +322,24 @@
         }
 
         function openInvitation() {
-            document.getElementById('envelope').style.transform = 'translateY(-100vh)';
+            // Maktubni o'rtadan ochilish effektlari
+            const letter = document.getElementById('royalLetter');
+            letter.classList.add('letter-opened');
+            
+            setTimeout(() => {
+                document.getElementById('envelope-container').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('envelope-container').style.display = 'none';
+                }, 1000);
+            }, 400);
+
             document.getElementById('content').style.display = 'block';
             musicBtn.style.display = 'flex';
             musicBtn.classList.add('playing');
             
-            setTimeout(() => { AOS.init({ duration: 1200, once: true }); }, 100);
+            setTimeout(() => { AOS.init({ duration: 1200, once: true }); }, 200);
             
-            audio.play().catch(err => console.log("Musiqa bloklandi"));
+            audio.play().catch(err => console.log("Musiqa autoplay bloklandi"));
             setInterval(updateTimer, 1000);
         }
 
