@@ -2,51 +2,45 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Royal Invitation | L & M</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=Great+Vibes&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <title>Royal Love Story | Golden Brown</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #D4AF37; --bg: #0A0502; --parchment: #F5EFEB; }
-        body { margin: 0; background: var(--bg); color: var(--parchment); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+        :root { --gold: #D4AF37; --bg: #0A0502; }
+        body { margin: 0; background: var(--bg); color: #FFF; font-family: 'Cinzel', serif; }
 
-        /* Darvoza effekti */
-        #gate { position: fixed; inset: 0; z-index: 9999; display: flex; transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1); }
-        .half { width: 50%; height: 100vh; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid var(--gold); }
-        .half img { min-width: 200%; height: 100%; object-fit: cover; }
-        
-        /* Markaziy tugma */
-        #lock { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10000; text-align: center; cursor: pointer; }
-        .seal { width: 100px; height: 100px; border-radius: 50%; background: #661D26; border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px var(--gold); transition: 0.3s; }
-        .seal:hover { transform: scale(1.1); }
+        /* DARVOZA VA ANIMATSIYA */
+        #gate { position: fixed; inset: 0; z-index: 9999; display: flex; transition: 2s; }
+        .door { width: 50%; height: 100vh; background: url('background.jpg') center/cover; border-right: 2px solid var(--gold); transition: 2s; }
+        .open-l { transform: translateX(-100%); }
+        .open-r { transform: translateX(100%); }
 
-        /* Asosiy sahifa */
-        #main { display: none; padding: 40px 20px; max-width: 500px; margin: auto; animation: fadeIn 2s; }
+        /* MARKAZIY SEAL */
+        #seal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); cursor: pointer; text-align: center; }
+        .circle { width: 120px; height: 120px; border-radius: 50%; border: 3px double var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Great Vibes'; font-size: 2rem; background: rgba(128,0,0,0.5); box-shadow: 0 0 40px var(--gold); }
+
+        /* KONTENT */
+        #content { display: none; text-align: center; padding: 100px 20px; }
+        .fade-in { animation: fadeIn 3s forwards; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
-        .card { background: rgba(255,255,255,0.05); padding: 40px; border: 1px solid var(--gold); text-align: center; margin-bottom: 20px; }
-        h1 { font-family: 'Cinzel Decorative', cursive; color: var(--gold); }
-        .btn { display: inline-block; padding: 15px 30px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; margin-top: 15px; font-family: 'Cinzel', serif; transition: 0.3s; }
-        .btn:hover { background: var(--gold); color: #000; }
     </style>
 </head>
 <body>
 
-    <!-- Kirish Darvozasi -->
     <div id="gate">
-        <div class="half" id="left-gate"><img src="background.jpg" style="object-position: left;"></div>
-        <div class="half" id="right-gate"><img src="background.jpg" style="object-position: right;"></div>
-        <div id="lock" onclick="openGates()">
-            <div class="seal">L & M</div>
-            <p>SAROYGA KIRISH</p>
+        <div class="door" id="dl"></div>
+        <div class="door" id="dr" style="border-left: 2px solid var(--gold);"></div>
+        <div id="seal" onclick="startShow()">
+            <div class="circle">L & M</div>
+            <p style="margin-top:20px; letter-spacing: 5px;">SAROYGA KIRISH</p>
         </div>
     </div>
 
-    <!-- Asosiy Kontent -->
-    <div id="main">
-        <div class="card">
-            <h1>Layli & Majnun</h1>
-            <p>Bizning unutilmas kunimizga marhamat!</p>
-            <a href="https://maps.google.com" class="btn">Tantana manzili</a>
+    <div id="content" class="fade-in">
+        <h1 style="color:var(--gold); font-size: 3rem;">Layli & Majnun</h1>
+        <p style="font-size: 1.5rem; font-style: italic;">"Golden Brown, texture like sun..."</p>
+        <div style="margin-top: 50px;">
+            <p>27-Dekabr, 2026 | 18:00</p>
+            <p>"IDEAL SS" Restorani</p>
         </div>
     </div>
 
@@ -55,17 +49,17 @@
     </audio>
 
     <script>
-        function openGates() {
-            document.getElementById('left-gate').style.transform = 'translateX(-100%)';
-            document.getElementById('right-gate').style.transform = 'translateX(100%)';
-            document.getElementById('lock').style.display = 'none';
-            document.getElementById('main').style.display = 'block';
+        function startShow() {
+            document.getElementById('dl').classList.add('open-l');
+            document.getElementById('dr').classList.add('open-r');
+            document.getElementById('seal').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
             document.getElementById('audio').play();
-            
-            setTimeout(() => { document.getElementById('gate').style.display = 'none'; }, 1500);
+            setTimeout(() => { document.getElementById('gate').style.display = 'none'; }, 2000);
         }
     </script>
 </body>
 </html>
+
 
 
