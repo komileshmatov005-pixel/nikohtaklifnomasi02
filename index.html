@@ -3,72 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Royal Golden Wedding Invitation | VIP Edition</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <title>Royal Historic Wedding | VIP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        /* ---------------------------------------------------------
-           PREMIUM ROYAL STYLESHEET (Professional daraja)
-           --------------------------------------------------------- */
-        :root { --gold: #c5a059; --bg: #0a0502; --cream: #e8dcc4; }
-        body { background: var(--bg); color: var(--cream); font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; }
-
-        /* Darvoza (Gate) */
-        #gate-container { position: fixed; inset: 0; z-index: 9999; display: flex; transition: 2s; }
-        .panel { width: 50%; height: 100vh; background: #000; border: 1px solid var(--gold); }
-
-        /* Interaktiv qism */
-        .royal-seal { 
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 150px; height: 150px; border-radius: 50%; 
-            border: 3px double var(--gold); display: flex; align-items: center; justify-content: center;
-            font-family: 'Great Vibes'; font-size: 3rem; color: var(--gold);
-            cursor: pointer; box-shadow: 0 0 40px rgba(197, 160, 89, 0.5);
+        /* ROYAL HISTORIC DESIGN SYSTEM */
+        :root { 
+            --gold: #C5A059; --deep-navy: #0A0502; --parchment: #F4E4BC;
+            --gradient: linear-gradient(135deg, #C5A059 0%, #D4AF37 50%, #C5A059 100%);
         }
+        body { background: var(--deep-navy); color: var(--parchment); font-family: 'Playfair Display', serif; margin: 0; overflow-x: hidden; }
 
-        /* Kontent */
-        #content-wrapper { opacity: 0; padding: 100px 20px; text-align: center; max-width: 700px; margin: auto; }
-        h1 { font-family: 'Cinzel', serif; font-size: 4rem; color: var(--gold); margin-bottom: 20px; }
-        .divider { width: 100px; height: 2px; background: var(--gold); margin: 30px auto; }
+        /* 3D ROYAL GATE */
+        #gate-screen { 
+            position: fixed; inset: 0; z-index: 9999; display: flex; 
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('gate-bg.jpg') center/cover;
+            transition: 2s ease-in-out; 
+        }
+        .gate-door { width: 50%; height: 100vh; background: #0A0502; border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; transition: 2s; }
+        .open-left { transform: translateX(-100%); }
+        .open-right { transform: translateX(100%); }
+
+        /* HISTORIC ELEMENTS */
+        .royal-seal { 
+            width: 180px; height: 180px; border-radius: 50%; border: 4px double var(--gold); 
+            display: flex; align-items: center; justify-content: center; font-family: 'Great Vibes'; 
+            font-size: 3.5rem; color: var(--gold); cursor: pointer; box-shadow: 0 0 50px rgba(197, 160, 89, 0.5);
+            animation: pulse 3s infinite;
+        }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+        /* MAIN CONTENT - ROYAL LAYOUT */
+        #main-content { display: none; opacity: 0; padding: 100px 20px; max-width: 600px; margin: auto; text-align: center; }
+        .historic-border { border: 2px solid var(--gold); padding: 50px; background: rgba(20, 10, 5, 0.6); }
+        .gold-text { color: var(--gold); font-size: 4rem; font-family: 'Cinzel'; }
         
-        /* RSVP va Buttons */
-        .btn-royal { padding: 20px 50px; border: 1px solid var(--gold); color: var(--gold); 
-                     background: transparent; font-family: 'Cinzel', serif; cursor: pointer; }
+        /* OLTIN NUR EFFEKTI */
+        .gold-glow { text-shadow: 0 0 20px rgba(197, 160, 89, 0.8); }
     </style>
 </head>
 <body>
 
-    <div id="gate-container">
-        <div class="panel" id="left-panel"></div>
-        <div class="panel" id="right-panel"></div>
-        <div class="royal-seal" onclick="initVIPInvitation()">L&M</div>
+    <!-- 1. ROYAL GATE (DARVOZA) -->
+    <div id="gate-screen">
+        <div class="gate-door" id="left-door"></div>
+        <div class="gate-door" id="right-door"></div>
+        <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
+            <div class="royal-seal" onclick="enterRoyal()">L&M</div>
+        </div>
     </div>
 
-    <div id="content-wrapper">
-        <h1>Layli & Majnun</h1>
-        <div class="divider"></div>
-        <p style="font-size: 1.5rem; font-style: italic;">"Sizni qalbimiz to'rida kutamiz"</p>
-        <button class="btn-royal" onclick="window.location.href='#'">Tantana manzili</button>
+    <!-- 2. CONTENT -->
+    <div id="main-content">
+        <div class="historic-border" data-aos="zoom-in">
+            <h1 class="gold-text gold-glow">Layli & Majnun</h1>
+            <p style="font-size: 1.5rem; font-style: italic;">"Golden Brown, texture like sun..."</p>
+            <div style="margin: 40px 0; border: 1px solid var(--gold); height: 1px;"></div>
+            <button onclick="window.location.href='#'" style="background:transparent; color:var(--gold); border: 1px solid var(--gold); padding: 20px 40px; cursor: pointer;">TANTANA MANZILI</button>
+        </div>
     </div>
 
-    <audio id="audio" src="music.mp3"></audio>
+    <audio id="royal-music" src="music.mp3" loop></audio>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        function initVIPInvitation() {
-            // Animatsiya logikasi (GSAP)
-            const tl = gsap.timeline();
-            tl.to("#left-panel", { xPercent: -100, duration: 2, ease: "power4.inOut" })
-              .to("#right-panel", { xPercent: 100, duration: 2, ease: "power4.inOut" }, "<")
-              .to(".royal-seal", { opacity: 0, duration: 0.5 }, "<");
-
-            document.getElementById('audio').play();
-            gsap.to("#content-wrapper", { opacity: 1, duration: 2, delay: 1 });
-            
-            setTimeout(() => { document.getElementById('gate-container').style.display = 'none'; }, 2000);
+        function enterRoyal() {
+            document.getElementById('left-door').classList.add('open-left');
+            document.getElementById('right-door').classList.add('open-right');
+            document.getElementById('main-content').style.display = 'block';
+            document.getElementById('royal-music').play();
+            gsap.to("#main-content", { opacity: 1, duration: 2 });
+            setTimeout(() => { document.getElementById('gate-screen').style.display = 'none'; }, 2000);
+            AOS.init();
         }
     </script>
 </body>
 </html>
+
 
 
 
