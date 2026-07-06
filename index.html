@@ -2,64 +2,96 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <title>Royal Love Story | Golden Brown</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Invitation | L&M</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #D4AF37; --bg: #0A0502; }
-        body { margin: 0; background: var(--bg); color: #FFF; font-family: 'Cinzel', serif; }
+        :root { --gold: #c5a059; --bg: #0a0502; --text: #e8dcc4; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
 
-        /* DARVOZA VA ANIMATSIYA */
-        #gate { position: fixed; inset: 0; z-index: 9999; display: flex; transition: 2s; }
-        .door { width: 50%; height: 100vh; background: url('background.jpg') center/cover; border-right: 2px solid var(--gold); transition: 2s; }
-        .open-l { transform: translateX(-100%); }
-        .open-r { transform: translateX(100%); }
+        /* 1. Darvoza qismi (Royal Gate) */
+        #gate { position: fixed; inset: 0; z-index: 999; display: flex; transition: 2s cubic-bezier(0.77, 0, 0.175, 1); }
+        .gate-side { width: 50%; height: 100vh; background: url('background.jpg') center/cover; border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; position: relative; transition: 2s; }
+        .gate-left { border-right: 2px solid var(--gold); }
+        .gate-right { border-left: 2px solid var(--gold); }
+        .open-left { transform: translateX(-100%); }
+        .open-right { transform: translateX(100%); }
 
-        /* MARKAZIY SEAL */
-        #seal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); cursor: pointer; text-align: center; }
-        .circle { width: 120px; height: 120px; border-radius: 50%; border: 3px double var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Great Vibes'; font-size: 2rem; background: rgba(128,0,0,0.5); box-shadow: 0 0 40px var(--gold); }
+        /* Tugma va Overlay */
+        #overlay { position: absolute; z-index: 1000; text-align: center; cursor: pointer; }
+        .seal { width: 120px; height: 120px; border-radius: 50%; border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Great Vibes'; font-size: 2.5rem; color: var(--gold); box-shadow: 0 0 30px var(--gold); }
 
-        /* KONTENT */
-        #content { display: none; text-align: center; padding: 100px 20px; }
-        .fade-in { animation: fadeIn 3s forwards; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* 2. Asosiy sahifa (Premium Content) */
+        #main { opacity: 0; transition: 2s; padding: 80px 20px; text-align: center; max-width: 600px; margin: auto; }
+        h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; color: var(--gold); margin-bottom: 20px; }
+        .card { border: 1px solid var(--gold); padding: 40px; background: rgba(197, 160, 89, 0.05); margin-bottom: 30px; }
+        .btn { display: inline-block; padding: 20px 40px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; font-family: 'Cinzel', serif; transition: 0.3s; }
+        .btn:hover { background: var(--gold); color: #000; }
+        
+        /* 3. Taymer dizayni */
+        .timer-box { display: flex; justify-content: center; gap: 20px; margin: 30px 0; }
+        .time-unit { font-family: 'Cinzel', serif; font-size: 1.2rem; }
     </style>
 </head>
 <body>
 
     <div id="gate">
-        <div class="door" id="dl"></div>
-        <div class="door" id="dr" style="border-left: 2px solid var(--gold);"></div>
-        <div id="seal" onclick="startShow()">
-            <div class="circle">L & M</div>
+        <div class="gate-side gate-left" id="l-side"></div>
+        <div class="gate-side gate-right" id="r-side"></div>
+        <div id="overlay" onclick="openInvitation()">
+            <div class="seal">L & M</div>
             <p style="margin-top:20px; letter-spacing: 5px;">SAROYGA KIRISH</p>
         </div>
     </div>
 
-    <div id="content" class="fade-in">
-        <h1 style="color:var(--gold); font-size: 3rem;">Layli & Majnun</h1>
-        <p style="font-size: 1.5rem; font-style: italic;">"Golden Brown, texture like sun..."</p>
-        <div style="margin-top: 50px;">
-            <p>27-Dekabr, 2026 | 18:00</p>
-            <p>"IDEAL SS" Restorani</p>
+    <div id="main">
+        <h1>Layli & Majnun</h1>
+        <div class="card">
+            <p style="font-size: 1.5rem; font-style: italic;">"Golden Brown, texture like sun..."</p>
+            <p style="margin-top:20px;">Sizni hayotimizning eng muhim kunida aziz mehmonimiz bo'lishga chorlaymiz.</p>
         </div>
+
+        <div class="card">
+            <h3>Tantana sanasi</h3>
+            <div class="timer-box" id="timer">
+                <div class="time-unit" id="days">00 kun</div>
+                <div class="time-unit" id="hours">00 soat</div>
+            </div>
+        </div>
+
+        <a href="https://maps.app.goo.gl/0" class="btn">MANZILGA BORISH</a>
     </div>
 
-    <audio id="audio" loop>
-        <source src="music.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="music" src="music.mp3" loop></audio>
 
     <script>
-        function startShow() {
-            document.getElementById('dl').classList.add('open-l');
-            document.getElementById('dr').classList.add('open-r');
-            document.getElementById('seal').style.display = 'none';
-            document.getElementById('content').style.display = 'block';
-            document.getElementById('audio').play();
+        function openInvitation() {
+            // Animatsiyalar
+            document.getElementById('l-side').classList.add('open-left');
+            document.getElementById('r-side').classList.add('open-right');
+            document.getElementById('overlay').style.opacity = '0';
+            
+            // Kontent va Musiqa
+            document.getElementById('main').style.opacity = '1';
+            document.getElementById('music').play();
+            
             setTimeout(() => { document.getElementById('gate').style.display = 'none'; }, 2000);
         }
+
+        // Taymer funksiyasi
+        function updateTimer() {
+            const weddingDate = new Date("December 27, 2026 18:00:00").getTime();
+            const now = new Date().getTime();
+            const diff = weddingDate - now;
+            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)) + " kun";
+            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + " soat";
+        }
+        setInterval(updateTimer, 1000);
     </script>
 </body>
 </html>
+
 
 
 
