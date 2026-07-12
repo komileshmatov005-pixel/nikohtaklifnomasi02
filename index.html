@@ -5,37 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Nikoh Oqshomi | Otabek & Kumush</title>
     
-    <!-- 18-asr muhitini beruvchi qirollik shriftlari -->
-    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <!-- Mayin animatsiyalar uchun kutubxona -->
+    <!-- 18-asr muhitini Lotin va Kirill uchun birdek chiroyli ko'rsatuvchi qirollik shriftlari -->
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+    <!-- Mayin animatsiya -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
         :root {
-            --royal-gold: #F3E5AB; /* Silliq oltin rang */
-            --bright-gold: #D4AF37; /* Asl metall oltin rang */
-            --text-shadow-blend: 0 2px 10px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,1);
+            --royal-gold: #F3E5AB; 
+            --bright-gold: #D4AF37; 
+            --shadow-blend: 0 2px 12px rgba(0,0,0,0.95), 0 4px 25px rgba(0,0,0,1);
         }
 
         body, html {
             margin: 0; padding: 0;
-            width: 100%; overflow-x: hidden;
-            /* Fon rasmini o'ynamaydigan qilib qat'iy qoraytirish (0.72) va qotirish */
-            background: linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)), url('fon.jpg') no-repeat center center;
+            width: 100%;
+            /* Telefonlarda scroll tiqilib qolmasligi va silliq ishlashi uchun */
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('fon.jpg') no-repeat center center;
             background-size: cover;
             background-attachment: fixed;
-            font-family: 'Cormorant Garamond', serif; 
+            font-family: 'Cormorant Garamond', 'Playfair Display', serif; 
             color: var(--royal-gold);
         }
 
-        /* 🌐 TIL PANEL (LOTIN / KIRILL TUGMALARI) */
+        /* 🌐 DOIMIY QOTIB TURUVCHI TIL PANELI (HAMMA SLAYDDA TURADI) */
         .lang-panel {
-            position: absolute; top: 25px; right: 20px; z-index: 10000; display: flex; gap: 10px;
+            position: fixed; top: 20px; right: 20px; z-index: 10005; display: flex; gap: 8px;
         }
         .lang-btn {
-            background: rgba(20, 15, 10, 0.8); color: var(--royal-gold); border: 1px solid var(--bright-gold);
-            padding: 6px 12px; cursor: pointer; font-family: 'Cinzel Decorative', serif; font-size: 10px;
+            background: rgba(15, 10, 5, 0.85); color: var(--royal-gold); border: 1px solid var(--bright-gold);
+            padding: 6px 14px; cursor: pointer; font-family: 'Cinzel Decorative', serif; font-size: 10px;
             letter-spacing: 1px; transition: 0.3s;
+            /* Tugmani bosganda ko'k rang chiqishini butunlay yo'qotish */
+            outline: none; -webkit-tap-highlight-color: transparent;
         }
         .lang-btn.active { background: var(--bright-gold); color: #000; font-weight: bold; }
 
@@ -46,39 +50,43 @@
             background: radial-gradient(circle, #D4AF37 0%, #8C6221 100%);
             border: 1px solid var(--royal-gold); box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             cursor: pointer; display: flex; justify-content: center; align-items: center;
+            outline: none; -webkit-tap-highlight-color: transparent;
         }
         .royal-audio-btn svg { width: 20px; height: 20px; fill: #000; }
 
-        /* ✉️ ILK MUHRLI EKRAN */
+        /* ✉️ MUHRLI EKRAN */
         #gate-screen {
             position: fixed; top:0; left:0; width:100%; height:100vh;
-            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('fon.jpg') no-repeat center center;
+            background: linear-gradient(rgba(0,0,0,0.88), rgba(0,0,0,0.88)), url('fon.jpg') no-repeat center center;
             background-size: cover; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1), transform 1.5s ease-in-out;
+            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        .wax-seal-container { text-align: center; }
         .wax-seal-trigger {
             width: 110px; height: 110px; border-radius: 50%; margin: 0 auto;
             background: radial-gradient(circle, #941C14 0%, #4A0000 100%);
             border: 3px solid #2B0000; box-shadow: 0 15px 35px rgba(0,0,0,0.9);
             cursor: pointer; display: flex; justify-content: center; align-items: center;
             animation: royalPulse 2.5s infinite ease-in-out;
+            outline: none; -webkit-tap-highlight-color: transparent;
         }
         .wax-seal-trigger span { font-family: 'Pinyon Script', cursive; font-size: 3.2rem; color: var(--royal-gold); }
 
-        /* 👑 ASOSIY STRUKTURA VA MATN SOYALARI */
+        /* 👑 ASOSIY KONTEYNER (MATNLAR) */
         .scroll-wrapper {
-            max-width: 540px; margin: 0 auto; padding: 80px 25px 60px 25px; box-sizing: border-box; text-align: center;
+            max-width: 540px; margin: 0 auto; padding: 90px 25px 60px 25px; box-sizing: border-box; text-align: center;
         }
         .scroll-wrapper p, .scroll-wrapper h1, .scroll-wrapper h2 {
-            text-shadow: var(--text-shadow-blend);
+            text-shadow: var(--shadow-blend);
         }
 
         .baroque-header { 
             font-family: 'Cinzel Decorative', serif; font-size: 13px; 
             letter-spacing: 5px; color: var(--bright-gold); margin-bottom: 5px;
         }
-        .crest-separator { font-size: 2.2rem; color: var(--bright-gold); margin: 25px 0; opacity: 0.85; }
+        
+        /* ⚜️ 18-ASR BIR XIL SHAKLI (SEPARATOR) */
+        .crest-separator { font-size: 2.2rem; color: var(--bright-gold); margin: 30px 0; opacity: 0.9; }
+        .crest-separator::before { content: "⚜"; }
         
         .monarch-names {
             font-family: 'Pinyon Script', cursive; font-size: 5.5rem; font-weight: 400;
@@ -91,7 +99,7 @@
         }
 
         .chronology-box {
-            margin: 40px 0; border-top: 1px solid rgba(212, 175, 55, 0.5); border-bottom: 1px solid rgba(212, 175, 55, 0.5);
+            margin: 40px 0; border-top: 1px solid rgba(212, 175, 55, 0.4); border-bottom: 1px solid rgba(212, 175, 55, 0.4);
             padding: 22px 0; font-family: 'Cinzel Decorative', serif;
         }
         .chrono-date { font-size: 1.25rem; letter-spacing: 2px; color: #fff; font-weight: bold; }
@@ -100,41 +108,42 @@
         .palace-frame {
             margin: 25px auto; width: 100%; border: 1px solid var(--bright-gold); padding: 3px; background: rgba(0,0,0,0.5);
         }
-        .palace-frame img { width: 100%; height: 230px; object-fit: cover; display: block; filter: sepia(0.15) contrast(1.1); }
+        .palace-frame img { width: 100%; height: 230px; object-fit: cover; display: block; filter: sepia(0.1) contrast(1.1); }
 
-        /* ANTIKVAR TUGMALAR */
+        /* ANTIKVAR TUGMALAR (ESTETIK VA KO'KLIKLARDAN HOLI) */
         .btn-antique {
-            display: block; width: 100%; padding: 14px; margin: 15px 0; box-sizing: border-box;
-            background: rgba(20, 15, 10, 0.85); color: var(--bright-gold); border: 1px solid var(--bright-gold);
+            display: block; width: 100%; padding: 15px; margin: 15px 0; box-sizing: border-box;
+            background: rgba(15, 10, 5, 0.85); color: var(--bright-gold); border: 1px solid var(--bright-gold);
             font-family: 'Cinzel Decorative', serif; font-size: 10px; letter-spacing: 3px;
-            cursor: pointer; transition: 0.4s ease; text-decoration: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            cursor: pointer; transition: 0.4s ease; text-decoration: none;
+            outline: none; -webkit-tap-highlight-color: transparent;
         }
-        .btn-antique:hover { background: var(--bright-gold); color: #000; font-weight: bold; box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
+        .btn-antique:hover { background: var(--bright-gold); color: #000; font-weight: bold; }
 
         /* TAYMER */
         .vintage-countdown { display: flex; justify-content: center; gap: 25px; margin: 40px 0; }
-        .v-time-unit { border-bottom: 1px solid rgba(212, 175, 55, 0.5); min-width: 65px; padding-bottom: 8px; }
+        .v-time-unit { border-bottom: 1px solid rgba(212, 175, 55, 0.4); min-width: 65px; padding-bottom: 8px; }
         .v-time-unit span { display: block; font-family: 'Cinzel Decorative', serif; font-size: 2rem; color: var(--bright-gold); }
-        .v-time-unit small { font-size: 0.85rem; color: #fff; }
+        .v-time-unit small { font-size: 0.85rem; color: #fff; font-style: italic; }
 
         /* RSVP FORMA VA INPUTLAR */
         .monarch-form { margin-top: 50px; padding-top: 30px; border-top: 1px double var(--bright-gold); }
         .monarch-input {
-            width: 100%; padding: 14px; margin-bottom: 20px; background: rgba(15, 10, 5, 0.8);
-            border: 1px solid rgba(212, 175, 55, 0.6); box-sizing: border-box;
+            width: 100%; padding: 14px; margin-bottom: 20px; background: rgba(15, 10, 5, 0.85);
+            border: 1px solid rgba(212, 175, 55, 0.5); box-sizing: border-box;
             font-family: 'Cormorant Garamond', serif; font-size: 1.3rem;
-            text-align: center; color: #fff; outline: none; transition: 0.3s;
+            text-align: center; color: #fff; outline: none; -webkit-tap-highlight-color: transparent;
         }
-        .monarch-input:focus { border-color: var(--bright-gold); background: rgba(0,0,0,0.9); }
-        .monarch-input::placeholder { color: rgba(243, 229, 171, 0.4); font-style: italic; }
+        .monarch-input:focus { border-color: var(--bright-gold); }
+        .monarch-input::placeholder { color: rgba(243, 229, 171, 0.35); font-style: italic; }
         
         .monarch-select { display: flex; gap: 15px; margin: 20px 0; }
-        .m-option { flex: 1; padding: 14px; border: 1px solid rgba(212, 175, 55, 0.5); background: rgba(15, 10, 5, 0.8); cursor: pointer; font-family: 'Cinzel Decorative', serif; font-size: 9px; text-align: center; color: var(--royal-gold); transition: 0.3s; }
+        .m-option { flex: 1; padding: 14px; border: 1px solid rgba(212, 175, 55, 0.4); background: rgba(15, 10, 5, 0.85); cursor: pointer; font-family: 'Cinzel Decorative', serif; font-size: 9px; text-align: center; color: var(--royal-gold); outline: none; -webkit-tap-highlight-color: transparent; }
         .m-option.selected { background: var(--bright-gold); color: #000; font-weight: bold; border-color: var(--bright-gold); }
 
         @keyframes royalPulse {
             0% { transform: scale(1); box-shadow: 0 15px 35px rgba(0,0,0,0.9); }
-            50% { transform: scale(1.04); box-shadow: 0 15px 40px rgba(148,28,20,0.6); }
+            50% { transform: scale(1.04); box-shadow: 0 15px 40px rgba(148,28,20,0.5); }
             100% { transform: scale(1); box-shadow: 0 15px 35px rgba(0,0,0,0.9); }
         }
     </style>
@@ -143,16 +152,18 @@
 
     <audio id="royal-bg-music" loop><source src="music.mp3" type="audio/mpeg"></audio>
 
+    <!-- 🌐 DOIMIY TIL PANEL -->
+    <div class="lang-panel">
+        <button class="lang-btn active" id="btn-lang-uz" onclick="changeLanguage('uz')">Lotin</button>
+        <button class="lang-btn" id="btn-lang-kr" onclick="changeLanguage('kr')">Кирилл</button>
+    </div>
+
     <button class="royal-audio-btn" onclick="toggleRoyalMusic()">
         <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
     </button>
 
-    <!-- ✉️ MUHRLI EKRAN & TIL PANELI -->
+    <!-- ✉️ MUHRLI EKRAN -->
     <div id="gate-screen">
-        <div class="lang-panel">
-            <button class="lang-btn active" id="btn-lang-uz" onclick="changeLanguage('uz')">Lotin</button>
-            <button class="lang-btn" id="btn-lang-kr" onclick="changeLanguage('kr')">Кирилл</button>
-        </div>
         <div class="wax-seal-container">
             <p id="seal-title" class="baroque-header" style="font-size: 11px; margin-bottom: 30px; letter-spacing: 5px;">TAKLIFNOMA</p>
             <div class="wax-seal-trigger" onclick="unsealInvitation()">
@@ -165,57 +176,56 @@
     <!-- ASOSIY KARTA -->
     <div class="scroll-wrapper">
         
-        <p id="txt-invitation" class="baroque-header" data-aos="fade-up">TAKLIFNOMA</p>
-        <div class="crest-separator" data-aos="fade-up">⚜</div>
+        <p id="txt-invitation" class="baroque-header" data-aos="fade-in">TAKLIFNOMA</p>
+        <div class="crest-separator" data-aos="fade-in"></div>
         
-        <h1 class="monarch-names" data-aos="fade-up">Otabek & Kumush</h1>
+        <h1 class="monarch-names" data-aos="fade-in">Otabek & Kumush</h1>
         
-        <p id="txt-prose" class="royal-prose" data-aos="fade-up">
+        <p id="txt-prose" class="royal-prose" data-aos="fade-in">
             Hayotimizning eng go'zal va unutilmas kunida siz aziz va qadrli yaqinlarimizni shohona nikoh oqshomimizda ko'rishdan mamnun bo'lamiz. Tashrifingiz to'yimizga yuksak shon-sharaf bag'ishlaydi.
         </p>
 
-        <div class="chronology-box" data-aos="fade-up">
+        <div class="chronology-box" data-aos="fade-in">
             <div id="txt-date" class="chrono-date">YAKSHANBA • 27 DEKABR • 2026</div>
-            <div id="txt-time" class="chrono-time">SOAT 18:00 DA BLING</div>
+            <div id="txt-time" class="chrono-time">SOAT 18:00 DA</div>
         </div>
 
-        <button id="btn-calendar" class="btn-antique" data-aos="fade-up" onclick="downloadRoyalICS()">TAQVIMGA QO'SHISH</button>
+        <button id="btn-calendar" class="btn-antique" data-aos="fade-in" onclick="downloadRoyalICS()">TAQVIMGA QO'SHISH</button>
 
-        <div class="crest-separator" data-aos="fade-up">❖</div>
+        <div class="crest-separator" data-aos="fade-in"></div>
 
-        <p id="txt-venue-title" class="baroque-header" data-aos="fade-up">TANTANA MANZILI</p>
-        <h2 style="font-family: 'Cinzel Decorative', serif; font-size: 1.35rem; margin: 10px 0; color: var(--bright-gold);" data-aos="fade-up">"IDEAL SS" SAROYI</h2>
+        <p id="txt-venue-title" class="baroque-header" data-aos="fade-in">TANTANA MANZILI</p>
+        <h2 style="font-family: 'Cinzel Decorative', serif; font-size: 1.35rem; margin: 10px 0; color: var(--bright-gold);" data-aos="fade-in">"IDEAL SS" SAROYI</h2>
         
-        <div class="palace-frame" data-aos="fade-up">
+        <div class="palace-frame" data-aos="fade-in">
             <img src="saroy.jpg" alt="Ideal SS Palace">
         </div>
 
-        <button class="btn-antique" data-aos="fade-up" onclick="window.open('https://maps.app.goo.gl/1koHhC2uAUGuJLzi7')">GOOGLE MAPS</button>
-        <button class="btn-antique" data-aos="fade-up" onclick="window.open('https://yandex.uz/maps/org/8650108130/')">YANDEX MAPS</button>
+        <button class="btn-antique" data-aos="fade-in" onclick="window.open('https://maps.app.goo.gl/1koHhC2uAUGuJLzi7')">GOOGLE MAPS</button>
+        <button class="btn-antique" data-aos="fade-in" onclick="window.open('https://yandex.uz/maps/org/8650108130/')">YANDEX MAPS</button>
 
-        <div class="crest-separator" data-aos="fade-up">⚜</div>
+        <div class="crest-separator" data-aos="fade-in"></div>
 
-        <!-- 💳 TO'YONA CARD QISMI (SO'ROVINGIZGA KO'RA MUKAMMAL QILINDI) -->
-        <div style="border: 1px solid rgba(212, 175, 55, 0.5); padding: 25px 15px; margin: 35px 0; background: rgba(10,5,0,0.55);" data-aos="fade-up">
+        <!-- 💳 TO'YONA CARD QISMI -->
+        <div style="border: 1px solid rgba(212, 175, 55, 0.4); padding: 25px 15px; margin: 35px 0; background: rgba(15,10,5,0.7);" data-aos="fade-in">
             <p id="txt-card-title" class="baroque-header" style="font-size: 9px;">TO'YONA UCHUN KARTA RAQAMI</p>
             <div style="font-family: 'Cinzel Decorative', monospace; font-size: 1.35rem; font-weight: bold; margin: 10px 0; color: var(--bright-gold); letter-spacing: 1px;">9860 0000 0000 0000</div>
             <div style="font-size: 1.05rem; font-style: italic; margin-bottom: 5px; color: #fff;">Yo'ldoshev Azamat (Humo)</div>
             
-            <!-- To'yona miqdori yoziladigan joy -->
-            <input type="number" id="royal-gift-amount" placeholder="To'yona miqdori (ixtiyoriy)..." class="monarch-input" style="font-size:1.1rem; padding:8px; margin: 15px 0 10px 0; width:90%; border-width:0 0 1px 0;">
+            <input type="number" id="royal-gift-amount" placeholder="To'yona miqdori (ixtiyoriy)..." class="monarch-input" style="font-size:1.1rem; padding:8px; margin: 15px 0 10px 0; width:90%; border-width:0 0 1px 0; background:transparent;">
             
             <button id="btn-copy" class="btn-antique" style="margin:5px 0 0 0; padding:10px;" onclick="copyRoyalCard()">NUSXA OLISH</button>
         </div>
 
         <!-- SANOQ TAYMERI -->
-        <div class="vintage-countdown" data-aos="fade-up">
+        <div class="vintage-countdown" data-aos="fade-in">
             <div class="v-time-unit"><span id="days">00</span><small id="lbl-kun">Kun</small></div>
             <div class="v-time-unit"><span id="hours">00</span><small id="lbl-soat">Soat</small></div>
             <div class="v-time-unit"><span id="mins">00</span><small id="lbl-daqiqa">Daqiqa</small></div>
         </div>
 
         <!-- RSVP MEHMON FORMASI -->
-        <div class="monarch-form" data-aos="fade-up">
+        <div class="monarch-form" data-aos="fade-in">
             <p id="txt-rsvp-title" class="baroque-header">TASHRIFINGIZNI TASDIQLANG</p>
             <form id="royal-rsvp-form">
                 <input type="text" id="guest-monarch" placeholder="Ismingiz..." required class="monarch-input">
@@ -231,17 +241,16 @@
             <p id="royal-success" style="display:none; font-style: italic; color: var(--bright-gold); margin-top:15px; font-size: 1.2rem;">Rahmat! Javobingiz qabul qilindi.</p>
         </div>
 
-        <p id="txt-footer" style="font-family: 'Pinyon Script', cursive; font-size: 4.5rem; color: var(--bright-gold); margin-top: 50px; margin-bottom: 0;" data-aos="fade-up">Sizni kutamiz</p>
+        <p id="txt-footer" style="font-family: 'Pinyon Script', cursive; font-size: 4.5rem; color: var(--bright-gold); margin-top: 50px; margin-bottom: 0;" data-aos="fade-in">Sizni kutamiz</p>
     </div>
 
-    <!-- Mayin scroll animatsiyalari skripti -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         const audio = document.getElementById('royal-bg-music');
         let selectedStatus = "";
         let currentLang = "uz";
 
-        // Tarjima ma'lumotlari bazasi
+        // MUKAMMAL ARISTOKRATIK LOTIN VA KIRILL TARJIMASI
         const translations = {
             uz: {
                 sealTitle: "TAKLIFNOMA", sealSub: "Ochish uchun muhr ustiga bosing",
@@ -250,7 +259,8 @@
                 giftPlace: "To'yona miqdori (ixtiyoriy)...", copy: "NUSXA OLISH", rsvpTitle: "TASHRIFINGIZNI TASDIQLANG",
                 inputPlace: "Ismingiz...", optYes: "Tashrif buyuraman", optNo: "Afsuski borolmayman",
                 submit: "TASDIQLASH", success: "Rahmat! Javobingiz qabul qilindi.", footer: "Sizni kutamiz",
-                kun: "Kun", soat: "Soat", daqiqa: "Daqiqa", copied: "✓ NUSXALANDI"
+                kun: "Kun", soat: "Soat", daqiqa: "Daqiqa", copied: "✓ NUSXALANDI",
+                prose: "Hayotimizning eng go'zal va unutilmas kunida siz aziz va qadrli yaqinlarimizni shohona nikoh oqshomimizda ko'rishdan mamnun bo'lamiz. Tashrifingiz to'yimizga yuksak shon-sharaf bag'ishlaydi."
             },
             kr: {
                 sealTitle: "ТАКЛИФНОМА", sealSub: "Очиш учун муҳр устига босинг",
@@ -259,7 +269,8 @@
                 giftPlace: "Тўёна миқдори (ихтиёрий)...", copy: "НУСХА ОЛИШ", rsvpTitle: "ТАШРИФИНГИЗНИ ТАСДИҚЛАНГ",
                 inputPlace: "Исмингиз...", optYes: "Ташриф буюраман", optNo: "Афсуски боролмайман",
                 submit: "ТАСДИҚЛАШ", success: "Раҳмат! Жавобингиз қабул қилинди.", footer: "Сизни кутамиз",
-                kun: "Кун", soat: "Соат", daqiqa: "Дақиқа", copied: "✓ НУСХАЛАНДИ"
+                kun: "Кун", soat: "Соат", daqiqa: "Дақиқа", copied: "✓ НУСХАЛАНДИ",
+                prose: "Ҳаётимизнинг энг гўзал ва унутилмас кунида сиз азиз ва қадрли яқинларимизни шоҳона никоҳ оқшомимизда кўришдан мамнун бўламиз. Ташрифингиз тўйимизга юксак шон-шараф бағишлайди."
             }
         };
 
@@ -273,6 +284,7 @@
             document.getElementById('seal-title').innerText = t.sealTitle;
             document.getElementById('seal-sub').innerText = t.sealSub;
             document.getElementById('txt-invitation').innerText = t.invitation;
+            document.getElementById('txt-prose').innerText = t.prose;
             document.getElementById('txt-date').innerText = t.date;
             document.getElementById('txt-time').innerText = t.time;
             document.getElementById('btn-calendar').innerText = t.calendar;
@@ -294,12 +306,12 @@
 
         function unsealInvitation() {
             document.getElementById('gate-screen').style.opacity = '0';
-            setTimeout(() => { document.getElementById('gate-screen').style.display = 'none'; }, 1500);
-            audio.play().catch(e => console.log("Musiqa chalinmadi"));
+            setTimeout(() => { document.getElementById('gate-screen').style.display = 'none'; }, 1200);
+            audio.play().catch(e => console.log("Musiqa faollashmadi."));
             setTimeout(() => { 
-                AOS.init({ once: true, duration: 1200 }); 
+                AOS.init({ once: true, duration: 1000, delay: 0 }); 
                 setInterval(updateRoyalTimer, 1000); 
-            }, 200);
+            }, 100);
         }
 
         function toggleRoyalMusic() { if (audio.paused) { audio.play(); } else { audio.pause(); } }
