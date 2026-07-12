@@ -9,88 +9,97 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
-        :root { --royal-gold: #F3E5AB; --bright-gold: #D4AF37; }
-        body, html { margin: 0; padding: 0; width: 100%; overflow-x: hidden; background: #000;
-            background-image: linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)), url('fon.jpg');
-            background-attachment: fixed; background-size: cover; background-position: center;
-            font-family: 'Cormorant Garamond', serif; color: var(--royal-gold);
-        }
-
-        /* Til paneli */
-        .lang-panel { position: fixed; top: 25px; right: 20px; z-index: 10000; display: flex; gap: 10px; }
-        .lang-btn { background: rgba(20, 15, 10, 0.8); color: var(--royal-gold); border: 1px solid var(--bright-gold); padding: 6px 12px; cursor: pointer; font-family: 'Cinzel Decorative', serif; font-size: 10px; }
+        :root { --royal-gold: #F3E5AB; --bright-gold: #D4AF37; --text-shadow-blend: 0 2px 10px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,1); }
+        body, html { margin: 0; padding: 0; width: 100%; overflow-x: hidden; background-color: #000; background-image: linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)), url('fon.jpg'); background-repeat: no-repeat; background-position: center center; background-size: cover; background-attachment: fixed; font-family: 'Cormorant Garamond', serif; color: var(--royal-gold); }
+        .lang-panel { position: absolute; top: 25px; right: 20px; z-index: 10000; display: flex; gap: 10px; }
+        .lang-btn { background: rgba(20, 15, 10, 0.8); color: var(--royal-gold); border: 1px solid var(--bright-gold); padding: 6px 12px; cursor: pointer; font-family: 'Cinzel Decorative', serif; font-size: 10px; letter-spacing: 1px; transition: 0.3s; }
         .lang-btn.active { background: var(--bright-gold); color: #000; font-weight: bold; }
-
-        /* Muhr ekrani */
-        #gate-screen { position: fixed; top:0; left:0; width:100%; height:100vh; background: #000; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 1.5s ease; }
-        .wax-seal-trigger { width: 110px; height: 110px; border-radius: 50%; background: radial-gradient(circle, #941C14 0%, #4A0000 100%); display: flex; justify-content: center; align-items: center; cursor: pointer; animation: royalPulse 2.5s infinite; }
-        @keyframes royalPulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-
-        /* Kontent */
-        .scroll-wrapper { max-width: 540px; margin: 0 auto; padding: 80px 25px; text-align: center; }
-        .monarch-names { font-family: 'Pinyon Script', cursive; font-size: 5rem; color: var(--bright-gold); }
-        .btn-antique { display: block; width: 100%; padding: 14px; margin: 15px 0; background: rgba(20, 15, 10, 0.85); color: var(--bright-gold); border: 1px solid var(--bright-gold); cursor: pointer; font-family: 'Cinzel Decorative', serif; }
+        .royal-audio-btn { position: fixed; bottom: 30px; right: 30px; z-index: 1000; width: 50px; height: 50px; border-radius: 50%; background: radial-gradient(circle, #D4AF37 0%, #8C6221 100%); border: 1px solid var(--royal-gold); box-shadow: 0 10px 30px rgba(0,0,0,0.8); cursor: pointer; display: flex; justify-content: center; align-items: center; }
+        .royal-audio-btn svg { width: 20px; height: 20px; fill: #000; }
+        #gate-screen { position: fixed; top:0; left:0; width:100%; height:100vh; background-color: #000; background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('fon.jpg'); background-attachment: fixed; background-size: cover; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 1.5s ease; }
+        .wax-seal-trigger { width: 110px; height: 110px; border-radius: 50%; background: radial-gradient(circle, #941C14 0%, #4A0000 100%); border: 3px solid #2B0000; cursor: pointer; display: flex; justify-content: center; align-items: center; animation: royalPulse 2.5s infinite; }
+        .scroll-wrapper { max-width: 540px; margin: 0 auto; padding: 80px 25px 60px 25px; text-align: center; }
+        .monarch-names { font-family: 'Pinyon Script', cursive; font-size: 5.5rem; color: var(--bright-gold); margin: 20px 0; }
+        .btn-antique { display: block; width: 100%; padding: 14px; margin: 15px 0; background: rgba(20, 15, 10, 0.85); color: var(--bright-gold); border: 1px solid var(--bright-gold); font-family: 'Cinzel Decorative', serif; font-size: 10px; cursor: pointer; }
         .btn-antique:hover { background: var(--bright-gold); color: #000; }
-        
-        .vintage-countdown { display: flex; justify-content: center; gap: 20px; margin: 30px 0; }
-        .v-time-unit { border-bottom: 1px solid var(--bright-gold); padding: 5px; min-width: 60px; }
+        .monarch-input { width: 100%; padding: 14px; margin-bottom: 20px; background: rgba(15, 10, 5, 0.8); border: 1px solid rgba(212, 175, 55, 0.6); color: #fff; text-align: center; }
+        .m-option { flex: 1; padding: 14px; border: 1px solid var(--bright-gold); cursor: pointer; font-family: 'Cinzel Decorative', serif; font-size: 9px; }
+        .m-option.selected { background: var(--bright-gold); color: #000; }
+        @keyframes royalPulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
-
     <audio id="royal-bg-music" loop><source src="music.mp3" type="audio/mpeg"></audio>
 
-    <div id="gate-screen">
-        <div class="wax-seal-trigger" onclick="unsealInvitation()">
-            <span style="font-family: 'Pinyon Script', cursive; font-size: 3rem; color: #F3E5AB;">O & K</span>
-        </div>
-        <p id="txt-tap" style="color:#fff; margin-top:20px;">Ochish uchun muhr ustiga bosing</p>
-    </div>
+    <button class="royal-audio-btn" onclick="toggleRoyalMusic()"><svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg></button>
 
-    <div class="lang-panel">
-        <button class="lang-btn active" id="btn-uz" onclick="changeLanguage('uz')">Lotin</button>
-        <button class="lang-btn" id="btn-kr" onclick="changeLanguage('kr')">Кирилл</button>
+    <div id="gate-screen">
+        <div class="lang-panel">
+            <button class="lang-btn active" id="btn-lang-uz" onclick="changeLanguage('uz')">Lotin</button>
+            <button class="lang-btn" id="btn-lang-kr" onclick="changeLanguage('kr')">Кирилл</button>
+        </div>
+        <div class="wax-seal-trigger" onclick="unsealInvitation()">
+            <span style="font-family: 'Pinyon Script', cursive; font-size: 3.2rem; color: var(--royal-gold);">O & K</span>
+        </div>
+        <p id="seal-sub" style="color:#fff; margin-top:30px;">Ochish uchun muhr ustiga bosing</p>
     </div>
 
     <div class="scroll-wrapper">
-        <h1 id="txt-title" class="monarch-names" data-aos="fade-up">Otabek & Kumush</h1>
-        <p id="txt-prose" data-aos="fade-up">Hayotimizning eng go'zal kunida sizni kutamiz.</p>
+        <h1 class="monarch-names" id="txt-names" data-aos="fade-up">Otabek & Kumush</h1>
+        <div class="chronology-box">
+            <div id="txt-date" class="chrono-date">YAKSHANBA • 27 DEKABR • 2026</div>
+        </div>
         
-        <div class="vintage-countdown" data-aos="fade-up">
+        <div class="vintage-countdown" style="display:flex; justify-content:center; gap:20px;">
             <div class="v-time-unit"><span id="days">00</span><small id="lbl-kun">Kun</small></div>
             <div class="v-time-unit"><span id="hours">00</span><small id="lbl-soat">Soat</small></div>
-            <div class="v-time-unit"><span id="mins">00</span><small id="lbl-min">Daqiqa</small></div>
+            <div class="v-time-unit"><span id="mins">00</span><small id="lbl-daqiqa">Daqiqa</small></div>
         </div>
 
-        <button id="btn-map" class="btn-antique" onclick="window.open('https://maps.app.goo.gl/1koHhC2uAUGuJLzi7')">MANZIL</button>
+        <button id="btn-copy" class="btn-antique" onclick="copyRoyalCard()">NUSXA OLISH</button>
+        
+        <form id="royal-rsvp-form">
+            <input type="text" id="guest-monarch" placeholder="Ismingiz..." class="monarch-input">
+            <div class="monarch-select" style="display:flex; gap:10px;">
+                <div class="m-option" id="opt-yes" onclick="selectRoyalStatus('Boraman', this)">Tashrif buyuraman</div>
+                <div class="m-option" id="opt-no" onclick="selectRoyalStatus('Borolmayman', this)">Afsuski borolmayman</div>
+            </div>
+        </form>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         const translations = {
-            uz: { tap: "Ochish uchun muhr ustiga bosing", title: "Otabek & Kumush", prose: "Hayotimizning eng go'zal kunida sizni kutamiz.", kun: "Kun", soat: "Soat", min: "Daqiqa", map: "MANZIL" },
-            kr: { tap: "Очиш учун муҳр устига босинг", title: "Отабек & Кумуш", prose: "Ҳаётимизнинг энг гўзал кунида сизни кутамиз.", kun: "Кун", soat: "Соат", min: "Дақиқа", map: "МАНЗИЛ" }
+            uz: { seal: "Ochish uchun muhr ustiga bosing", date: "YAKSHANBA • 27 DEKABR • 2026", kun: "Kun", soat: "Soat", daqiqa: "Daqiqa", copy: "NUSXA OLISH", yes: "Tashrif buyuraman", no: "Afsuski borolmayman" },
+            kr: { seal: "Очиш учун муҳр устига босинг", date: "ЯКШАНБА • 27 ДЕКАБРЬ • 2026", kun: "Кун", soat: "Соат", daqiqa: "Дақиқа", copy: "НУСХА ОЛИШ", yes: "Ташриф буюраман", no: "Афсуски боролмайман" }
         };
 
         function changeLanguage(lang) {
             const t = translations[lang];
-            document.getElementById('txt-tap').innerText = t.tap;
-            document.getElementById('txt-title').innerText = t.title;
-            document.getElementById('txt-prose').innerText = t.prose;
+            document.getElementById('seal-sub').innerText = t.seal;
+            document.getElementById('txt-date').innerText = t.date;
             document.getElementById('lbl-kun').innerText = t.kun;
             document.getElementById('lbl-soat').innerText = t.soat;
-            document.getElementById('lbl-min').innerText = t.min;
-            document.getElementById('btn-map').innerText = t.map;
-            document.getElementById('btn-uz').classList.toggle('active', lang === 'uz');
-            document.getElementById('btn-kr').classList.toggle('active', lang === 'kr');
+            document.getElementById('lbl-daqiqa').innerText = t.daqiqa;
+            document.getElementById('btn-copy').innerText = t.copy;
+            document.getElementById('opt-yes').innerText = t.yes;
+            document.getElementById('opt-no').innerText = t.no;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.id === (lang === 'uz' ? 'btn-lang-uz' : 'btn-lang-kr')));
         }
 
         function unsealInvitation() {
             document.getElementById('gate-screen').style.opacity = '0';
             setTimeout(() => document.getElementById('gate-screen').style.display = 'none', 1500);
             document.getElementById('royal-bg-music').play();
-            AOS.init({ duration: 1200, once: true });
+            AOS.init({ once: true, duration: 1200 });
         }
+
+        function toggleRoyalMusic() { const a = document.getElementById('royal-bg-music'); a.paused ? a.play() : a.pause(); }
+        function selectRoyalStatus(val, el) { 
+            document.querySelectorAll('.m-option').forEach(o => o.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+        function copyRoyalCard() { navigator.clipboard.writeText("9860000000000000"); alert("Karta raqami nusxalandi!"); }
     </script>
 </body>
 </html>
