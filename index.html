@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Nikoh Oqshomi | Otabek & Kumush</title>
     
-    <!-- 18-asr muhitini beruvchi mukammal shriftlar -->
+    <!-- Shohona shriftlar -->
     <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
-    <!-- Mayin animatsiyalar kutubxonasi -->
+    <!-- Mayin animatsiyalar -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
@@ -19,7 +19,6 @@
 
         * {
             box-sizing: border-box;
-            /* Tugmalarni bosganda chiqadigan ko'k ranglarni butunlay o'chirish */
             outline: none;
             -webkit-tap-highlight-color: transparent;
         }
@@ -33,15 +32,15 @@
             color: var(--royal-gold);
         }
 
-        /* 🖼 TOShDEK QOTGAN FON RASMI (Telefonlar uchun eng xavfsiz usul) */
+        /* 🖼 SIZNING "fon.jpg" RASMINGIZ (Telefonlarda qotmaydigan eng toza CSS usuli) */
         .bg-fixed-layer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
-            background: linear-gradient(rgba(0,0,0,0.76), rgba(0,0,0,0.76)), url('fon.jpg') no-repeat center center;
+            background: linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.78)), url('fon.jpg') no-repeat center center;
             background-size: cover;
         }
 
-        /* 🌐 DOIMIY QOTIB TURUVCHI TIL PANELI (Hamma slaydda chiroyli turadi) */
+        /* 🌐 TIL PANELI */
         .lang-panel {
             position: fixed; top: 20px; right: 20px; z-index: 10005; display: flex; gap: 8px;
         }
@@ -62,10 +61,10 @@
         }
         .royal-audio-btn svg { width: 20px; height: 20px; fill: #000; }
 
-        /* ✉️ MUHRLI EKRAN (Yozuvlari mukammal tartiblandi va markazga keltirildi) */
+        /* ✉️ MUHRLI EKRAN (Yozuvlar va muhr mutlaqo markazda joylashgan) */
         #gate-screen {
             position: fixed; top:0; left:0; width:100%; height:100vh;
-            background: linear-gradient(rgba(0,0,0,0.88), rgba(0,0,0,0.88)), url('fon.jpg') no-repeat center center;
+            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('fon.jpg') no-repeat center center;
             background-size: cover; z-index: 9999; 
             display: flex; justify-content: center; align-items: center;
             transition: opacity 1s ease-in-out;
@@ -95,7 +94,6 @@
             letter-spacing: 5px; color: var(--bright-gold); margin-bottom: 5px;
         }
         
-        /* ⚜️ 18-ASR BIR XIL SHAKLI */
         .crest-separator { font-size: 2.2rem; color: var(--bright-gold); margin: 35px 0; opacity: 0.9; }
         .crest-separator::before { content: "⚜"; }
         
@@ -121,7 +119,6 @@
         }
         .palace-frame img { width: 100%; height: 230px; object-fit: cover; display: block; filter: sepia(0.1) contrast(1.1); }
 
-        /* ANTIKVAR TUGMALAR */
         .btn-antique {
             display: block; width: 100%; padding: 15px; margin: 15px 0; box-sizing: border-box;
             background: rgba(15, 10, 5, 0.85); color: var(--bright-gold); border: 1px solid var(--bright-gold);
@@ -130,13 +127,11 @@
         }
         .btn-antique:hover { background: var(--bright-gold); color: #000; font-weight: bold; }
 
-        /* TAYMER */
         .vintage-countdown { display: flex; justify-content: center; gap: 25px; margin: 40px 0; }
         .v-time-unit { border-bottom: 1px solid rgba(212, 175, 55, 0.4); min-width: 65px; padding-bottom: 8px; }
         .v-time-unit span { display: block; font-family: 'Cinzel Decorative', serif; font-size: 2rem; color: var(--bright-gold); }
         .v-time-unit small { font-size: 0.85rem; color: #fff; font-style: italic; }
 
-        /* RSVP FORMA VA INPUTLAR */
         .monarch-form { margin-top: 50px; padding-top: 30px; border-top: 1px double var(--bright-gold); }
         .monarch-input {
             width: 100%; padding: 14px; margin-bottom: 20px; background: rgba(15, 10, 5, 0.85);
@@ -160,12 +155,11 @@
 </head>
 <body>
 
-    <!-- TOSHeDK QOTGAN FON FOYDALANUVChI QATlAMI -->
+    <!-- SIZNING YO'QOLMAYDIGAN FON RASMINGIZ SHU YERDA CHIQADI -->
     <div class="bg-fixed-layer"></div>
 
     <audio id="royal-bg-music" loop><source src="music.mp3" type="audio/mpeg"></audio>
 
-    <!-- 🌐 TIL PANEL (HAMMA JOYDA KO'RINIB TURADI) -->
     <div class="lang-panel">
         <button class="lang-btn active" id="btn-lang-uz" onclick="changeLanguage('uz')">Lotin</button>
         <button class="lang-btn" id="btn-lang-kr" onclick="changeLanguage('kr')">Кирилл</button>
@@ -175,7 +169,7 @@
         <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
     </button>
 
-    <!-- ✉️ MUHRLI EKRAN (SOChILMAYDIGAN QILIB MARKAZLANISHI MUKAMMAL BO'LDI) -->
+    <!-- ✉️ TARTIBLI KONVERT (HAMMASI TEKIS VA MARKAZDA) -->
     <div id="gate-screen">
         <div class="wax-seal-container">
             <p id="seal-title" class="baroque-header" style="font-size: 12px; letter-spacing: 6px;">TAKLIFNOMA</p>
@@ -189,7 +183,7 @@
     <!-- ASOSIY KARTA -->
     <div class="scroll-wrapper">
         
-        <!-- Yozuvlar sekin mayin va chiroyli paydo bo'ladi -->
+        <!-- Yozuvlar sekin, mayin paydo bo'ladigan animatsiya (fade-up) -->
         <p id="txt-invitation" class="baroque-header" data-aos="fade-up">TAKLIFNOMA</p>
         <div class="crest-separator" data-aos="fade-up"></div>
         
@@ -212,7 +206,7 @@
         <h2 style="font-family: 'Cinzel Decorative', serif; font-size: 1.35rem; margin: 10px 0; color: var(--bright-gold);" data-aos="fade-up">"IDEAL SS" SAROYI</h2>
         
         <div class="palace-frame" data-aos="fade-up">
-            <img src="saroy.jpg" alt="Ideal SS Palace">
+            <img src="saroy.jpg" alt="Ideal Palace">
         </div>
 
         <button class="btn-antique" data-aos="fade-up" onclick="window.open('https://maps.app.goo.gl/1koHhC2uAUGuJLzi7')">GOOGLE MAPS</button>
@@ -238,7 +232,7 @@
             <div class="v-time-unit"><span id="mins">00</span><small id="lbl-daqiqa">Daqiqa</small></div>
         </div>
 
-        <!-- RSVP MEHMON FORMASI -->
+        <!-- RSVP FORMA -->
         <div class="monarch-form" data-aos="fade-up">
             <p id="txt-rsvp-title" class="baroque-header">TASHRIFINGIZNI TASDIQLANG</p>
             <form id="royal-rsvp-form">
