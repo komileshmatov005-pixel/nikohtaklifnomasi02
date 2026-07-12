@@ -2,305 +2,295 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Royal Secret - 1756</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qirollik Nikoh Oqshomi - 1756</title>
     
-    <!-- Aristokratik shriftlar -->
-    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+    <!-- 18-asr xattotlik va qirollik shriftlari -->
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
         :root {
-            --gold: #D4AF37;
-            --dark: #120B06;
+            --gold: #C5A059;
+            --dark-gold: #8C6221;
+            --text-color: #2A1A0C;
         }
 
-        /* Ekran to'liq statik o'yin maydoni */
         body, html {
-            margin: 0; padding: 0; width: 100%; height: 100vh;
-            overflow: hidden; background-color: var(--dark);
-            font-family: 'Cormorant Garamond', serif;
-            -webkit-user-select: none; user-select: none;
+            margin: 0; padding: 0;
+            /* 1-YUKLANADIGAN RASM: Saroy devor qog'ozi foni */
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('fon.jpg');
+            background-size: cover; background-attachment: fixed; background-position: center;
+            font-family: 'Cormorant Garamond', serif; color: var(--text-color);
+            scroll-behavior: smooth;
         }
 
-        /* Atmosfera: Qorong'i saroy xonasi */
-        .room-stage {
-            position: relative; width: 100%; height: 100vh;
-            background: radial-gradient(circle at 50% 40%, #3a2617 0%, #0e0703 100%);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: background 2s ease;
-        }
-
-        /* Xona yorishgandagi holat */
-        .room-stage.enlightened {
-            background: radial-gradient(circle at 50% 40%, #6e482d 0%, #1c0f07 100%);
-        }
-
-        /* 1. SEHRLI SHAM */
-        .candle-holder {
-            position: absolute; top: 15%; text-align: center; cursor: pointer; z-index: 10;
-        }
-        .flame {
-            width: 16px; height: 26px; background: #ffaa44; border-radius: 50% 50% 20% 20%;
-            margin: 0 auto; box-shadow: 0 0 20px #ffaa44, 0 0 40px #ff5500;
-            animation: flicker 0.1s infinite alternate; opacity: 0.4; transition: 0.5s;
-        }
-        .candle-holder.active .flame {
-            background: #ffeedd; box-shadow: 0 0 30px #ffaa44, 0 0 60px #ffaa44, 0 0 100px #ff5500;
-            opacity: 1; transform: scale(1.2);
-        }
-        .wax-stick {
-            width: 8px; height: 40px; background: #e2cbb4; margin: 0 auto; border-radius: 2px;
-        }
-        .candle-hint {
-            color: var(--gold); font-family: 'Cinzel Decorative', serif; font-size: 9px;
-            letter-spacing: 2px; margin-top: 10px; opacity: 0.7; animation: pulse 1.5s infinite;
-        }
-
-        /* 2. SIRLI XAT (MUM MUHR BILAN) */
-        .ancient-letter {
-            position: absolute; bottom: 35%; width: 140px; height: 90px;
-            background: #e6d5b8; border-radius: 4px; box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+        /* PREMIUM VINTAGE KONTROLLER */
+        .royal-audio-btn {
+            position: fixed; bottom: 30px; right: 30px; z-index: 1000;
+            width: 60px; height: 60px; border-radius: 50%;
+            background: radial-gradient(circle, #E6C787 0%, #A3702C 100%);
+            border: 2px solid #fff; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             cursor: pointer; display: flex; justify-content: center; align-items: center;
-            transform: scale(0.9) rotate(-3deg); transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0.3; pointer-events: none; z-index: 5;
         }
-        .ancient-letter.reveal { opacity: 1; pointer-events: auto; transform: scale(1) rotate(-3deg); }
+        .royal-audio-btn svg { width: 28px; height: 28px; fill: #2A1A0C; }
+
+        /* KIRISH: 18-ASR KONVERTI */
+        #gate-screen {
+            position: fixed; top:0; left:0; width:100%; height:100vh;
+            background: radial-gradient(circle at center, #3A2312 0%, #0F0804 100%);
+            z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: all 1.8s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .wax-seal-trigger {
+            width: 120px; height: 120px; border-radius: 50%;
+            background: radial-gradient(circle, #941C14 0%, #520B06 100%);
+            border: 4px solid #3B0502; box-shadow: inset 0 4px 10px rgba(0,0,0,0.8), 0 15px 30px rgba(0,0,0,0.6);
+            cursor: pointer; display: flex; justify-content: center; align-items: center;
+            animation: breathe 3s infinite ease-in-out;
+        }
+        .wax-seal-trigger span {
+            font-family: 'Pinyon Script', cursive; font-size: 3.5rem; color: #E6C787; transform: rotate(-5deg);
+        }
+
+        /* ASOSIY SCROLL KARTASI */
+        .scroll-wrapper {
+            max-width: 500px; margin: 0 auto; padding: 40px 15px; box-sizing: border-box;
+        }
+
+        /* 2-YUKLANADIGAN RASM: Sarg'aygan qog'oz sirti */
+        .parchment-body {
+            background: url('pergament.png'); background-size: 100% 100%;
+            padding: 80px 45px; text-align: center; position: relative;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+        }
+
+        /* BAROKKO DEKORLARI */
+        .baroque-header { font-family: 'Cinzel Decorative', serif; font-size: 11px; letter-spacing: 4px; color: #5C3D1B; margin-bottom: 5px; }
+        .crest-separator { font-size: 2rem; color: var(--dark-gold); margin: 20px 0; line-height: 1; }
         
-        .wax-seal {
-            width: 45px; height: 45px; background: #8a1414; border-radius: 50%;
-            border: 2px solid #5e0b0b; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
-            display: flex; justify-content: center; align-items: center;
-            font-family: 'Pinyon Script', cursive; color: var(--gold); font-size: 1.5rem;
+        .monarch-names {
+            font-family: 'Pinyon Script', cursive; font-size: 5rem; font-weight: 400;
+            margin: 30px 0; color: #1F1107; line-height: 0.9;
+            text-shadow: 1px 1px 1px rgba(255,255,255,0.6);
         }
 
-        /* XAT OCHILGANDAGI MODAL OYNA */
-        .letter-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: rgba(18, 11, 6, 0.95); z-index: 100;
-            display: none; justify-content: center; align-items: center;
-        }
-        .parchment-scroll {
-            width: 85%; max-width: 400px; background: #f2e3c6; padding: 40px 25px;
-            border: 1px solid #c2a673; box-shadow: 0 0 50px rgba(0,0,0,0.8);
-            text-align: center; color: #2a1a0c; position: relative;
-            transform: translateY(50px); opacity: 0; transition: all 0.8s ease;
-        }
-        .parchment-scroll.open { transform: translateY(0); opacity: 1; }
-        
-        .parchment-scroll::before {
-            content: ''; position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px;
-            border: 1px solid rgba(138, 94, 46, 0.3);
+        .royal-prose {
+            font-size: 1.3rem; line-height: 1.8; font-style: italic; color: #362211;
+            padding: 0 10px; font-weight: 500; text-align: justify; text-align-last: center;
         }
 
-        /* 3. INTERAKTIV TUGMALAR (AKTLAR) */
-        .act-navigator {
-            display: flex; justify-content: center; gap: 10px; margin-top: 25px;
+        /* SANA BLOKI */
+        .chronology-box {
+            margin: 40px 0; border-top: 1px solid var(--dark-gold); border-bottom: 1px solid var(--dark-gold);
+            padding: 20px 0; font-family: 'Cinzel Decorative', serif;
         }
-        .act-btn {
-            background: #2a1a0c; color: #f2e3c6; border: 1px solid var(--gold);
-            padding: 6px 12px; font-family: 'Cinzel Decorative', serif; font-size: 10px; cursor: pointer;
-        }
-        .act-btn.active { background: var(--gold); color: #2a1a0c; font-weight: bold; }
+        .chrono-date { font-size: 1.2rem; letter-spacing: 3px; color: #1F1107; font-weight: bold; }
+        .chrono-time { font-size: 1rem; color: #7A531C; display: block; margin-top: 10px; letter-spacing: 2px; }
 
-        /* AKTLAR KONTENTI */
-        .act-content { display: none; min-height: 180px; }
-        .act-content.active { display: block; animation: fadeIn 0.5s ease; }
-
-        /* CLOSE TUGMASI */
-        .close-parchment {
-            position: absolute; bottom: -50px; left: 50%; transform: translateX(-50%);
-            color: var(--gold); font-family: 'Cinzel Decorative', serif; font-size: 12px;
-            cursor: pointer; letter-spacing: 2px;
+        /* TANTANA SAROYI (3-YUKLANADIGAN RASM) */
+        .palace-frame {
+            margin: 30px auto; width: 100%; border: 1px solid var(--dark-gold); padding: 4px; background: #FAF5EB;
         }
+        .palace-frame img { width: 100%; height: 230px; object-fit: cover; filter: sepia(0.5) contrast(1.1); }
 
-        /* AMALDA O'ZGARISH EFFEKTLARI */
-        @keyframes flicker {
-            0% { transform: rotate(-1deg) scale(0.98); }
-            100% { transform: rotate(1deg) scale(1.02); }
+        /* ANTIQA TUGMALAR */
+        .btn-antique {
+            display: block; width: 100%; padding: 15px; margin: 15px 0; box-sizing: border-box;
+            background: #2A1A0C; color: #F5E6CC; border: 1px solid var(--gold);
+            font-family: 'Cinzel Decorative', serif; font-size: 10px; letter-spacing: 3px;
+            text-decoration: none; cursor: pointer; transition: 0.4s;
         }
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; } to { opacity: 1; }
-        }
+        .btn-antique:hover { background: transparent; color: #2A1A0C; border: 1px solid #2A1A0C; font-weight: bold; }
 
-        /* Matn uslublari */
-        .royal-title { font-family: 'Cinzel Decorative', serif; font-size: 13px; letter-spacing: 3px; color: #6e482d; margin-bottom: 0; }
-        .royal-names { font-family: 'Pinyon Script', cursive; font-size: 4rem; margin: 15px 0; font-weight: 400; line-height: 1; }
-        .royal-text { font-size: 1.15rem; line-height: 1.6; font-style: italic; color: #3a2617; }
-        
-        .info-table { width: 100%; margin: 15px 0; font-family: 'Cinzel Decorative', serif; font-size: 11px; color: #2a1a0c; }
-        .info-table td { padding: 5px; border-bottom: 1px dashed rgba(138, 94, 46, 0.4); }
+        /* TAYMER SANDIG'I */
+        .vintage-countdown { display: flex; justify-content: center; gap: 25px; margin: 40px 0; }
+        .v-time-unit { border-bottom: 1px solid var(--dark-gold); min-width: 60px; padding-bottom: 8px; }
+        .v-time-unit span { display: block; font-family: 'Cinzel Decorative', serif; font-size: 1.8rem; color: #1F1107; }
+        .v-time-unit small { font-size: 0.8rem; font-style: italic; color: #5C3D1B; }
 
+        /* OLTIN TILLOHIYA FORM (RSVP) */
+        .monarch-form { margin-top: 50px; padding-top: 30px; border-top: 1px double var(--dark-gold); }
         .monarch-input {
-            width: 100%; background: transparent; border: none; border-bottom: 1px solid #6e482d;
-            padding: 8px; text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; outline: none; font-style: italic;
+            width: 100%; padding: 12px; margin-bottom: 15px; background: transparent;
+            border: none; border-bottom: 1px solid var(--dark-gold); box-sizing: border-box;
+            font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-style: italic;
+            text-align: center; color: #1F1107; outline: none;
+        }
+        .monarch-select { display: flex; gap: 15px; margin: 20px 0; }
+        .m-option { flex: 1; padding: 12px; border: 1px solid var(--dark-gold); cursor: pointer; font-family: 'Cinzel Decorative', serif; font-size: 9px; transition: 0.3s; }
+        .m-option.selected { background: #2A1A0C; color: #F5E6CC; }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); box-shadow: 0 15px 30px rgba(0,0,0,0.6); }
+            50% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(148,28,20,0.8); }
         }
     </style>
 </head>
 <body>
 
-    <!-- ASOSIY O'YIN MAYDONI -->
-    <div class="room-stage" id="stage">
-        
-        <!-- 1. SHAM (BUNYODKOR) -->
-        <div class="candle-holder" id="candle" onclick="igniteRoom()">
-            <div class="flame"></div>
-            <div class="wax-stick"></div>
-            <p class="candle-hint" id="candle-text">SHAMNI YOQING</p>
-        </div>
+    <!-- 4-YUKLANADIGAN NERSA: Fon musiqa o'rni -->
+    <audio id="royal-bg-music" loop><source src="music.mp3" type="audio/mpeg"></audio>
 
-        <!-- 2. SIRLI XAT -->
-        <div class="ancient-letter" id="letter" onclick="openLetter()">
-            <div class="wax-seal">O & K</div>
-        </div>
+    <!-- FON MUSIQA BOSHQARUVI -->
+    <button class="royal-audio-btn" onclick="toggleRoyalMusic()">
+        <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+    </button>
 
+    <!-- DARVOZA: LAKLI MUHR (ESKI KONVERT) -->
+    <div id="gate-screen">
+        <div class="wax-seal-trigger" onclick="unsealInvitation()">
+            <span>O & K</span>
+        </div>
+        <p style="color: #C5A059; font-family: 'Cinzel Decorative', serif; font-size: 10px; margin-top: 25px; letter-spacing: 4px;">MUHRNI REJALASHTIRISH</p>
     </div>
 
-    <!-- XAT OCHILGANDAGI MODAL SINDIG'I -->
-    <div class="letter-overlay" id="overlay">
-        <div class="parchment-scroll" id="scrollBox">
+    <!-- ASOSIY VERTIKAL SCROLL SAHIFASI -->
+    <div class="scroll-wrapper">
+        <div class="parchment-body" data-aos="fade-up" data-aos-duration="2000">
             
-            <!-- CLOSE -->
-            <div class="close-parchment" onclick="closeLetter()">✕ YOPISH</div>
+            <p class="baroque-header">TAKLIFNOMA</p>
+            <div class="crest-separator">⚜</div>
+            
+            <h1 class="monarch-names">Otabek & Kumush</h1>
+            
+            <p class="royal-prose">
+                "Graf va Grafinya oilalari oliy martabali saroy a'yonlarini hamda qadrdon do'stlarini o'z vorislarining nikoh to'yi munosabati ila yoziladigan shohona oqshom ziyofatiga lutfan taklif eturlar. Ushbu unutilmas ball-da siz azizlarning tashrifingiz bizga yuksak shon-sharaf bag'ishlaydi."
+            </p>
 
-            <!-- AKT 1: TAKLIFNOMA MATNI -->
-            <div class="act-content active" id="act-1">
-                <p class="royal-title">QIROLLIK BITIGI</p>
-                <h1 class="royal-names">Otabek & Kumush</h1>
-                <p class="royal-text">
-                    "Gersog va Gersoginya oilalari oliyjanob mehmonlarni o‘z vorislarining shohona nikoh oqshomi munosabati bilan yoziladigan dabdabali ziyofat va balga lutfan chorlaydilar."
-                </p>
+            <!-- SANALAR Solnomasi -->
+            <div class="chronology-box">
+                <div class="chrono-date">YAKSHANBA • 27 DEKABR • 2026</div>
+                <div class="chrono-time">OQSHOMGI SOAT 18:00 DA</div>
             </div>
 
-            <!-- AKT 2: MANZIL VA SANA -->
-            <div class="act-content" id="act-2">
-                <p class="royal-title">TANTANA TAFSILOTLARI</p>
-                
-                <table class="info-table">
-                    <tr><td>SANA</td><td>27 DEKABR, 2026</td></tr>
-                    <tr><td>KUN</td><td>YAKSHANBA</td></tr>
-                    <tr><td>SOAT</td><td>OQSHOMGI 18:00</td></tr>
-                    <tr><td>QASR</td><td>"IDEAL SS" RESTORANI</td></tr>
-                </table>
+            <button class="btn-antique" onclick="downloadRoyalICS()">SOLNOMAGA YOZISH</button>
 
-                <button onclick="window.open('https://maps.app.goo.gl/1koHhC2uAUGuJLzi7')" class="act-btn" style="width:100%; margin-top:10px;">GOOGLE XARITA</button>
-                <button onclick="downloadICS()" class="act-btn" style="width:100%; margin-top:5px; background: transparent; color:#2a1a0c;">SOLNOMAGA YOZISH</button>
+            <div class="crest-separator" style="margin-top: 40px;">❖</div>
+
+            <!-- QASR VA MANZIL -->
+            <p class="baroque-header">TANTANA BO'LIB O'TADIGAN QASR</p>
+            <h2 style="font-family: 'Cinzel Decorative', serif; font-size: 1.3rem; margin: 10px 0; color: #1F1107;">"IDEAL SS" SAROYI</h2>
+            
+            <div class="palace-frame">
+                <img src="saroy.jpg" alt="Ideal SS Palace">
             </div>
 
-            <!-- AKT 3: G'AZNA VA RSVP -->
-            <div class="act-content" id="act-3">
-                <p class="royal-title">SHOHONA TASHRIF</p>
-                
-                <form id="rsvp-form" style="margin-top: 10px;">
-                    <input type="text" id="g-name" placeholder="Ismingizni raqamlang..." required class="monarch-input">
-                    <div style="display: flex; gap: 10px; margin: 15px 0;">
-                        <button type="button" class="act-btn" id="b-y" onclick="setRsvp('Boraman', this)" style="flex:1;">Tashrif etaman</button>
-                        <button type="button" class="act-btn" id="b-n" onclick="setRsvp('Borolmayman', this)" style="flex:1;">Ma'zur tutasiz</button>
+            <button class="btn-antique" style="background:#4A321A;" onclick="window.open('https://maps.app.goo.gl/1koHhC2uAUGuJLzi7')">GOOGLE XARITA</button>
+            <button class="btn-antique" style="background:#701D17;" onclick="window.open('https://yandex.uz/maps/org/8650108130/')">YANDEX XARITA</button>
+
+            <div class="crest-separator" style="margin-top: 40px;">⚜</div>
+
+            <!-- TILLO HISOBLAR (TO'YONA) -->
+            <div style="border: 1px dashed var(--dark-gold); padding: 25px 15px; margin: 30px 0;">
+                <p class="baroque-header" style="font-size: 9px;">TO'YONA UCHUN QIROLLIK HISOBI</p>
+                <div style="font-family: 'Cinzel Decorative', monospace; font-size: 1.3rem; font-weight: bold; margin: 15px 0; letter-spacing: 1px;">9860 0000 0000 0000</div>
+                <div style="font-size: 0.9rem; font-style: italic; margin-bottom: 15px; opacity: 0.9;">Yo'ldoshev Azamat (Humo)</div>
+                <button class="btn-antique" id="copy-text-btn" style="margin:0; padding:10px;" onclick="copyRoyalCard()">NUSXA KO'CHIRISH</button>
+            </div>
+
+            <!-- VAQT QUMLARI (COUNTDOWN) -->
+            <div class="vintage-countdown">
+                <div class="v-time-unit"><span id="days">00</span><small>Kun</small></div>
+                <div class="v-time-unit"><span id="hours">00</span><small>Soat</small></div>
+                <div class="v-time-unit"><span id="mins">00</span><small>Min</small></div>
+            </div>
+
+            <!-- TASHRIFNI TASDIQLASH (RSVP) -->
+            <div class="monarch-form">
+                <p class="baroque-header">SHOHONA TASHRIFNI TASDIQLASH</p>
+                <form id="royal-rsvp-form">
+                    <input type="text" id="guest-monarch" placeholder="Oliyjanob ismingiz..." required class="monarch-input">
+                    
+                    <div class="monarch-select">
+                        <div class="m-option" id="opt-yes" onclick="selectRoyalStatus('Boraman', this)">Tashrif buyuraman</div>
+                        <div class="m-option" id="opt-no" onclick="selectRoyalStatus('Borolmayman', this)">Ma'zur tutasiz</div>
                     </div>
-                    <button type="submit" class="act-btn" style="width: 100%; background: #6e482d; color:#fff;">MUHRNI JO'NATISH</button>
+                    
+                    <input type="hidden" id="royal-status-hidden">
+                    <button type="submit" class="btn-antique" style="background:#1F1107; color:#FAF5EB;">ALAYHISSALOM (YUBORISH)</button>
                 </form>
-                <p id="ok-msg" style="display:none; font-style:italic; color:#6e482d; font-size:14px; margin-top:15px;">Sizning javobingiz saroy kitobiga muhrlandi!</p>
+                <p id="royal-success" style="display:none; font-style: italic; color:#5C3D1B; margin-top:20px;">Sizning javobingiz saroy daftarlariga muhrlandi.</p>
             </div>
 
-            <!-- NAVIGATOR TUGMALARI -->
-            <div class="act-navigator">
-                <button class="act-btn active" id="nav-1" onclick="switchAct(1)">I Bitik</button>
-                <button class="act-btn" id="nav-2" onclick="switchAct(2)">II Manzil</button>
-                <button class="act-btn" id="nav-3" onclick="switchAct(3)">III Tashrif</button>
-            </div>
+            <p style="font-family: 'Pinyon Script', cursive; font-size: 4.5rem; color: #1F1107; margin-top: 50px; margin-bottom: 0;">Sizni ball-da kutamiz</p>
 
         </div>
     </div>
 
-    <!-- Golden Brown kuyi uchun audio o'rni -->
-    <audio id="muzika" loop><source src="music.mp3" type="audio/mpeg"></audio>
-
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        const audio = document.getElementById('muzika');
-        let statusValue = "";
+        const audio = document.getElementById('royal-bg-music');
+        let selectedStatus = "";
 
-        // 1. Sham yoqilganda xona yorishadi va xat paydo bo'ladi
-        function igniteRoom() {
-            document.getElementById('candle').classList.add('active');
-            document.getElementById('stage').classList.add('enlightened');
-            document.getElementById('candle-text').innerText = "NUR TARALDI";
+        function unsealInvitation() {
+            // Darvoza pardasi ochiladi
+            document.getElementById('gate-screen').style.transform = 'translateY(-100vh)';
+            document.getElementById('gate-screen').style.opacity = '0';
             
-            // "Golden Brown" musiqasi chalishni boshlaydi
-            audio.play().catch(e => console.log("Musiqa faollashdi"));
-
-            // Sirli xat sekin ko'rinadi
-            setTimeout(() => {
-                document.getElementById('letter').classList.add('reveal');
-            }, 800);
-        }
-
-        // 2. Xatni ochish
-        function openLetter() {
-            document.getElementById('overlay').style.display = 'flex';
-            setTimeout(() => {
-                document.getElementById('scrollBox').classList.add('open');
-            }, 50);
-        }
-
-        // 3. Xatni yopish
-        function closeLetter() {
-            document.getElementById('scrollBox').classList.remove('open');
-            setTimeout(() => {
-                document.getElementById('overlay').style.display = 'none';
-            }, 600);
-        }
-
-        // 4. Aktlarni almashtirish (Varaqlash o'rniga ichki menyu)
-        function switchAct(actNum) {
-            document.querySelectorAll('.act-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.act-navigator .act-btn').forEach(el => el.classList.remove('active'));
+            // Musiqa ijrosi
+            audio.play().catch(e => console.log("Musiqa avtomat ishga tushmadi."));
             
-            document.getElementById(`act-${actNum}`).classList.add('active');
-            document.getElementById(`nav-${actNum}`).classList.add('active');
+            // Animatsiyalarni boshlash
+            setTimeout(() => {
+                AOS.init();
+                setInterval(updateRoyalTimer, 1000);
+            }, 500);
         }
 
-        // RSVP funksiyalari
-        function setRsvp(val, btn) {
-            statusValue = val;
-            document.getElementById('b-y').style.background = '#2a1a0c';
-            document.getElementById('b-y').style.color = '#f2e3c6';
-            document.getElementById('b-n').style.background = '#2a1a0c';
-            document.getElementById('b-n').style.color = '#f2e3c6';
-            
-            btn.style.background = '#D4AF37';
-            btn.style.color = '#2a1a0c';
+        function toggleRoyalMusic() {
+            if (audio.paused) { audio.play(); } else { audio.pause(); }
         }
 
-        // Kalendar (.ics) yuklash
-        function downloadICS() {
+        function selectRoyalStatus(val, el) {
+            selectedStatus = val;
+            document.getElementById('royal-status-hidden').value = val;
+            document.querySelectorAll('.m-option').forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function copyRoyalCard() {
+            navigator.clipboard.writeText("9860000000000000");
+            const btn = document.getElementById('copy-text-btn');
+            btn.innerText = "✓ MUHRLANDI";
+            setTimeout(() => { btn.innerText = "NUSXA KO'CHIRISH"; }, 2000);
+        }
+
+        function downloadRoyalICS() {
             const icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\n" +
                 "DTSTART:20261227T130000Z\nDTEND:20261227T180000Z\n" +
-                "SUMMARY:Otabek & Kumush Nikoh To'yi\nLOCATION:Ideal SS\nEND:VEVENT\nEND:VCALENDAR";
+                "SUMMARY:Otabek va Kumush Shohona To'yi\nLOCATION:Ideal SS Saroyi\nEND:VEVENT\nEND:VCALENDAR";
             const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
             const link = document.createElement('a');
             link.href = window.URL.createObjectURL(blob);
-            link.setAttribute('download', 'qirollik_safari.ics');
+            link.setAttribute('download', 'qirollik_taklifnomasi.ics');
             link.click();
+        }
+
+        function updateRoyalTimer() {
+            const diff = new Date("December 27, 2026 18:00:00").getTime() - new Date().getTime();
+            if (diff > 0) {
+                document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            }
         }
 
         // Google Sheets API integratsiyasi
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwHR-kKB8i5kZ91WvlQlITHn8DQBnp0eEiEKkbsdYrG8b4lXLBZmmAbGdoglSNRFesSzg/exec';
-        document.getElementById('rsvp-form').addEventListener('submit', e => {
+        document.getElementById('royal-rsvp-form').addEventListener('submit', e => {
             e.preventDefault();
-            if(!statusValue) { alert("Iltimos, tashrif holatini tanlang!"); return; }
+            if(!selectedStatus) { alert("Iltimos, javobingizni tanlang!"); return; }
             
             const formData = new FormData();
-            formData.append('ism', document.getElementById('g-name').value);
-            formData.append('holat', statusValue);
+            formData.append('ism', document.getElementById('guest-monarch').value);
+            formData.append('holat', selectedStatus);
 
-            fetch(scriptURL, { method: 'POST', body: formData})
+            fetch(scriptURL, { method: 'POST', body: formData })
                 .then(() => {
-                    document.getElementById('rsvp-form').style.display = 'none';
-                    document.getElementById('ok-msg').style.display = 'block';
-                }).catch(() => alert('Xatolik yuz berdi!'));
+                    document.getElementById('royal-rsvp-form').style.display = 'none';
+                    document.getElementById('royal-success').style.display = 'block';
+                }).catch(() => alert('Tizimda xatolik yuz berdi!'));
         });
     </script>
 </body>
