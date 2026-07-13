@@ -12,34 +12,59 @@
         :root {
             --royal-gold: #F3E5AB;
             --bright-gold: #D4AF37;
-            --text-shadow-blend: 0 2px 10px rgba(0,0,0,0.8);
+            --text-shadow-blend: 0 2px 10px rgba(0,0,0,0.9);
         }
 
-        /* html va body foni shaffof qilindi, bu rasmni to'sib qo'ymasligini ta'minlaydi */
-        body, html {
-            margin: 0; padding: 0;
-            width: 100%; min-height: 100%;
+        /* Sahifaning asosi shaffof bo'ladi */
+        html, body {
+            margin: 0; 
+            padding: 0;
+            width: 100%; 
+            min-height: 100vh;
+            background-color: transparent;
             font-family: 'Cormorant Garamond', serif; 
             color: var(--royal-gold);
-            background-color: transparent; 
         }
 
-        /* Qora rang zaxirasi rasm bilan birga shu qatlamga berildi */
-        .fixed-background {
+        /* 
+           TELEFONLARDA HAM QIMIRLAMAYDIGAN FON RASMI:
+           Rasm butun ekran bo'ylab qotirilgan (fixed) va hech qachon scroll bo'lmaydi.
+           will-change brauzerga rasmni doim bir joyda saqlashni buyuradi.
+        */
+        body::before {
+            content: "";
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #000 linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('fon.jpg');
+            background-image: linear-gradient(rgba(0,0,0,0.83), rgba(0,0,0,0.83)), url('fon.jpg');
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover;
-            z-index: -1; 
+            /* z-index ni ishlatmasdan, qatlamni eng orqaga o'tkazishning eng xavfsiz yo'li: */
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
             pointer-events: none;
+            /* Orqa fondagi zaxira qora rang */
+            background-color: #050505;
         }
 
-        /* Til paneli fixed holda qoldi */
+        /* Kontent fon ustidan bemalol o'tishi uchun alohida qatlam */
+        .scroll-wrapper {
+            position: relative;
+            z-index: 5;
+            max-width: 540px; 
+            margin: 0 auto; 
+            padding: 100px 25px 60px 25px; 
+            box-sizing: border-box; 
+            text-align: center;
+        }
+        .scroll-wrapper p, .scroll-wrapper h1, .scroll-wrapper h2 {
+            text-shadow: var(--text-shadow-blend);
+        }
+
+        /* Til paneli */
         .lang-panel {
             position: fixed; top: 25px; right: 20px; z-index: 10005; display: flex; gap: 10px;
         }
@@ -59,7 +84,6 @@
         }
         .royal-audio-btn svg { width: 20px; height: 20px; fill: #000; }
         
-        /* Musiqa aylanadigan animatsiya */
         .royal-audio-btn.playing {
             animation: spin 4s linear infinite;
         }
@@ -68,18 +92,17 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Konvert ekrani: Orqa fon qora bo'lib qolmaydi, konvert o'rtada kichikroq bo'lib turadi */
+        /* Konvert ekrani */
         #gate-screen {
             position: fixed; top:0; left:0; width:100%; height:100vh;
-            background-color: rgba(0, 0, 0, 0.85);
+            background-color: rgba(0, 0, 0, 0.9);
             z-index: 9999; display: flex; justify-content: center; align-items: center;
             transition: opacity 1s ease-in-out, transform 1s ease-in-out;
         }
 
-        /* Kichraytirilgan va o'rtaga olingan Haqiqiy Konvert qutisi */
         .envelope-container {
             width: 90%;
-            max-width: 380px; /* Konvert o'lchami kichraytirildi */
+            max-width: 380px;
             height: 250px;
             background-color: #1c1510;
             background-image: linear-gradient(135deg, rgba(20,15,10,0.4), rgba(15,10,5,0.8)), url('konvert.jpg');
@@ -102,17 +125,8 @@
             transform: scale(1.02);
         }
 
-        .scroll-wrapper {
-            max-width: 540px; margin: 0 auto; padding: 100px 25px 60px 25px; box-sizing: border-box; text-align: center;
-            position: relative; z-index: 10;
-        }
-        .scroll-wrapper p, .scroll-wrapper h1, .scroll-wrapper h2 {
-            text-shadow: var(--text-shadow-blend);
-        }
-
         .baroque-header { font-family: 'Cinzel Decorative', serif; font-size: 13px; letter-spacing: 5px; color: var(--bright-gold); margin-bottom: 5px; }
         
-        /* Estetik minimalistik toza chiziq */
         .aesthetic-separator { 
             width: 50px; 
             height: 1px; 
@@ -150,9 +164,6 @@
 </head>
 <body>
 
-    <!-- Qotib turadigan fon qatlami -->
-    <div class="fixed-background"></div>
-
     <div class="lang-panel">
         <button class="lang-btn active" id="btn-lang-uz" onclick="changeLanguage('uz')">Lotin</button>
         <button class="lang-btn" id="btn-lang-kr" onclick="changeLanguage('kr')">Кирилл</button>
@@ -164,7 +175,6 @@
         <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
     </button>
 
-    <!-- O'rtada turadigan va muhrsiz nafis konvert -->
     <div id="gate-screen">
         <div class="envelope-container" onclick="unsealInvitation()">
             <p id="seal-title" class="baroque-header" style="font-size: 11px; margin-bottom: 20px; letter-spacing: 5px;">TAKLIFNOMA</p>
