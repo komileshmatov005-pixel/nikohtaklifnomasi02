@@ -4,239 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Nikoh Oqshomi | Otabek & Kumush</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
     <style>
-        :root {
-            --royal-gold: #F3E5AB;
-            --bright-gold: #D4AF37;
-            --text-shadow-blend: 0 2px 10px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,1);
-        }
+        :root { --gold: #C5A059; --bg: #0d0d0d; }
+        body { margin: 0; padding: 0; background: var(--bg); color: #fff; font-family: 'Playfair Display', serif; background-image: url('fon.jpg'); background-size: cover; background-position: center; background-attachment: fixed; }
 
-        body, html {
-            margin: 0; padding: 0;
-            width: 100%; overflow-x: hidden;
-            background-color: #000;
-            background-image: linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)), url('fon.jpg');
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover;
-            background-attachment: fixed;
-            font-family: 'Cormorant Garamond', serif; 
-            color: var(--royal-gold);
-        }
-
-        .lang-panel {
-            position: absolute; top: 25px; right: 20px; z-index: 10000; display: flex; gap: 10px;
-        }
-        .lang-btn {
-            background: rgba(20, 15, 10, 0.8); color: var(--royal-gold); border: 1px solid var(--bright-gold);
-            padding: 6px 12px; cursor: pointer; font-family: 'Cinzel Decorative', serif; font-size: 10px;
-            letter-spacing: 1px; transition: 0.3s;
-        }
-        .lang-btn.active { background: var(--bright-gold); color: #000; font-weight: bold; }
-
-        .royal-audio-btn {
-            position: fixed; bottom: 30px; right: 30px; z-index: 1000;
-            width: 50px; height: 50px; border-radius: 50%;
-            background: radial-gradient(circle, #D4AF37 0%, #8C6221 100%);
-            border: 1px solid var(--royal-gold); box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            cursor: pointer; display: flex; justify-content: center; align-items: center;
-        }
-        .royal-audio-btn svg { width: 20px; height: 20px; fill: #000; }
-
-        #gate-screen {
-            position: fixed; top:0; left:0; width:100%; height:100vh;
-            background-color: #000;
-            background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('fon.jpg');
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover;
-            z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1), transform 1.5s ease-in-out;
-        }
-        .wax-seal-container { text-align: center; }
-        .wax-seal-trigger {
-            width: 110px; height: 110px; border-radius: 50%; margin: 0 auto;
-            background: radial-gradient(circle, #941C14 0%, #4A0000 100%);
-            border: 3px solid #2B0000; box-shadow: 0 15px 35px rgba(0,0,0,0.9);
-            cursor: pointer; display: flex; justify-content: center; align-items: center;
-            animation: royalPulse 2.5s infinite ease-in-out;
-        }
-        .wax-seal-trigger span { font-family: 'Pinyon Script', cursive; font-size: 3.2rem; color: var(--royal-gold); }
-
-        .scroll-wrapper {
-            max-width: 540px; margin: 0 auto; padding: 80px 25px 60px 25px; box-sizing: border-box; text-align: center;
-        }
-        .scroll-wrapper p, .scroll-wrapper h1, .scroll-wrapper h2 {
-            text-shadow: var(--text-shadow-blend);
-        }
-
-        .baroque-header { font-family: 'Cinzel Decorative', serif; font-size: 13px; letter-spacing: 5px; color: var(--bright-gold); margin-bottom: 5px; }
-        .crest-separator { font-size: 2.2rem; color: var(--bright-gold); margin: 25px 0; opacity: 0.85; }
+        /* Yuqori panel */
+        .header-ui { position: fixed; top: 20px; left: 20px; right: 20px; z-index: 1000; display: flex; justify-content: space-between; align-items: center; }
+        .lang-btn { background: none; border: 1px solid var(--gold); color: var(--gold); padding: 5px 12px; cursor: pointer; font-family: 'Cinzel'; font-size: 10px; transition: 0.3s; }
+        .lang-btn.active { background: var(--gold); color: #000; font-weight: bold; }
         
-        .monarch-names { font-family: 'Pinyon Script', cursive; font-size: 5.5rem; font-weight: 400; margin: 20px 0; color: var(--bright-gold); line-height: 1; }
-        .royal-prose { font-size: 1.45rem; line-height: 1.9; font-style: italic; color: var(--royal-gold); text-align: justify; text-align-last: center; margin: 35px 0; letter-spacing: 0.3px; }
+        .audio-btn { width: 40px; height: 40px; border: 1px solid var(--gold); border-radius: 50%; color: var(--gold); background: rgba(0,0,0,0.5); cursor: pointer; display: flex; align-items: center; justify-content: center; animation: rotation 8s linear infinite; }
+        @keyframes rotation { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        .chronology-box { margin: 40px 0; border-top: 1px solid rgba(212, 175, 55, 0.5); border-bottom: 1px solid rgba(212, 175, 55, 0.5); padding: 22px 0; font-family: 'Cinzel Decorative', serif; }
-        .chrono-date { font-size: 1.25rem; letter-spacing: 2px; color: #fff; font-weight: bold; }
-        .chrono-time { font-size: 1.05rem; color: var(--bright-gold); display: block; margin-top: 8px; }
+        /* Kirish ekrani */
+        #gate { position: fixed; top:0; left:0; width:100%; height:100%; background:#050505; z-index: 2000; display:flex; flex-direction:column; justify-content:center; align-items:center; transition: 1s; cursor: pointer; }
+        .gate-title { font-family: 'Cinzel', serif; font-weight: 300; font-size: 2rem; letter-spacing: 8px; color: var(--gold); }
+        .scroll-hint { font-size: 10px; letter-spacing: 3px; margin-top: 30px; opacity: 0.6; }
 
-        .palace-frame { margin: 25px auto; width: 100%; border: 1px solid var(--bright-gold); padding: 3px; background: rgba(0,0,0,0.5); }
-        .palace-frame img { width: 100%; height: 230px; object-fit: cover; display: block; filter: sepia(0.15) contrast(1.1); }
-
-        .btn-antique { display: block; width: 100%; padding: 14px; margin: 15px 0; box-sizing: border-box; background: rgba(20, 15, 10, 0.85); color: var(--bright-gold); border: 1px solid var(--bright-gold); font-family: 'Cinzel Decorative', serif; font-size: 10px; letter-spacing: 3px; cursor: pointer; transition: 0.4s ease; text-decoration: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .btn-antique:hover { background: var(--bright-gold); color: #000; font-weight: bold; box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
-
-        .vintage-countdown { display: flex; justify-content: center; gap: 25px; margin: 40px 0; }
-        .v-time-unit { border-bottom: 1px solid rgba(212, 175, 55, 0.5); min-width: 65px; padding-bottom: 8px; }
-        .v-time-unit span { display: block; font-family: 'Cinzel Decorative', serif; font-size: 2rem; color: var(--bright-gold); }
-        .v-time-unit small { font-size: 0.85rem; color: #fff; }
-
-        .monarch-form { margin-top: 50px; padding-top: 30px; border-top: 1px double var(--bright-gold); }
-        .monarch-input { width: 100%; padding: 14px; margin-bottom: 20px; background: rgba(15, 10, 5, 0.8); border: 1px solid rgba(212, 175, 55, 0.6); box-sizing: border-box; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; text-align: center; color: #fff; outline: none; transition: 0.3s; }
-        .monarch-input:focus { border-color: var(--bright-gold); background: rgba(0,0,0,0.9); }
-        .monarch-input::placeholder { color: rgba(243, 229, 171, 0.4); font-style: italic; }
-        .monarch-select { display: flex; gap: 15px; margin: 20px 0; }
-        .m-option { flex: 1; padding: 14px; border: 1px solid rgba(212, 175, 55, 0.5); background: rgba(15, 10, 5, 0.8); cursor: pointer; font-family: 'Cinzel Decorative', serif; font-size: 9px; text-align: center; color: var(--royal-gold); transition: 0.3s; }
-        .m-option.selected { background: var(--bright-gold); color: #000; font-weight: bold; border-color: var(--bright-gold); }
-
-        @keyframes royalPulse {
-            0% { transform: scale(1); box-shadow: 0 15px 35px rgba(0,0,0,0.9); }
-            50% { transform: scale(1.04); box-shadow: 0 15px 40px rgba(148,28,20,0.6); }
-            100% { transform: scale(1); box-shadow: 0 15px 35px rgba(0,0,0,0.9); }
-        }
+        /* Asosiy kontent */
+        .container { max-width: 500px; margin: 0 auto; padding: 120px 20px; text-align: center; }
+        h1 { font-family: 'Cinzel', serif; font-weight: 300; font-size: 2.8rem; color: var(--gold); margin-bottom: 30px; }
+        p { line-height: 1.9; font-style: italic; font-size: 1.2rem; }
+        .btn-clean { border: 1px solid var(--gold); background: none; color: var(--gold); padding: 12px 30px; cursor: pointer; font-family: 'Cinzel'; letter-spacing: 2px; transition: 0.4s; margin-top: 30px; }
+        .btn-clean:hover { background: var(--gold); color: #000; }
+        
+        .scroll-indicator { margin-top: 50px; font-size: 10px; letter-spacing: 4px; color: var(--gold); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
     </style>
 </head>
 <body>
+
+    <div class="header-ui">
+        <div id="lang-switcher">
+            <button class="lang-btn active" id="btn-uz" onclick="setLang('uz')">LOTIN</button>
+            <button class="lang-btn" id="btn-kr" onclick="setLang('kr')">КИРИЛЛ</button>
+        </div>
+        <button class="audio-btn" onclick="toggleMusic()">♪</button>
+    </div>
+
+    <div id="gate" onclick="openInvite()">
+        <div class="gate-title">OTABEK & KUMUSH</div>
+        <div class="scroll-hint" id="gate-text">O'ZBEK TILI: OCHISH UCHUN BOSING</div>
+    </div>
+
+    <div class="container">
+        <h1 data-aos="fade-up" id="main-title">Otabek & Kumush</h1>
+        <p data-aos="fade-up" id="main-desc">Hayotimizning eng go'zal kunida siz azizlarni nikoh oqshomimizda kutib qolamiz.</p>
+        <button class="btn-clean" data-aos="fade-up" id="btn-cal">TAQVIMGA QO'SHISH</button>
+        <div class="scroll-indicator" id="scroll-text">PASTGA SURING</div>
+    </div>
+
     <audio id="royal-bg-music" loop><source src="music.mp3" type="audio/mpeg"></audio>
-
-    <button class="royal-audio-btn" onclick="toggleRoyalMusic()">
-        <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-    </button>
-
-    <div id="gate-screen">
-        <div class="lang-panel">
-            <button class="lang-btn active" id="btn-lang-uz" onclick="changeLanguage('uz')">Lotin</button>
-            <button class="lang-btn" id="btn-lang-kr" onclick="changeLanguage('kr')">Кирилл</button>
-        </div>
-        <div class="wax-seal-container">
-            <p id="seal-title" class="baroque-header" style="font-size: 11px; margin-bottom: 30px; letter-spacing: 5px;">TAKLIFNOMA</p>
-            <div class="wax-seal-trigger" onclick="unsealInvitation()">
-                <span>O & K</span>
-            </div>
-            <p id="seal-sub" style="color: #fff; font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; margin-top: 30px;">Ochish uchun muhr ustiga bosing</p>
-        </div>
-    </div>
-
-    <div class="scroll-wrapper">
-        <p id="txt-invitation" class="baroque-header" data-aos="fade-up">TAKLIFNOMA</p>
-        <div class="crest-separator" data-aos="fade-up">⚜</div>
-        <h1 class="monarch-names" data-aos="fade-up">Otabek & Kumush</h1>
-        <p id="txt-prose" class="royal-prose" data-aos="fade-up">
-            Hayotimizning eng go'zal va unutilmas kunida siz aziz va qadrli yaqinlarimizni shohona nikoh oqshomimizda ko'rishdan mamnun bo'lamiz. Tashrifingiz to'yimizga yuksak shon-sharaf bag'ishlaydi.
-        </p>
-        <div class="chronology-box" data-aos="fade-up">
-            <div id="txt-date" class="chrono-date">YAKSHANBA • 27 DEKABR • 2026</div>
-            <div id="txt-time" class="chrono-time">SOAT 18:00 DA</div>
-        </div>
-        <button id="btn-calendar" class="btn-antique" data-aos="fade-up" onclick="downloadRoyalICS()">TAQVIMGA QO'SHISH</button>
-        <div class="crest-separator" data-aos="fade-up">❖</div>
-        <p id="txt-venue-title" class="baroque-header" data-aos="fade-up">TANTANA MANZILI</p>
-        <h2 style="font-family: 'Cinzel Decorative', serif; font-size: 1.35rem; margin: 10px 0; color: var(--bright-gold);" data-aos="fade-up">"IDEAL SS" SAROYI</h2>
-        <div class="palace-frame" data-aos="fade-up">
-            <img src="saroy.jpg" alt="Ideal SS Palace">
-        </div>
-        <button class="btn-antique" data-aos="fade-up" onclick="window.open('https://maps.app.goo.gl/1koHhC2uAUGuJLzi7')">GOOGLE MAPS</button>
-        <button class="btn-antique" data-aos="fade-up" onclick="window.open('https://yandex.uz/maps/org/8650108130/')">YANDEX MAPS</button>
-        <div class="crest-separator" data-aos="fade-up">⚜</div>
-        <div style="border: 1px solid rgba(212, 175, 55, 0.5); padding: 25px 15px; margin: 35px 0; background: rgba(10,5,0,0.55);" data-aos="fade-up">
-            <p id="txt-card-title" class="baroque-header" style="font-size: 9px;">TO'YONA UCHUN KARTA RAQAMI</p>
-            <div style="font-family: 'Cinzel Decorative', monospace; font-size: 1.35rem; font-weight: bold; margin: 10px 0; color: var(--bright-gold); letter-spacing: 1px;">9860 0000 0000 0000</div>
-            <div style="font-size: 1.05rem; font-style: italic; margin-bottom: 5px; color: #fff;">Yo'ldoshev Azamat (Humo)</div>
-            <input type="number" id="royal-gift-amount" placeholder="To'yona miqdori (ixtiyoriy)..." class="monarch-input" style="font-size:1.1rem; padding:8px; margin: 15px 0 10px 0; width:90%; border-width:0 0 1px 0;">
-            <button id="btn-copy" class="btn-antique" style="margin:5px 0 0 0; padding:10px;" onclick="copyRoyalCard()">NUSXA OLISH</button>
-        </div>
-        <div class="vintage-countdown" data-aos="fade-up">
-            <div class="v-time-unit"><span id="days">00</span><small id="lbl-kun">Kun</small></div>
-            <div class="v-time-unit"><span id="hours">00</span><small id="lbl-soat">Soat</small></div>
-            <div class="v-time-unit"><span id="mins">00</span><small id="lbl-daqiqa">Daqiqa</small></div>
-        </div>
-        <div class="monarch-form" data-aos="fade-up">
-            <p id="txt-rsvp-title" class="baroque-header">TASHRIFINGIZNI TASDIQLANG</p>
-            <form id="royal-rsvp-form">
-                <input type="text" id="guest-monarch" placeholder="Ismingiz..." required class="monarch-input">
-                <div class="monarch-select">
-                    <div class="m-option" id="opt-yes" onclick="selectRoyalStatus('Boraman', this)">Tashrif buyuraman</div>
-                    <div class="m-option" id="opt-no" onclick="selectRoyalStatus('Borolmayman', this)">Afsuski borolmayman</div>
-                </div>
-                <input type="hidden" id="royal-status-hidden">
-                <button type="submit" id="btn-submit" class="btn-antique" style="background: var(--bright-gold); color: #000; font-weight: bold; margin-top: 15px;">TASDIQLASH</button>
-            </form>
-            <p id="royal-success" style="display:none; font-style: italic; color: var(--bright-gold); margin-top:15px; font-size: 1.2rem;">Rahmat! Javobingiz qabul qilindi.</p>
-        </div>
-        <p id="txt-footer" style="font-family: 'Pinyon Script', cursive; font-size: 4.5rem; color: var(--bright-gold); margin-top: 50px; margin-bottom: 0;" data-aos="fade-up">Sizni kutamiz</p>
-    </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        const audio = document.getElementById('royal-bg-music');
-        let selectedStatus = "";
-        let currentLang = "uz";
-
-        const translations = {
-            uz: { sealTitle: "TAKLIFNOMA", sealSub: "Ochish uchun muhr ustiga bosing", invitation: "TAKLIFNOMA", date: "YAKSHANBA • 27 DEKABR • 2026", time: "SOAT 18:00 DA", calendar: "TAQVIMGA QO'SHISH", venue: "TANTANA MANZILI", cardTitle: "TO'YONA UCHUN KARTA RAQAMI", giftPlace: "To'yona miqdori (ixtiyoriy)...", copy: "NUSXA OLISH", rsvpTitle: "TASHRIFINGIZNI TASDIQLANG", inputPlace: "Ismingiz...", optYes: "Tashrif buyuraman", optNo: "Afsuski borolmayman", submit: "TASDIQLASH", success: "Rahmat! Javobingiz qabul qilindi.", footer: "Sizni kutamiz", kun: "Kun", soat: "Soat", daqiqa: "Daqiqa", copied: "✓ NUSXALANDI" },
-            kr: { sealTitle: "ТАКЛИФНОМА", sealSub: "Очиш учун муҳр устига босинг", invitation: "ТАКЛИФНОМА", date: "ЯКШАНБА • 27 ДЕКАБРЬ • 2026", time: "СОАТ 18:00 ДА", calendar: "ТАҚВИМГА ҚЎШИШ", venue: "ТАНТАНА МАНЗИЛИ", cardTitle: "ТЎЁНА УЧУН КАРТА РАҚАМИ", giftPlace: "Тўёна миқдори (ихтиёрий)...", copy: "НУСХА ОЛИШ", rsvpTitle: "ТАШРИФИНГИЗНИ ТАСДИҚЛАНГ", inputPlace: "Исмингиз...", optYes: "Ташриф буюраман", optNo: "Афсуски боролмайман", submit: "ТАСДИҚЛАШ", success: "Раҳмат! Жавобингиз қабул қилинди.", footer: "Сизни кутамиз", kun: "Кун", soat: "Соат", daqiqa: "Дақиқа", copied: "✓ НУСХАЛАНДИ" }
+        const content = {
+            uz: { gate: "OCHISH UCHUN BOSING", title: "Otabek & Kumush", desc: "Hayotimizning eng go'zal kunida siz azizlarni nikoh oqshomimizda kutib qolamiz.", btn: "TAQVIMGA QO'SHISH", scroll: "PASTGA SURING" },
+            kr: { gate: "ОЧИШ УЧУН БОСИНГ", title: "Отабек & Кумуш", desc: "Ҳаётимизнинг энг гўзал кунида сиз азизларни никоҳ оқшомимизда кутиб қоламиз.", btn: "ТАҚВИМГА ҚЎШИШ", scroll: "ПАСТГА СУРИНГ" }
         };
 
-        function changeLanguage(lang) {
-            currentLang = lang;
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-            if(lang === 'uz') document.getElementById('btn-lang-uz').classList.add('active');
-            else document.getElementById('btn-lang-kr').classList.add('active');
-            const t = translations[lang];
-            document.getElementById('seal-title').innerText = t.sealTitle; document.getElementById('seal-sub').innerText = t.sealSub; document.getElementById('txt-invitation').innerText = t.invitation; document.getElementById('txt-date').innerText = t.date; document.getElementById('txt-time').innerText = t.time; document.getElementById('btn-calendar').innerText = t.calendar; document.getElementById('txt-venue-title').innerText = t.venue; document.getElementById('txt-card-title').innerText = t.cardTitle; document.getElementById('royal-gift-amount').placeholder = t.giftPlace; document.getElementById('btn-copy').innerText = t.copy; document.getElementById('txt-rsvp-title').innerText = t.rsvpTitle; document.getElementById('guest-monarch').placeholder = t.inputPlace; document.getElementById('opt-yes').innerText = t.optYes; document.getElementById('opt-no').innerText = t.optNo; document.getElementById('btn-submit').innerText = t.submit; document.getElementById('royal-success').innerText = t.success; document.getElementById('txt-footer').innerText = t.footer; document.getElementById('lbl-kun').innerText = t.kun; document.getElementById('lbl-soat').innerText = t.soat; document.getElementById('lbl-daqiqa').innerText = t.daqiqa;
+        function setLang(lang) {
+            document.getElementById('btn-uz').classList.toggle('active', lang === 'uz');
+            document.getElementById('btn-kr').classList.toggle('active', lang === 'kr');
+            document.getElementById('gate-text').innerText = content[lang].gate;
+            document.getElementById('main-title').innerText = content[lang].title;
+            document.getElementById('main-desc').innerText = content[lang].desc;
+            document.getElementById('btn-cal').innerText = content[lang].btn;
+            document.getElementById('scroll-text').innerText = content[lang].scroll;
         }
 
-        function unsealInvitation() {
-            document.getElementById('gate-screen').style.opacity = '0';
-            setTimeout(() => { document.getElementById('gate-screen').style.display = 'none'; }, 1500);
-            audio.play().catch(e => console.log("Musiqa chalinmadi"));
-            setTimeout(() => { AOS.init({ once: true, duration: 1200 }); setInterval(updateRoyalTimer, 1000); }, 200);
+        function openInvite() {
+            document.getElementById('gate').style.opacity = '0';
+            setTimeout(() => document.getElementById('gate').style.display = 'none', 1000);
+            AOS.init({ duration: 1500 });
+            document.getElementById('royal-bg-music').play();
         }
 
-        function toggleRoyalMusic() { if (audio.paused) { audio.play(); } else { audio.pause(); } }
-
-        function selectRoyalStatus(val, el) {
-            selectedStatus = val;
-            document.getElementById('royal-status-hidden').value = val;
-            document.querySelectorAll('.m-option').forEach(opt => opt.classList.remove('selected'));
-            el.classList.add('selected');
-        }
-
-        function copyRoyalCard() {
-            navigator.clipboard.writeText("9860000000000000");
-            const btn = document.getElementById('btn-copy');
-            btn.innerText = translations[currentLang].copied;
-            setTimeout(() => { btn.innerText = translations[currentLang].copy; }, 2000);
-        }
-
-        function downloadRoyalICS() {
-            const icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:Otabek & Kumush To'yi\nDTSTART:20261227T130000Z\nEND:VCALENDAR";
-            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-            const link = document.createElement('a'); link.href = window.URL.createObjectURL(blob);
-            link.setAttribute('download', 'taklifnoma.ics'); link.click();
-        }
-
-        function updateRoyalTimer() {
-            const diff = new Date("December 27, 2026 18:00:00").getTime() - new Date().getTime();
-            if (diff > 0) {
-                document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-                document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-                document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-            }
+        function toggleMusic() { 
+            let m = document.getElementById('royal-bg-music');
+            m.paused ? m.play() : m.pause();
         }
     </script>
 </body>
