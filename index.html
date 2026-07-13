@@ -86,52 +86,94 @@
             to { transform: rotate(360deg); }
         }
 
-        /* 
-           YANGILANGAN KONVERT EKRANI FONI:
-           Bu yerga alohida 'konvert-fon.jpg' qo'shildi. 
-           Xohlasangiz uni 'fon.jpg' deb ham o'zgartirishingiz mumkin.
-        */
+        /* YANGILANGAN KIRISH (GATE) EKRANI: Konvert olib tashlandi, asosiy fon rasmiga bog'landi */
         #gate-screen {
             position: fixed; 
             top: 0; 
             left: 0; 
             width: 100%; 
             height: 100vh;
-            background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('konvert-fon.jpg');
+            background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)), url('fon.jpg');
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover;
             background-color: #050505;
             z-index: 9999; 
             display: flex; 
-            justify-content: center; 
+            flex-direction: column;
+            justify-content: space-between; 
             align-items: center;
+            padding: 100px 20px 80px 20px;
+            box-sizing: border-box;
             transition: opacity 1s ease-in-out, transform 1s ease-in-out;
         }
 
-        .envelope-container {
-            width: 90%;
-            max-width: 380px;
-            height: 250px;
-            background-color: #1c1510;
-            background-image: linear-gradient(135deg, rgba(20,15,10,0.4), rgba(15,10,5,0.8)), url('konvert.jpg');
-            background-size: cover;
-            background-position: center;
-            border: 1px solid var(--bright-gold);
-            border-radius: 8px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 30px rgba(0,0,0,0.8);
+        .gate-content {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            margin-top: auto;
+            margin-bottom: auto;
             text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
-            cursor: pointer;
-            transition: transform 0.3s ease;
         }
-        .envelope-container:hover {
-            transform: scale(1.02);
+
+        .gate-title {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 13px;
+            letter-spacing: 6px;
+            color: var(--bright-gold);
+            margin-bottom: 10px;
+            text-shadow: var(--text-shadow-blend);
+        }
+
+        .gate-names {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 5rem;
+            font-weight: 400;
+            color: #fff;
+            line-height: 1.1;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.9);
+            margin: 15px 0;
+        }
+
+        .gate-sub {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            font-style: italic;
+            color: var(--royal-gold);
+            letter-spacing: 2px;
+            text-shadow: var(--text-shadow-blend);
+        }
+
+        /* NAVBORDAGI OCHISH TUGMASI (NAQSHLI VA SEKIN PULSATSIYA BO'LADIGAN) */
+        .btn-open-invitation {
+            background: rgba(20, 15, 10, 0.9);
+            color: var(--bright-gold);
+            border: 1px solid var(--bright-gold);
+            padding: 16px 45px;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 11px;
+            letter-spacing: 4px;
+            cursor: pointer;
+            transition: 0.4s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            border-radius: 4px;
+            text-shadow: none;
+            margin-top: auto; /* Pastki qismga tushirish uchun */
+            animation: goldPulse 2s infinite;
+        }
+        .btn-open-invitation:hover {
+            background: var(--bright-gold);
+            color: #000;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(214, 175, 55, 0.4);
+        }
+
+        @keyframes goldPulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.5); }
+            70% { box-shadow: 0 0 0 12px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
         }
 
         .baroque-header { font-family: 'Cinzel Decorative', serif; font-size: 13px; letter-spacing: 5px; color: var(--bright-gold); margin-bottom: 5px; }
@@ -184,12 +226,14 @@
         <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
     </button>
 
+    <!-- YANGILANGAN BIRINCHI BET (GATESCREEN) -->
     <div id="gate-screen">
-        <div class="envelope-container" onclick="unsealInvitation()">
-            <p id="seal-title" class="baroque-header" style="font-size: 11px; margin-bottom: 20px; letter-spacing: 5px;">TAKLIFNOMA</p>
-            <p id="seal-sub" style="color: var(--bright-gold); font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; margin: 15px 0;">Ochish uchun bosing</p>
-            <div style="font-family: 'Pinyon Script', cursive; font-size: 2.8rem; color: #fff; margin-top: 5px;">Otabek & Kumush</div>
+        <div class="gate-content">
+            <p id="gate-hdr" class="gate-title">TO'Y TAKLIFNOMASI</p>
+            <div class="gate-names">Otabek & Kumush</div>
+            <p id="gate-sub" class="gate-sub">Sizni nikoh oqshomimizga lutfan taklif etamiz</p>
         </div>
+        <button id="btn-gate-open" class="btn-open-invitation" onclick="unsealInvitation()">TAKLIFNOMANI OCHISH</button>
     </div>
 
     <div class="scroll-wrapper">
@@ -249,8 +293,58 @@
         let currentLang = "uz";
 
         const translations = {
-            uz: { sealTitle: "TAKLIFNOMA", sealSub: "Ochish uchun bosing", invitation: "TAKLIFNOMA", names: "Otabek & Kumush", prose: "Hayotimizning eng go'zal va unutilmas kunida siz aziz va qadrli yaqinlarimizni shohona nikoh oqshomimizda ko'rishdan mamnun bo'lamiz. Tashrifingiz to'yimizga yuksak shon-sharaf bag'ishlaydi.", date: "YAKSHANBA • 27 DEKABR • 2026", time: "SOAT 18:00 DA", calendar: "TAQVIMGA QO'SHISH", venue: "TANTANA MANZILI", cardTitle: "TO'YONA UCHUN KARTA RAQAMI", giftPlace: "To'yona miqdori (ixtiyoriy)...", copy: "NUSXA OLISH", rsvpTitle: "TASHRIFINGIZNI TASDIQLANG", inputPlace: "Ismingiz...", optYes: "Tashrif buyuraman", optNo: "Afsuski borolmayman", submit: "TASDIQLASH", success: "Rahmat! Javobingiz qabul qilindi.", footer: "Sizni kutamiz", kun: "Kun", soat: "Soat", daqiqa: "Daqiqa", copied: "✓ NUSXALANDI" },
-            kr: { sealTitle: "ТАКЛИФНОМА", sealSub: "Очиш учун босинг", invitation: "ТАКЛИФНОМА", names: "Отабек & Кумуш", prose: "Ҳаётимизнинг енг гўзал ва унутилмас кунида сиз азиз ва қадрли яқинларимизни шоҳона никоҳ оқшомимизда кўришдан мамнун бўламиз. Ташрифингиз тўйимизга юксак шон-шараф бағишлайди.", date: "ЯКШАНБА • 27 ДЕКАБРЬ • 2026", time: "СОАТ 18:00 ДА", calendar: "ТАҚВИМГА ҚЎШИШ", venue: "ТАНТАНА МАНЗИЛИ", cardTitle: "ТЎЁНА УЧУН КАРТА РАҚАМИ", giftPlace: "Тўёна миқдори (ихтиёрий)...", copy: "НУСХА ОЛИШ", rsvpTitle: "ТАШРИФИНГИЗНИ ТАСДИҚЛАНГ", inputPlace: "Исмингиз...", optYes: "Ташриф буюраман", optNo: "Афсуски боролмайман", submit: "ТАСДИҚЛАШ", success: "Раҳмат! Жавобингиз қабул қилинди.", footer: "Сизни кутамиз", kun: "Кун", soat: "Соат", daqiqa: "Дақиқа", copied: "✓ НУСХАЛАНДИ" }
+            uz: { 
+                gateHdr: "TO'Y TAKLIFNOMASI",
+                gateSub: "Sizni nikoh oqshomimizga lutfan taklif etamiz",
+                gateOpen: "TAKLIFNOMANI OCHISH",
+                invitation: "TAKLIFNOMANI OCHISH", 
+                names: "Otabek & Kumush", 
+                prose: "Hayotimizning eng go'zal va unutilmas kunida siz aziz va qadrli yaqinlarimizni shohona nikoh oqshomimizda ko'rishdan mamnun bo'lamiz. Tashrifingiz to'yimizga yuksak shon-sharaf bag'ishlaydi.", 
+                date: "YAKSHANBA • 27 DEKABR • 2026", 
+                time: "SOAT 18:00 DA", 
+                calendar: "TAQVIMGA QO'SHISH", 
+                venue: "TANTANA MANZILI", 
+                cardTitle: "TO'YONA UCHUN KARTA RAQAMI", 
+                giftPlace: "To'yona miqdori (ixtiyoriy)...", 
+                copy: "NUSXA OLISH", 
+                rsvpTitle: "TASHRIFINGIZNI TASDIQLANG", 
+                inputPlace: "Ismingiz...", 
+                optYes: "Tashrif buyuraman", 
+                optNo: "Afsuski borolmayman", 
+                submit: "TASDIQLASH", 
+                success: "Rahmat! Javobingiz qabul qilindi.", 
+                footer: "Sizni kutamiz", 
+                kun: "Kun", 
+                soat: "Soat", 
+                daqiqa: "Daqiqa", 
+                copied: "✓ NUSXALANDI" 
+            },
+            kr: { 
+                gateHdr: "ТЎЙ ТАКЛИФНОМАСИ",
+                gateSub: "Сизни никоҳ оқшомимизга лутфан таклиф этамиз",
+                gateOpen: "ТАКЛИФНОМАНИ ОЧИШ",
+                invitation: "ТАКЛИФНОМА", 
+                names: "Отабек & Кумуш", 
+                prose: "Ҳаётимизнинг енг гўзал ва унутилмас кунида сиз азиз ва қадрли яқинларимизни шоҳона никоҳ оқшомимизда кўришдан мамнун бўламиз. Ташрифингиз тўйимизга юксак шон-шараф бағишлайди.", 
+                date: "ЯКШАНБА • 27 ДЕКАБРЬ • 2026", 
+                time: "СОАТ 18:00 ДА", 
+                calendar: "ТАҚВИМГА ҚЎШИШ", 
+                venue: "ТАНТАНА МАНЗИЛИ", 
+                cardTitle: "ТЎЁНА УЧУН КАРТА РАҚАМИ", 
+                giftPlace: "Тўёна миқдори (ихтиёрий)...", 
+                copy: "НУСХА ОЛИШ", 
+                rsvpTitle: "ТАСДИҚЛАНГ", 
+                inputPlace: "Исмингиз...", 
+                optYes: "Ташриф буюраман", 
+                optNo: "Афсуски боролмайман", 
+                submit: "ТАСДИҚЛАШ", 
+                success: "Раҳмат! Жавобингиз қабул қилинди.", 
+                footer: "Сизни кутамиз", 
+                kun: "Кун", 
+                soat: "Соат", 
+                daqiqa: "Дақиқа", 
+                copied: "✓ НУСХАЛАНДИ" 
+            }
         };
 
         function changeLanguage(lang) {
@@ -260,8 +354,10 @@
             else document.getElementById('btn-lang-kr').classList.add('active');
             
             const t = translations[lang];
-            document.getElementById('seal-title').innerText = t.sealTitle; 
-            document.getElementById('seal-sub').innerText = t.sealSub; 
+            document.getElementById('gate-hdr').innerText = t.gateHdr; 
+            document.getElementById('gate-sub').innerText = t.gateSub; 
+            document.getElementById('btn-gate-open').innerText = t.gateOpen; 
+            
             document.getElementById('txt-invitation').innerText = t.invitation; 
             document.getElementById('txt-names').innerText = t.names;
             document.getElementById('txt-prose').innerText = t.prose;
