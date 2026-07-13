@@ -26,11 +26,7 @@
             color: var(--royal-gold);
         }
 
-        /* 
-           TELEFONLARDA HAM QIMIRLAMAYDIGAN FON RASMI:
-           Rasm butun ekran bo'ylab qotirilgan (fixed) va hech qachon scroll bo'lmaydi.
-           will-change brauzerga rasmni doim bir joyda saqlashni buyuradi.
-        */
+        /* TELEFONLARDA HAM QIMIRLAMAYDIGAN ASOSIY FON RASMI */
         body::before {
             content: "";
             position: fixed;
@@ -42,11 +38,9 @@
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover;
-            /* z-index ni ishlatmasdan, qatlamni eng orqaga o'tkazishning eng xavfsiz yo'li: */
             transform: translate3d(0, 0, 0);
             will-change: transform;
             pointer-events: none;
-            /* Orqa fondagi zaxira qora rang */
             background-color: #050505;
         }
 
@@ -92,11 +86,26 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Konvert ekrani */
+        /* 
+           YANGILANGAN KONVERT EKRANI FONI:
+           Bu yerga alohida 'konvert-fon.jpg' qo'shildi. 
+           Xohlasangiz uni 'fon.jpg' deb ham o'zgartirishingiz mumkin.
+        */
         #gate-screen {
-            position: fixed; top:0; left:0; width:100%; height:100vh;
-            background-color: rgba(0, 0, 0, 0.9);
-            z-index: 9999; display: flex; justify-content: center; align-items: center;
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100vh;
+            background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('konvert-fon.jpg');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            background-color: #050505;
+            z-index: 9999; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
             transition: opacity 1s ease-in-out, transform 1s ease-in-out;
         }
 
