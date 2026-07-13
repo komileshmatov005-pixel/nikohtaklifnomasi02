@@ -15,19 +15,28 @@
             --text-shadow-blend: 0 2px 10px rgba(0,0,0,0.8);
         }
 
+        /* Fon mutlaqo qimirlamaydi va scroll o'ta silliq ishlaydi */
         body, html {
             margin: 0; padding: 0;
             width: 100%; min-height: 100%;
             background-color: #050505;
-            /* Fon rasm har doim ko'rinishi va scroll qotmasligi uchun moslashtirildi */
+            font-family: 'Cormorant Garamond', serif; 
+            color: var(--royal-gold);
+        }
+
+        /* Qimirlamaydigan va telefonlarda ham mukammal ishlaydigan fon qatlami */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('fon.jpg');
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover;
-            background-attachment: scroll; /* Mobil va kompyuterda scroll qotmasligini ta'minlaydi */
-            font-family: 'Cormorant Garamond', serif; 
-            color: var(--royal-gold);
-            -webkit-overflow-scrolling: touch; /* iOS scroll silliqligi uchun */
+            z-index: -1;
+            transform: translate3d(0, 0, 0); /* Qurilma protsessorini tezlashtirish uchun */
+            will-change: transform;
         }
 
         /* Til paneli fixed holda qoldi */
@@ -218,7 +227,7 @@
 
         const translations = {
             uz: { sealTitle: "TAKLIFNOMA", sealSub: "Ochish uchun bosing", invitation: "TAKLIFNOMA", names: "Otabek & Kumush", prose: "Hayotimizning eng go'zal va unutilmas kunida siz aziz va qadrli yaqinlarimizni shohona nikoh oqshomimizda ko'rishdan mamnun bo'lamiz. Tashrifingiz to'yimizga yuksak shon-sharaf bag'ishlaydi.", date: "YAKSHANBA • 27 DEKABR • 2026", time: "SOAT 18:00 DA", calendar: "TAQVIMGA QO'SHISH", venue: "TANTANA MANZILI", cardTitle: "TO'YONA UCHUN KARTA RAQAMI", giftPlace: "To'yona miqdori (ixtiyoriy)...", copy: "NUSXA OLISH", rsvpTitle: "TASHRIFINGIZNI TASDIQLANG", inputPlace: "Ismingiz...", optYes: "Tashrif buyuraman", optNo: "Afsuski borolmayman", submit: "TASDIQLASH", success: "Rahmat! Javobingiz qabul qilindi.", footer: "Sizni kutamiz", kun: "Kun", soat: "Soat", daqiqa: "Daqiqa", copied: "✓ NUSXALANDI" },
-            kr: { sealTitle: "ТАКЛИФНОМА", sealSub: "Очиш учун босинг", invitation: "ТАКЛИФНОМА", names: "Отабек & Кумуш", prose: "Ҳаётимизнинг энг гўзал ва унутилмас кунида сиз азиз ва қадрли яқинларимизни шоҳона никоҳ оқшомимизда кўришдан мамнун бўламиз. Ташрифингиз тўйимизга юксак шон-шараф бағишлайди.", date: "ЯКШАНБА • 27 ДЕКАБРЬ • 2026", time: "СОАТ 18:00 ДА", calendar: "ТАҚВИМГА ҚЎШИШ", venue: "ТАНТАНА МАНЗИЛИ", cardTitle: "ТЎЁНА УЧУН КАРТА РАҚАМИ", giftPlace: "Тўёна миқдори (ихтиёрий)...", copy: "НУСХА ОЛИШ", rsvpTitle: "ТАШРИФИНГИЗНИ ТАСДИҚЛАНГ", inputPlace: "Исмингиз...", optYes: "Ташриф буюраман", optNo: "Афсуски боролмайман", submit: "ТАСДИҚЛАШ", success: "Раҳмат! Жавобингиз қабул қилинди.", footer: "Сизни кутамиз", kun: "Кун", soat: "Соат", daqiqa: "Дақиқа", copied: "✓ НУСХАЛАНДИ" }
+            kr: { sealTitle: "ТАКЛИФНОМА", sealSub: "Очиш учун босинг", invitation: "ТАКЛИФНОМА", names: "Отабек & Кумуш", prose: "Ҳаётимизнинг енг гўзал ва унутилмас кунида сиз азиз ва қадрли яқинларимизни шоҳона никоҳ оқшомимизда кўришдан мамнун бўламиз. Ташрифингиз тўйимизга юксак шон-шараф бағишлайди.", date: "ЯКШАНБА • 27 ДЕКАБРЬ • 2026", time: "СОАТ 18:00 ДА", calendar: "ТАҚВИМГА ҚЎШИШ", venue: "ТАНТАНА МАНЗИЛИ", cardTitle: "ТЎЁНА УЧУН КАРТА РАҚАМИ", giftPlace: "Тўёна миқдори (ихтиёрий)...", copy: "НУСХА ОЛИШ", rsvpTitle: "ТАШРИФИНГИЗНИ ТАСДИҚЛАНГ", inputPlace: "Исмингиз...", optYes: "Ташриф буюраман", optNo: "Афсуски боролмайман", submit: "ТАСДИҚЛАШ", success: "Раҳмат! Жавобингиз қабул қилинди.", footer: "Сизни кутамиз", kun: "Кун", soat: "Соат", daqiqa: "Дақиқа", copied: "✓ НУСХАЛАНДИ" }
         };
 
         function changeLanguage(lang) {
