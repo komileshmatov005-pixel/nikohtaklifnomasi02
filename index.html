@@ -12,7 +12,7 @@
         :root {
             --royal-gold: #F3E5AB;
             --bright-gold: #D4AF37;
-            --text-shadow-blend: 0 2px 10px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,1);
+            --text-shadow-blend: 0 2px 10px rgba(0,0,0,0.8);
         }
 
         body, html {
@@ -23,71 +23,61 @@
             color: var(--royal-gold);
         }
 
-        /* Telefonda fon rasmi qimirlamasligi (fixed) uchun eng mukammal yechim */
-        body::before {
-            content: "";
+        /* Telefonlarda fon qotib turishi va qimirlamasligi uchun maxsus qatlam */
+        .fixed-bg {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('fon.jpg');
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover;
+            z-index: -1;
         }
 
-        /* Til paneli endi har doim ekranda qotib turadi va hamma slaydda ko'rinadi */
+        /* Til paneli doimiy ko'rinib turishi uchun fixed qilindi */
         .lang-panel {
             position: fixed; top: 25px; right: 20px; z-index: 10005; display: flex; gap: 10px;
         }
         .lang-btn {
             background: rgba(20, 15, 10, 0.85); color: var(--royal-gold); border: 1px solid var(--bright-gold);
-            padding: 6px 12px; cursor: pointer; font-family: 'Cinzel Decorative', serif; font-size: 10px;
-            letter-spacing: 1px; transition: 0.3s;
+            padding: 6px 14px; cursor: pointer; font-family: 'Cinzel Decorative', serif; font-size: 10px;
+            letter-spacing: 1px; transition: 0.3s; border-radius: 2px;
         }
         .lang-btn.active { background: var(--bright-gold); color: #000; font-weight: bold; }
 
-        /* Musiqa tugmasining aylanish animatsiyasi */
         .royal-audio-btn {
             position: fixed; bottom: 30px; right: 30px; z-index: 1000;
             width: 50px; height: 50px; border-radius: 50%;
             background: radial-gradient(circle, #D4AF37 0%, #8C6221 100%);
             border: 1px solid var(--royal-gold); box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             cursor: pointer; display: flex; justify-content: center; align-items: center;
-            transition: transform 0.3s ease;
         }
+        .royal-audio-btn svg { width: 20px; height: 20px; fill: #000; }
+        
+        /* Musiqa chalinganda aylanish animatsiyasi */
         .royal-audio-btn.playing {
-            animation: rotateMusic 4s linear infinite;
+            animation: spin 4s linear infinite;
         }
-        @keyframes rotateMusic {
+        @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-        .royal-audio-btn svg { width: 20px; height: 20px; fill: #000; }
 
-        /* Haqiqiy estetik konvert effekti */
+        /* Konvert Ekraani */
         #gate-screen {
             position: fixed; top:0; left:0; width:100%; height:100vh;
-            z-index: 9999; display: flex; justify-content: center; align-items: center;
-            transition: visibility 1.5s;
-        }
-        .envelope-flap, .envelope-body {
-            position: absolute; left: 0; width: 100%; height: 50%;
-            background-image: linear-gradient(rgba(0,0,0,0.88), rgba(0,0,0,0.88)), url('fon.jpg');
+            background-color: #0f0d0a;
+            /* Konvert rasmi uchun joy. konvert.jpg deb nomlab rasm yuklang */
+            background-image: linear-gradient(rgba(15,13,10,0.4), rgba(15,13,10,0.7)), url('konvert.jpg');
             background-repeat: no-repeat;
+            background-position: center center;
             background-size: cover;
-            transition: transform 1.5s cubic-bezier(0.65, 0.05, 0.36, 1);
+            z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s ease-in-out;
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
         }
-        .envelope-flap { top: 0; background-position: center top; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
-        .envelope-body { bottom: 0; background-position: center bottom; border-top: 1px solid rgba(212, 175, 55, 0.2); }
-        
-        #gate-screen.unsealed .envelope-flap { transform: translateY(-100%); }
-        #gate-screen.unsealed .envelope-body { transform: translateY(100%); }
-        #gate-screen.unsealed .wax-seal-container { opacity: 0; transform: translate(-50%, -50%) scale(0.8); pointer-events: none; }
-
-        .wax-seal-container { 
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            text-align: center; z-index: 10001; transition: opacity 0.8s, transform 0.8s; width: 100%;
-        }
+        .wax-seal-container { text-align: center; z-index: 2; }
         .wax-seal-trigger {
             width: 110px; height: 110px; border-radius: 50%; margin: 0 auto;
             background: radial-gradient(circle, #941C14 0%, #4A0000 100%);
@@ -105,57 +95,65 @@
         }
 
         .baroque-header { font-family: 'Cinzel Decorative', serif; font-size: 13px; letter-spacing: 5px; color: var(--bright-gold); margin-bottom: 5px; }
-        .crest-separator { font-size: 2.2rem; color: var(--bright-gold); margin: 25px 0; opacity: 0.85; }
+        
+        /* Bachkana naqshlar o'rniga estetik chiziq */
+        .aesthetic-separator { 
+            width: 50px; 
+            height: 1px; 
+            background: linear-gradient(to right, transparent, var(--bright-gold), transparent); 
+            margin: 30px auto; 
+            opacity: 0.7;
+        }
         
         .monarch-names { font-family: 'Pinyon Script', cursive; font-size: 5.5rem; font-weight: 400; margin: 20px 0; color: var(--bright-gold); line-height: 1; }
         .royal-prose { font-size: 1.45rem; line-height: 1.9; font-style: italic; color: var(--royal-gold); text-align: justify; text-align-last: center; margin: 35px 0; letter-spacing: 0.3px; }
 
-        .chronology-box { margin: 40px 0; border-top: 1px solid rgba(212, 175, 55, 0.5); border-bottom: 1px solid rgba(212, 175, 55, 0.5); padding: 22px 0; font-family: 'Cinzel Decorative', serif; }
+        .chronology-box { margin: 40px 0; border-top: 1px solid rgba(212, 175, 55, 0.3); border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding: 22px 0; font-family: 'Cinzel Decorative', serif; }
         .chrono-date { font-size: 1.25rem; letter-spacing: 2px; color: #fff; font-weight: bold; }
         .chrono-time { font-size: 1.05rem; color: var(--bright-gold); display: block; margin-top: 8px; }
 
-        .palace-frame { margin: 25px auto; width: 100%; border: 1px solid var(--bright-gold); padding: 3px; background: rgba(0,0,0,0.5); }
-        .palace-frame img { width: 100%; height: 230px; object-fit: cover; display: block; filter: sepia(0.15) contrast(1.1); }
+        .palace-frame { margin: 25px auto; width: 100%; border: 1px solid rgba(212, 175, 55, 0.5); padding: 3px; background: rgba(0,0,0,0.5); }
+        .palace-frame img { width: 100%; height: 230px; object-fit: cover; display: block; filter: sepia(0.2) contrast(1.05); }
 
         .btn-antique { display: block; width: 100%; padding: 14px; margin: 15px 0; box-sizing: border-box; background: rgba(20, 15, 10, 0.85); color: var(--bright-gold); border: 1px solid var(--bright-gold); font-family: 'Cinzel Decorative', serif; font-size: 10px; letter-spacing: 3px; cursor: pointer; transition: 0.4s ease; text-decoration: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .btn-antique:hover { background: var(--bright-gold); color: #000; font-weight: bold; box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
+        .btn-antique:hover { background: var(--bright-gold); color: #000; font-weight: bold; box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3); }
 
         .vintage-countdown { display: flex; justify-content: center; gap: 25px; margin: 40px 0; }
-        .v-time-unit { border-bottom: 1px solid rgba(212, 175, 55, 0.5); min-width: 65px; padding-bottom: 8px; }
+        .v-time-unit { border-bottom: 1px solid rgba(212, 175, 55, 0.3); min-width: 65px; padding-bottom: 8px; }
         .v-time-unit span { display: block; font-family: 'Cinzel Decorative', serif; font-size: 2rem; color: var(--bright-gold); }
         .v-time-unit small { font-size: 0.85rem; color: #fff; }
 
-        .monarch-form { margin-top: 50px; padding-top: 30px; border-top: 1px double var(--bright-gold); }
-        .monarch-input { width: 100%; padding: 14px; margin-bottom: 20px; background: rgba(15, 10, 5, 0.8); border: 1px solid rgba(212, 175, 55, 0.6); box-sizing: border-box; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; text-align: center; color: #fff; outline: none; transition: 0.3s; border-radius: 0; }
+        .monarch-form { margin-top: 50px; padding-top: 30px; border-top: 1px double rgba(212, 175, 55, 0.4); }
+        .monarch-input { width: 100%; padding: 14px; margin-bottom: 20px; background: rgba(15, 10, 5, 0.8); border: 1px solid rgba(212, 175, 55, 0.4); box-sizing: border-box; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; text-align: center; color: #fff; outline: none; transition: 0.3s; }
         .monarch-input:focus { border-color: var(--bright-gold); background: rgba(0,0,0,0.9); }
         .monarch-input::placeholder { color: rgba(243, 229, 171, 0.4); font-style: italic; }
         .monarch-select { display: flex; gap: 15px; margin: 20px 0; }
-        .m-option { flex: 1; padding: 14px; border: 1px solid rgba(212, 175, 55, 0.5); background: rgba(15, 10, 5, 0.8); cursor: pointer; font-family: 'Cinzel Decorative', serif; font-size: 9px; text-align: center; color: var(--royal-gold); transition: 0.3s; }
+        .m-option { flex: 1; padding: 14px; border: 1px solid rgba(212, 175, 55, 0.4); background: rgba(15, 10, 5, 0.8); cursor: pointer; font-family: 'Cinzel Decorative', serif; font-size: 9px; text-align: center; color: var(--royal-gold); transition: 0.3s; }
         .m-option.selected { background: var(--bright-gold); color: #000; font-weight: bold; border-color: var(--bright-gold); }
 
         @keyframes royalPulse {
             0% { transform: scale(1); box-shadow: 0 15px 35px rgba(0,0,0,0.9); }
-            50% { transform: scale(1.04); box-shadow: 0 15px 40px rgba(148,28,20,0.6); }
+            50% { transform: scale(1.03); box-shadow: 0 15px 40px rgba(148,28,20,0.5); }
             100% { transform: scale(1); box-shadow: 0 15px 35px rgba(0,0,0,0.9); }
         }
     </style>
 </head>
 <body>
-    <audio id="royal-bg-music" loop><source src="music.mp3" type="audio/mpeg"></audio>
+    <!-- Ruxsat etilgan qotib turuvchi fon rasmi -->
+    <div class="fixed-bg"></div>
 
     <div class="lang-panel">
         <button class="lang-btn active" id="btn-lang-uz" onclick="changeLanguage('uz')">Lotin</button>
         <button class="lang-btn" id="btn-lang-kr" onclick="changeLanguage('kr')">Кирилл</button>
     </div>
 
-    <button id="audio-btn" class="royal-audio-btn" onclick="toggleRoyalMusic()">
+    <audio id="royal-bg-music" loop><source src="music.mp3" type="audio/mpeg"></audio>
+
+    <button id="music-btn" class="royal-audio-btn" onclick="toggleRoyalMusic()">
         <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
     </button>
 
-    <!-- Haqiqiy konvert ko'rinishidagi kirish ekrani -->
     <div id="gate-screen">
-        <div class="envelope-flap"></div>
-        <div class="envelope-body"></div>
         <div class="wax-seal-container">
             <p id="seal-title" class="baroque-header" style="font-size: 11px; margin-bottom: 30px; letter-spacing: 5px;">TAKLIFNOMA</p>
             <div class="wax-seal-trigger" onclick="unsealInvitation()">
@@ -167,8 +165,8 @@
 
     <div class="scroll-wrapper">
         <p id="txt-invitation" class="baroque-header" data-aos="fade-up">TAKLIFNOMA</p>
-        <div class="crest-separator" data-aos="fade-up">⚜</div>
-        <h1 class="monarch-names" data-aos="fade-up">Otabek & Kumush</h1>
+        <div class="aesthetic-separator" data-aos="fade-up"></div>
+        <h1 id="txt-names" class="monarch-names" data-aos="fade-up">Otabek & Kumush</h1>
         <p id="txt-prose" class="royal-prose" data-aos="fade-up">
             Hayotimizning eng go'zal va unutilmas kunida siz aziz va qadrli yaqinlarimizni shohona nikoh oqshomimizda ko'rishdan mamnun bo'lamiz. Tashrifingiz to'yimizga yuksak shon-sharaf bag'ishlaydi.
         </p>
@@ -177,19 +175,19 @@
             <div id="txt-time" class="chrono-time">SOAT 18:00 DA</div>
         </div>
         <button id="btn-calendar" class="btn-antique" data-aos="fade-up" onclick="downloadRoyalICS()">TAQVIMGA QO'SHISH</button>
-        <div class="crest-separator" data-aos="fade-up">❖</div>
+        <div class="aesthetic-separator" data-aos="fade-up"></div>
         <p id="txt-venue-title" class="baroque-header" data-aos="fade-up">TANTANA MANZILI</p>
-        <h2 id="txt-venue-name" style="font-family: 'Cinzel Decorative', serif; font-size: 1.35rem; margin: 10px 0; color: var(--bright-gold);" data-aos="fade-up">"IDEAL SS" SAROYI</h2>
+        <h2 style="font-family: 'Cinzel Decorative', serif; font-size: 1.35rem; margin: 10px 0; color: var(--bright-gold);" data-aos="fade-up">"IDEAL SS" SAROYI</h2>
         <div class="palace-frame" data-aos="fade-up">
             <img src="saroy.jpg" alt="Ideal SS Palace">
         </div>
         <button class="btn-antique" data-aos="fade-up" onclick="window.open('https://maps.app.goo.gl/1koHhC2uAUGuJLzi7')">GOOGLE MAPS</button>
         <button class="btn-antique" data-aos="fade-up" onclick="window.open('https://yandex.uz/maps/org/8650108130/')">YANDEX MAPS</button>
-        <div class="crest-separator" data-aos="fade-up">⚜</div>
-        <div style="border: 1px solid rgba(212, 175, 55, 0.5); padding: 25px 15px; margin: 35px 0; background: rgba(10,5,0,0.55);" data-aos="fade-up">
+        <div class="aesthetic-separator" data-aos="fade-up"></div>
+        <div style="border: 1px solid rgba(212, 175, 55, 0.3); padding: 25px 15px; margin: 35px 0; background: rgba(10,5,0,0.55);" data-aos="fade-up">
             <p id="txt-card-title" class="baroque-header" style="font-size: 9px;">TO'YONA UCHUN KARTA RAQAMI</p>
             <div style="font-family: 'Cinzel Decorative', monospace; font-size: 1.35rem; font-weight: bold; margin: 10px 0; color: var(--bright-gold); letter-spacing: 1px;">9860 0000 0000 0000</div>
-            <div id="txt-card-owner" style="font-size: 1.05rem; font-style: italic; margin-bottom: 5px; color: #fff;">Yo'ldoshev Azamat (Humo)</div>
+            <div style="font-size: 1.05rem; font-style: italic; margin-bottom: 5px; color: #fff;">Yo'ldoshev Azamat (Humo)</div>
             <input type="number" id="royal-gift-amount" placeholder="To'yona miqdori (ixtiyoriy)..." class="monarch-input" style="font-size:1.1rem; padding:8px; margin: 15px 0 10px 0; width:90%; border-width:0 0 1px 0;">
             <button id="btn-copy" class="btn-antique" style="margin:5px 0 0 0; padding:10px;" onclick="copyRoyalCard()">NUSXA OLISH</button>
         </div>
@@ -217,64 +215,13 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         const audio = document.getElementById('royal-bg-music');
-        const audioBtn = document.getElementById('audio-btn');
+        const musicBtn = document.getElementById('music-btn');
         let selectedStatus = "";
         let currentLang = "uz";
 
-        // Barcha matnlar qolib ketmasdan mukammal o'zgarishi uchun tarjimalar kengaytirildi
         const translations = {
-            uz: { 
-                sealTitle: "TAKLIFNOMA", 
-                sealSub: "Ochish uchun muhr ustiga bosing", 
-                invitation: "TAKLIFNOMA", 
-                prose: "Hayotimizning eng go'zal va unutilmas kunida siz aziz va qadrli yaqinlarimizni shohona nikoh oqshomimizda ko'rishdan mamnun bo'lamiz. Tashrifingiz to'yimizga yuksak shon-sharaf bag'ishlaydi.",
-                date: "YAKSHANBA • 27 DEKABR • 2026", 
-                time: "SOAT 18:00 DA", 
-                calendar: "TAQVIMGA QO'SHISH", 
-                venue: "TANTANA MANZILI", 
-                venueName: '"IDEAL SS" SAROYI',
-                cardTitle: "TO'YONA UCHUN KARTA RAQAMI", 
-                cardOwner: "Yo'ldoshev Azamat (Humo)",
-                giftPlace: "To'yona miqdori (ixtiyoriy)...", 
-                copy: "NUSXA OLISH", 
-                rsvpTitle: "TASHRIFINGIZNI TASDIQLANG", 
-                inputPlace: "Ismingiz...", 
-                optYes: "Tashrif buyuraman", 
-                optNo: "Afsuski borolmayman", 
-                submit: "TASDIQLASH", 
-                success: "Rahmat! Javobingiz qabul qilindi.", 
-                footer: "Sizni kutamiz", 
-                kun: "Kun", 
-                soat: "Soat", 
-                daqiqa: "Daqiqa", 
-                copied: "✓ NUSXALANDI" 
-            },
-            kr: { 
-                sealTitle: "ТАКЛИФНОМА", 
-                sealSub: "Очиш учун муҳр устига босинг", 
-                invitation: "ТАКЛИФНОМА", 
-                prose: "Ҳаётимизнинг энг гўзал ва унутилмас кунида сиз азиз ва қадрли яқинларимизни шоҳона никоҳ оқшомимизда кўришдан мамнун бўламиз. Ташрифингиз тўйимизга юксак шон-шараф бағишлайди.",
-                date: "ЯКШАНБА • 27 ДЕКАБРЬ • 2026", 
-                time: "СОАТ 18:00 ДА", 
-                calendar: "ТАҚВИМГА ҚЎШИШ", 
-                venue: "ТАНТАНА МАНЗИЛИ", 
-                venueName: '"IDEAL SS" САРОЙИ',
-                cardTitle: "ТЎЁНА УЧУН КАРТА РАҚАМИ", 
-                cardOwner: "Йўлдошев Азамат (Ҳумо)",
-                giftPlace: "Тўёна миқдори (ихтиёрий)...", 
-                copy: "НУСХА ОЛИШ", 
-                rsvpTitle: "ТАШРИФИНГИЗНИ ТАСДИҚЛАНГ", 
-                inputPlace: "Исмингиз...", 
-                optYes: "Ташриф буюраман", 
-                optNo: "Афсуски боролмайман", 
-                submit: "ТАСДИҚЛАШ", 
-                success: "Раҳмат! Жавобингиз қабул қилинди.", 
-                footer: "Сизни кутамиз", 
-                kun: "Кун", 
-                soat: "Соат", 
-                daqiqa: "Дақиқа", 
-                copied: "✓ НУСХАЛАНДИ" 
-            }
+            uz: { sealTitle: "TAKLIFNOMA", sealSub: "Ochish uchun muhr ustiga bosing", invitation: "TAKLIFNOMA", names: "Otabek & Kumush", prose: "Hayotimizning eng go'zal va unutilmas kunida siz aziz va qadrli yaqinlarimizni shohona nikoh oqshomimizda ko'rishdan mamnun bo'lamiz. Tashrifingiz to'yimizga yuksak shon-sharaf bag'ishlaydi.", date: "YAKSHANBA • 27 DEKABR • 2026", time: "SOAT 18:00 DA", calendar: "TAQVIMGA QO'SHISH", venue: "TANTANA MANZILI", cardTitle: "TO'YONA UCHUN KARTA RAQAMI", giftPlace: "To'yona miqdori (ixtiyoriy)...", copy: "NUSXA OLISH", rsvpTitle: "TASHRIFINGIZNI TASDIQLANG", inputPlace: "Ismingiz...", optYes: "Tashrif buyuraman", optNo: "Afsuski borolmayman", submit: "TASDIQLASH", success: "Rahmat! Javobingiz qabul qilindi.", footer: "Sizni kutamiz", kun: "Kun", soat: "Soat", daqiqa: "Daqiqa", copied: "✓ NUSXALANDI" },
+            kr: { sealTitle: "ТАКЛИФНОМА", sealSub: "Очиш учун муҳр устига босинг", invitation: "ТАКЛИФНОМА", names: "Отабек & Кумуш", prose: "Ҳаётимизнинг энг гўзал ва унутилмас кунида сиз азиз ва қадрли яқинларимизни шоҳона никоҳ оқшомимизда кўришдан мамнун бўламиз. Ташрифингиз тўйимизга юксак шон-шараф бағишлайди.", date: "ЯКШАНБА • 27 ДЕКАБРЬ • 2026", time: "СОАТ 18:00 ДА", calendar: "ТАҚВИМГА ҚЎШИШ", venue: "ТАНТАНА МАНЗИЛИ", cardTitle: "ТЎЁНА УЧУН КАРТА РАҚАМИ", giftPlace: "Тўёна миқдори (ихтиёрий)...", copy: "НУСХА ОЛИШ", rsvpTitle: "ТАШРИФИНГИЗНИ ТАСДИҚЛАНГ", inputPlace: "Исмингиз...", optYes: "Ташриф буюраман", optNo: "Афсуски боролмайman", submit: "ТАСДИҚЛАШ", success: "Раҳмат! Жавобингиз қабул қилинди.", footer: "Сизни кутамиз", kun: "Кун", soat: "Соат", daqiqa: "Дақиқа", copied: "✓ НУСХАЛАНДИ" }
         };
 
         function changeLanguage(lang) {
@@ -287,14 +234,13 @@
             document.getElementById('seal-title').innerText = t.sealTitle; 
             document.getElementById('seal-sub').innerText = t.sealSub; 
             document.getElementById('txt-invitation').innerText = t.invitation; 
-            document.getElementById('txt-prose').innerText = t.prose; 
+            document.getElementById('txt-names').innerText = t.names;
+            document.getElementById('txt-prose').innerText = t.prose;
             document.getElementById('txt-date').innerText = t.date; 
             document.getElementById('txt-time').innerText = t.time; 
             document.getElementById('btn-calendar').innerText = t.calendar; 
             document.getElementById('txt-venue-title').innerText = t.venue; 
-            document.getElementById('txt-venue-name').innerText = t.venueName; 
             document.getElementById('txt-card-title').innerText = t.cardTitle; 
-            document.getElementById('txt-card-owner').innerText = t.cardOwner; 
             document.getElementById('royal-gift-amount').placeholder = t.giftPlace; 
             document.getElementById('btn-copy').innerText = t.copy; 
             document.getElementById('txt-rsvp-title').innerText = t.rsvpTitle; 
@@ -310,17 +256,20 @@
         }
 
         function unsealInvitation() {
-            const gate = document.getElementById('gate-screen');
-            gate.classList.add('unsealed');
-            setTimeout(() => { gate.style.display = 'none'; }, 1500);
-            
+            document.getElementById('gate-screen').style.opacity = '0';
+            setTimeout(() => { document.getElementById('gate-screen').style.display = 'none'; }, 1200);
             audio.play().then(() => {
-                audioBtn.classList.add('playing');
-            }).catch(e => console.log("Musiqa chalinmadi"));
-
-            // Animatsiyalar "Golden Brown" ritmiga mos ravishda juda mayin chiqadi (1600ms)
+                musicBtn.classList.add('playing');
+            }).catch(e => console.log("Musiqa avtomatik chalinmadi"));
+            
+            // Mayin va o'ta estetik animatsiya tezligi (delay va duration)
             setTimeout(() => { 
-                AOS.init({ once: true, duration: 1600, delay: 100 }); 
+                AOS.init({ 
+                    once: true, 
+                    duration: 1600,
+                    delay: 100,
+                    easing: 'ease-out-cubic'
+                }); 
                 setInterval(updateRoyalTimer, 1000); 
             }, 200);
         }
@@ -328,10 +277,10 @@
         function toggleRoyalMusic() { 
             if (audio.paused) { 
                 audio.play(); 
-                audioBtn.classList.add('playing');
+                musicBtn.classList.add('playing');
             } else { 
                 audio.pause(); 
-                audioBtn.classList.remove('playing');
+                musicBtn.classList.remove('playing');
             } 
         }
 
