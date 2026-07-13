@@ -15,27 +15,28 @@
             --text-shadow-blend: 0 2px 10px rgba(0,0,0,0.8);
         }
 
+        /* html va body foni shaffof qilindi, bu rasmni to'sib qo'ymasligini ta'minlaydi */
         body, html {
             margin: 0; padding: 0;
             width: 100%; min-height: 100%;
             font-family: 'Cormorant Garamond', serif; 
             color: var(--royal-gold);
-            background: #000; /* Asosiy zaxira foni */
+            background-color: transparent; 
         }
 
-        /* Telefon va kompyuterda mutlaqo qimirlamaydigan, rasmni to'sib qo'ymaydigan mukammal fon */
+        /* Qora rang zaxirasi rasm bilan birga shu qatlamga berildi */
         .fixed-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('fon.jpg');
+            background: #000 linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('fon.jpg');
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover;
-            z-index: -999; /* Elementlar ostida xavfsiz turishi uchun eng past daraja */
-            pointer-events: none; /* Scrollga xalaqit bermasligi uchun */
+            z-index: -1; 
+            pointer-events: none;
         }
 
         /* Til paneli fixed holda qoldi */
@@ -149,7 +150,7 @@
 </head>
 <body>
 
-    <!-- Har doim orqada mustahkam qotib turuvchi fon qatlami -->
+    <!-- Qotib turadigan fon qatlami -->
     <div class="fixed-background"></div>
 
     <div class="lang-panel">
