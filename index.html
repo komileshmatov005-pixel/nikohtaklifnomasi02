@@ -17,93 +17,88 @@
 
         body, html {
             margin: 0; padding: 0;
-            width: 100%; min-height: 100vh; overflow-x: hidden;
+            width: 100%; overflow-x: hidden;
             background-color: #000;
+            font-family: 'Cormorant Garamond', serif; 
+            color: var(--royal-gold);
+        }
+
+        /* Telefonda fon rasmi qimirlamasligi (fixed) uchun eng mukammal yechim */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
             background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('fon.jpg');
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover;
-            background-attachment: fixed;
-            font-family: 'Cormorant Garamond', serif; 
-            color: var(--royal-gold);
-            -webkit-overflow-scrolling: touch;
         }
 
-        /* Telefon brauzerlarida fon qimirlamasligi uchun maxsus tuzatish */
-        @media identity {
-            body { background-attachment: scroll; }
-        }
-
-        /* Til paneli - Har doim barcha slaydda qotib turadi */
+        /* Til paneli endi har doim ekranda qotib turadi va hamma slaydda ko'rinadi */
         .lang-panel {
-            position: fixed; top: 25px; right: 20px; z-index: 10000; display: flex; gap: 8px;
+            position: fixed; top: 25px; right: 20px; z-index: 10005; display: flex; gap: 10px;
         }
         .lang-btn {
-            background: rgba(15, 12, 8, 0.85); color: var(--royal-gold); border: 1px solid rgba(214, 175, 55, 0.5);
-            padding: 7px 14px; cursor: pointer; font-family: 'Cinzel Decorative', serif; font-size: 10px;
-            letter-spacing: 1px; transition: 0.4s; backdrop-filter: blur(5px);
+            background: rgba(20, 15, 10, 0.85); color: var(--royal-gold); border: 1px solid var(--bright-gold);
+            padding: 6px 12px; cursor: pointer; font-family: 'Cinzel Decorative', serif; font-size: 10px;
+            letter-spacing: 1px; transition: 0.3s;
         }
-        .lang-btn.active { background: var(--bright-gold); color: #000; font-weight: bold; border-color: var(--bright-gold); }
+        .lang-btn.active { background: var(--bright-gold); color: #000; font-weight: bold; }
 
-        /* Musiqa Tugmasi - Estetik va tinimsiz aylanadigan */
+        /* Musiqa tugmasining aylanish animatsiyasi */
         .royal-audio-btn {
             position: fixed; bottom: 30px; right: 30px; z-index: 1000;
-            width: 52px; height: 52px; border-radius: 50%;
-            background: radial-gradient(circle, #D4AF37 0%, #7A5318 100%);
-            border: 1px solid var(--royal-gold); box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+            width: 50px; height: 50px; border-radius: 50%;
+            background: radial-gradient(circle, #D4AF37 0%, #8C6221 100%);
+            border: 1px solid var(--royal-gold); box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             cursor: pointer; display: flex; justify-content: center; align-items: center;
-            animation: spinMusic 12s linear infinite;
+            transition: transform 0.3s ease;
         }
-        .royal-audio-btn svg { width: 22px; height: 22px; fill: #000; }
-        
-        @keyframes spinMusic {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .royal-audio-btn.playing {
+            animation: rotateMusic 4s linear infinite;
         }
+        @keyframes rotateMusic {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .royal-audio-btn svg { width: 20px; height: 20px; fill: #000; }
 
-        /* 18-asr Aristokratik Kovert (Gate Screen) */
+        /* Haqiqiy estetik konvert effekti */
         #gate-screen {
             position: fixed; top:0; left:0; width:100%; height:100vh;
-            background-color: #0d0a07;
-            background-image: linear-gradient(rgba(12, 9, 6, 0.88), rgba(12, 9, 6, 0.88)), url('fon.jpg');
-            background-repeat: no-repeat; background-position: center center; background-size: cover;
-            z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1), transform 1.8s ease-in-out;
-            border: 12px double rgba(212, 175, 55, 0.3); box-sizing: border-box;
+            z-index: 9999; display: flex; justify-content: center; align-items: center;
+            transition: visibility 1.5s;
         }
-        .wax-seal-container { text-align: center; }
+        .envelope-flap, .envelope-body {
+            position: absolute; left: 0; width: 100%; height: 50%;
+            background-image: linear-gradient(rgba(0,0,0,0.88), rgba(0,0,0,0.88)), url('fon.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            transition: transform 1.5s cubic-bezier(0.65, 0.05, 0.36, 1);
+        }
+        .envelope-flap { top: 0; background-position: center top; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .envelope-body { bottom: 0; background-position: center bottom; border-top: 1px solid rgba(212, 175, 55, 0.2); }
+        
+        #gate-screen.unsealed .envelope-flap { transform: translateY(-100%); }
+        #gate-screen.unsealed .envelope-body { transform: translateY(100%); }
+        #gate-screen.unsealed .wax-seal-container { opacity: 0; transform: translate(-50%, -50%) scale(0.8); pointer-events: none; }
+
+        .wax-seal-container { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            text-align: center; z-index: 10001; transition: opacity 0.8s, transform 0.8s; width: 100%;
+        }
         .wax-seal-trigger {
-            width: 120px; height: 120px; border-radius: 50%; margin: 0 auto;
-            background: radial-gradient(circle, #8A140E 0%, #3D0000 100%);
-            border: 3px solid #1F0000; box-shadow: 0 18px 40px rgba(0,0,0,0.95), inset 0 0 15px rgba(0,0,0,0.6);
+            width: 110px; height: 110px; border-radius: 50%; margin: 0 auto;
+            background: radial-gradient(circle, #941C14 0%, #4A0000 100%);
+            border: 3px solid #2B0000; box-shadow: 0 15px 35px rgba(0,0,0,0.9);
             cursor: pointer; display: flex; justify-content: center; align-items: center;
-            animation: royalPulse 3s infinite ease-in-out;
-            position: relative;
+            animation: royalPulse 2.5s infinite ease-in-out;
         }
-        /* Muhr atrofidagi qadimiy naqsh */
-        .wax-seal-trigger::before {
-            content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px;
-            border: 1px dashed rgba(212, 175, 55, 0.4); border-radius: 50%;
-        }
-        .wax-seal-trigger span { font-family: 'Pinyon Script', cursive; font-size: 3.5rem; color: var(--royal-gold); text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-
-        /* Scroll ishorasi - Boshida ko'rinib turadi */
-        #scroll-hint {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            z-index: 998; color: var(--bright-gold); font-family: 'Cinzel Decorative', serif;
-            font-size: 10px; letter-spacing: 3px; text-align: center; display: none;
-            animation: floatHint 2s infinite ease-in-out; pointer-events: none;
-            text-shadow: var(--text-shadow-blend);
-        }
-        #scroll-hint span { display: block; font-size: 20px; margin-top: 5px; }
-
-        @keyframes floatHint {
-            0%, 100% { transform: translate(-50__, 0px); opacity: 0.4; }
-            50% { transform: translate(-50__, 10px); opacity: 1; }
-        }
+        .wax-seal-trigger span { font-family: 'Pinyon Script', cursive; font-size: 3.2rem; color: var(--royal-gold); }
 
         .scroll-wrapper {
-            max-width: 540px; margin: 0 auto; padding: 100px 25px 80px 25px; box-sizing: border-box; text-align: center;
+            max-width: 540px; margin: 0 auto; padding: 100px 25px 60px 25px; box-sizing: border-box; text-align: center;
         }
         .scroll-wrapper p, .scroll-wrapper h1, .scroll-wrapper h2 {
             text-shadow: var(--text-shadow-blend);
@@ -131,7 +126,7 @@
         .v-time-unit small { font-size: 0.85rem; color: #fff; }
 
         .monarch-form { margin-top: 50px; padding-top: 30px; border-top: 1px double var(--bright-gold); }
-        .monarch-input { width: 100%; padding: 14px; margin-bottom: 20px; background: rgba(15, 10, 5, 0.8); border: 1px solid rgba(212, 175, 55, 0.6); box-sizing: border-box; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; text-align: center; color: #fff; outline: none; transition: 0.3s; }
+        .monarch-input { width: 100%; padding: 14px; margin-bottom: 20px; background: rgba(15, 10, 5, 0.8); border: 1px solid rgba(212, 175, 55, 0.6); box-sizing: border-box; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; text-align: center; color: #fff; outline: none; transition: 0.3s; border-radius: 0; }
         .monarch-input:focus { border-color: var(--bright-gold); background: rgba(0,0,0,0.9); }
         .monarch-input::placeholder { color: rgba(243, 229, 171, 0.4); font-style: italic; }
         .monarch-select { display: flex; gap: 15px; margin: 20px 0; }
@@ -140,7 +135,7 @@
 
         @keyframes royalPulse {
             0% { transform: scale(1); box-shadow: 0 15px 35px rgba(0,0,0,0.9); }
-            50% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(148,28,20,0.7); }
+            50% { transform: scale(1.04); box-shadow: 0 15px 40px rgba(148,28,20,0.6); }
             100% { transform: scale(1); box-shadow: 0 15px 35px rgba(0,0,0,0.9); }
         }
     </style>
@@ -148,31 +143,26 @@
 <body>
     <audio id="royal-bg-music" loop><source src="music.mp3" type="audio/mpeg"></audio>
 
-    <!-- Hamma slaydda turadigan global til paneli -->
     <div class="lang-panel">
         <button class="lang-btn active" id="btn-lang-uz" onclick="changeLanguage('uz')">Lotin</button>
         <button class="lang-btn" id="btn-lang-kr" onclick="changeLanguage('kr')">Кирилл</button>
     </div>
 
-    <button class="royal-audio-btn" onclick="toggleRoyalMusic()">
+    <button id="audio-btn" class="royal-audio-btn" onclick="toggleRoyalMusic()">
         <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
     </button>
 
-    <!-- 18-asr uslubidagi kovert -->
+    <!-- Haqiqiy konvert ko'rinishidagi kirish ekrani -->
     <div id="gate-screen">
+        <div class="envelope-flap"></div>
+        <div class="envelope-body"></div>
         <div class="wax-seal-container">
-            <p id="seal-title" class="baroque-header" style="font-size: 12px; margin-bottom: 35px; letter-spacing: 7px;">TAKLIFNOMA</p>
+            <p id="seal-title" class="baroque-header" style="font-size: 11px; margin-bottom: 30px; letter-spacing: 5px;">TAKLIFNOMA</p>
             <div class="wax-seal-trigger" onclick="unsealInvitation()">
                 <span>O & K</span>
             </div>
-            <p id="seal-sub" style="color: rgba(243, 229, 171, 0.85); font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-style: italic; margin-top: 35px; letter-spacing: 0.5px;">Ochish uchun muhr ustiga bosing</p>
+            <p id="seal-sub" style="color: #fff; font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; margin-top: 30px;">Ochish uchun muhr ustiga bosing</p>
         </div>
-    </div>
-
-    <!-- Pastga varoqlash ishorasi -->
-    <div id="scroll-hint">
-        <span id="txt-scroll-hint">PASTGA SURING</span>
-        <span>⚜</span>
     </div>
 
     <div class="scroll-wrapper">
@@ -189,7 +179,7 @@
         <button id="btn-calendar" class="btn-antique" data-aos="fade-up" onclick="downloadRoyalICS()">TAQVIMGA QO'SHISH</button>
         <div class="crest-separator" data-aos="fade-up">❖</div>
         <p id="txt-venue-title" class="baroque-header" data-aos="fade-up">TANTANA MANZILI</p>
-        <h2 style="font-family: 'Cinzel Decorative', serif; font-size: 1.35rem; margin: 10px 0; color: var(--bright-gold);" data-aos="fade-up">"IDEAL SS" SAROYI</h2>
+        <h2 id="txt-venue-name" style="font-family: 'Cinzel Decorative', serif; font-size: 1.35rem; margin: 10px 0; color: var(--bright-gold);" data-aos="fade-up">"IDEAL SS" SAROYI</h2>
         <div class="palace-frame" data-aos="fade-up">
             <img src="saroy.jpg" alt="Ideal SS Palace">
         </div>
@@ -199,7 +189,7 @@
         <div style="border: 1px solid rgba(212, 175, 55, 0.5); padding: 25px 15px; margin: 35px 0; background: rgba(10,5,0,0.55);" data-aos="fade-up">
             <p id="txt-card-title" class="baroque-header" style="font-size: 9px;">TO'YONA UCHUN KARTA RAQAMI</p>
             <div style="font-family: 'Cinzel Decorative', monospace; font-size: 1.35rem; font-weight: bold; margin: 10px 0; color: var(--bright-gold); letter-spacing: 1px;">9860 0000 0000 0000</div>
-            <div style="font-size: 1.05rem; font-style: italic; margin-bottom: 5px; color: #fff;">Yo'ldoshev Azamat (Humo)</div>
+            <div id="txt-card-owner" style="font-size: 1.05rem; font-style: italic; margin-bottom: 5px; color: #fff;">Yo'ldoshev Azamat (Humo)</div>
             <input type="number" id="royal-gift-amount" placeholder="To'yona miqdori (ixtiyoriy)..." class="monarch-input" style="font-size:1.1rem; padding:8px; margin: 15px 0 10px 0; width:90%; border-width:0 0 1px 0;">
             <button id="btn-copy" class="btn-antique" style="margin:5px 0 0 0; padding:10px;" onclick="copyRoyalCard()">NUSXA OLISH</button>
         </div>
@@ -227,81 +217,123 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         const audio = document.getElementById('royal-bg-music');
+        const audioBtn = document.getElementById('audio-btn');
         let selectedStatus = "";
         let currentLang = "uz";
 
+        // Barcha matnlar qolib ketmasdan mukammal o'zgarishi uchun tarjimalar kengaytirildi
         const translations = {
-            uz: { sealTitle: "TAKLIFNOMA", sealSub: "Ochish uchun muhr ustiga bosing", invitation: "TAKLIFNOMA", date: "YAKSHANBA • 27 DEKABR • 2026", time: "SOAT 18:00 DA", calendar: "TAQVIMGA QO'SHISH", venue: "TANTANA MANZILI", cardTitle: "TO'YONA UCHUN KARTA RAQAMI", giftPlace: "To'yona miqdori (ixtiyoriy)...", copy: "NUSXA OLISH", rsvpTitle: "TASHRIFINGIZNI TASDIQLANG", inputPlace: "Ismingiz...", optYes: "Tashrif buyuraman", optNo: "Afsuski borolmayman", submit: "TASDIQLASH", success: "Rahmat! Javobingiz qabul qilindi.", footer: "Sizni kutamiz", kun: "Kun", soat: "Soat", daqiqa: "Daqiqa", copied: "✓ NUSXALANDI", scrollHint: "PASTGA SURING" },
-            kr: { sealTitle: "ТАКЛИФНОМА", sealSub: "Очиш учун муҳр устига босинг", invitation: "ТАКЛИФНОМА", date: "ЯКШАНБА • 27 ДЕКАБРЬ • 2026", time: "СОАТ 18:00 ДА", calendar: "ТАҚВИМГА ҚЎШИШ", venue: "ТАНТАНА МАНЗИЛИ", cardTitle: "ТЎЁНА УЧУН КАРТА РАҚАМИ", giftPlace: "Тўёна миқдори (ихтиёрий)...", copy: "НУСХА ОЛИШ", rsvpTitle: "ТАШРИФИНГИЗНИ ТАСДИҚЛАНГ", inputPlace: "Исмингиз...", optYes: "Ташриф буюраман", optNo: "Афсуски боролмайман", submit: "ТАСДИҚЛАШ", success: "Раҳмат! Жавобингиз қабул қилинди.", footer: "Sizni kutamiz", kun: "Кун", soat: "Соат", daqiqa: "Дақиқа", copied: "✓ НУСХАЛАНДИ", scrollHint: "ПАСТГА СУРИНГ" }
+            uz: { 
+                sealTitle: "TAKLIFNOMA", 
+                sealSub: "Ochish uchun muhr ustiga bosing", 
+                invitation: "TAKLIFNOMA", 
+                prose: "Hayotimizning eng go'zal va unutilmas kunida siz aziz va qadrli yaqinlarimizni shohona nikoh oqshomimizda ko'rishdan mamnun bo'lamiz. Tashrifingiz to'yimizga yuksak shon-sharaf bag'ishlaydi.",
+                date: "YAKSHANBA • 27 DEKABR • 2026", 
+                time: "SOAT 18:00 DA", 
+                calendar: "TAQVIMGA QO'SHISH", 
+                venue: "TANTANA MANZILI", 
+                venueName: '"IDEAL SS" SAROYI',
+                cardTitle: "TO'YONA UCHUN KARTA RAQAMI", 
+                cardOwner: "Yo'ldoshev Azamat (Humo)",
+                giftPlace: "To'yona miqdori (ixtiyoriy)...", 
+                copy: "NUSXA OLISH", 
+                rsvpTitle: "TASHRIFINGIZNI TASDIQLANG", 
+                inputPlace: "Ismingiz...", 
+                optYes: "Tashrif buyuraman", 
+                optNo: "Afsuski borolmayman", 
+                submit: "TASDIQLASH", 
+                success: "Rahmat! Javobingiz qabul qilindi.", 
+                footer: "Sizni kutamiz", 
+                kun: "Kun", 
+                soat: "Soat", 
+                daqiqa: "Daqiqa", 
+                copied: "✓ NUSXALANDI" 
+            },
+            kr: { 
+                sealTitle: "ТАКЛИФНОМА", 
+                sealSub: "Очиш учун муҳр устига босинг", 
+                invitation: "ТАКЛИФНОМА", 
+                prose: "Ҳаётимизнинг энг гўзал ва унутилмас кунида сиз азиз ва қадрли яқинларимизни шоҳона никоҳ оқшомимизда кўришдан мамнун бўламиз. Ташрифингиз тўйимизга юксак шон-шараф бағишлайди.",
+                date: "ЯКШАНБА • 27 ДЕКАБРЬ • 2026", 
+                time: "СОАТ 18:00 ДА", 
+                calendar: "ТАҚВИМГА ҚЎШИШ", 
+                venue: "ТАНТАНА МАНЗИЛИ", 
+                venueName: '"IDEAL SS" САРОЙИ',
+                cardTitle: "ТЎЁНА УЧУН КАРТА РАҚАМИ", 
+                cardOwner: "Йўлдошев Азамат (Ҳумо)",
+                giftPlace: "Тўёна миқдори (ихтиёрий)...", 
+                copy: "НУСХА ОЛИШ", 
+                rsvpTitle: "ТАШРИФИНГИЗНИ ТАСДИҚЛАНГ", 
+                inputPlace: "Исмингиз...", 
+                optYes: "Ташриф буюраман", 
+                optNo: "Афсуски боролмайман", 
+                submit: "ТАСДИҚЛАШ", 
+                success: "Раҳмат! Жавобингиз қабул қилинди.", 
+                footer: "Сизни кутамиз", 
+                kun: "Кун", 
+                soat: "Соат", 
+                daqiqa: "Дақиқа", 
+                copied: "✓ НУСХАЛАНДИ" 
+            }
         };
 
         function changeLanguage(lang) {
             currentLang = lang;
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-            if(lang === 'uz') {
-                document.getElementById('btn-lang-uz').classList.add('active');
-                if(document.getElementById('btn-lang-kr')) document.getElementById('btn-lang-kr').classList.remove('active');
-            } else {
-                document.getElementById('btn-lang-kr').classList.add('active');
-                if(document.getElementById('btn-lang-uz')) document.getElementById('btn-lang-uz').classList.remove('active');
-            }
+            if(lang === 'uz') document.getElementById('btn-lang-uz').classList.add('active');
+            else document.getElementById('btn-lang-kr').classList.add('active');
+            
             const t = translations[lang];
-            
-            // Kovert qismi elementlari mavjudligini tekshirish (ochilgandan keyin xato bermasligi uchun)
-            if(document.getElementById('seal-title')) document.getElementById('seal-title').innerText = t.sealTitle;
-            if(document.getElementById('seal-sub')) document.getElementById('seal-sub').innerText = t.sealSub;
-            if(document.getElementById('txt-scroll-hint')) document.getElementById('txt-scroll-hint').innerText = t.scrollHint;
-            
-            // Asosiy sahifa elementlari
-            document.getElementById('txt-invitation').innerText = t.invitation;
-            document.getElementById('txt-date').innerText = t.date;
-            document.getElementById('txt-time').innerText = t.time;
-            document.getElementById('btn-calendar').innerText = t.calendar;
-            document.getElementById('txt-venue-title').innerText = t.venue;
-            document.getElementById('txt-card-title').innerText = t.cardTitle;
-            document.getElementById('royal-gift-amount').placeholder = t.giftPlace;
-            document.getElementById('btn-copy').innerText = t.copy;
-            document.getElementById('txt-rsvp-title').innerText = t.rsvpTitle;
-            document.getElementById('guest-monarch').placeholder = t.inputPlace;
-            document.getElementById('opt-yes').innerText = t.optYes;
-            document.getElementById('opt-no').innerText = t.optNo;
-            document.getElementById('btn-submit').innerText = t.submit;
-            document.getElementById('royal-success').innerText = t.success;
-            document.getElementById('txt-footer').innerText = t.footer;
-            document.getElementById('lbl-kun').innerText = t.kun;
-            document.getElementById('lbl-soat').innerText = t.soat;
+            document.getElementById('seal-title').innerText = t.sealTitle; 
+            document.getElementById('seal-sub').innerText = t.sealSub; 
+            document.getElementById('txt-invitation').innerText = t.invitation; 
+            document.getElementById('txt-prose').innerText = t.prose; 
+            document.getElementById('txt-date').innerText = t.date; 
+            document.getElementById('txt-time').innerText = t.time; 
+            document.getElementById('btn-calendar').innerText = t.calendar; 
+            document.getElementById('txt-venue-title').innerText = t.venue; 
+            document.getElementById('txt-venue-name').innerText = t.venueName; 
+            document.getElementById('txt-card-title').innerText = t.cardTitle; 
+            document.getElementById('txt-card-owner').innerText = t.cardOwner; 
+            document.getElementById('royal-gift-amount').placeholder = t.giftPlace; 
+            document.getElementById('btn-copy').innerText = t.copy; 
+            document.getElementById('txt-rsvp-title').innerText = t.rsvpTitle; 
+            document.getElementById('guest-monarch').placeholder = t.inputPlace; 
+            document.getElementById('opt-yes').innerText = t.optYes; 
+            document.getElementById('opt-no').innerText = t.optNo; 
+            document.getElementById('btn-submit').innerText = t.submit; 
+            document.getElementById('royal-success').innerText = t.success; 
+            document.getElementById('txt-footer').innerText = t.footer; 
+            document.getElementById('lbl-kun').innerText = t.kun; 
+            document.getElementById('lbl-soat').innerText = t.soat; 
             document.getElementById('lbl-daqiqa').innerText = t.daqiqa;
         }
 
         function unsealInvitation() {
-            document.getElementById('gate-screen').style.opacity = '0';
-            setTimeout(() => { 
-                document.getElementById('gate-screen').remove(); // Sahifadan butunlay o'chirish
-                document.getElementById('scroll-hint').style.display = 'block'; // Ishorani ko'rsatish
-            }, 1500);
+            const gate = document.getElementById('gate-screen');
+            gate.classList.add('unsealed');
+            setTimeout(() => { gate.style.display = 'none'; }, 1500);
             
-            audio.play().catch(e => console.log("Musiqa chalinmadi"));
-            
+            audio.play().then(() => {
+                audioBtn.classList.add('playing');
+            }).catch(e => console.log("Musiqa chalinmadi"));
+
+            // Animatsiyalar "Golden Brown" ritmiga mos ravishda juda mayin chiqadi (1600ms)
             setTimeout(() => { 
-                AOS.init({ 
-                    once: true, 
-                    duration: 1600, // Silliq va tabiiy ko'rinish
-                    easing: 'ease-out-cubic'
-                }); 
+                AOS.init({ once: true, duration: 1600, delay: 100 }); 
                 setInterval(updateRoyalTimer, 1000); 
             }, 200);
         }
 
-        // Birinchi marta scroll qilinganda pastga surish ishorasini yo'qotish
-        window.addEventListener('scroll', function() {
-            const hint = document.getElementById('scroll-hint');
-            if(hint && window.scrollY > 40) {
-                hint.style.opacity = '0';
-                setTimeout(() => { hint.remove(); }, 500);
-            }
-        });
-
-        function toggleRoyalMusic() { if (audio.paused) { audio.play(); } else { audio.pause(); } }
+        function toggleRoyalMusic() { 
+            if (audio.paused) { 
+                audio.play(); 
+                audioBtn.classList.add('playing');
+            } else { 
+                audio.pause(); 
+                audioBtn.classList.remove('playing');
+            } 
+        }
 
         function selectRoyalStatus(val, el) {
             selectedStatus = val;
